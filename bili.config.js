@@ -28,7 +28,6 @@ module.exports = {
         { find: '@', replacement: path.resolve(__dirname, './src') }
       ]
     },
-    'node-builtins': true,
     visualizer: {
       sourceMap: true,
       open: false
