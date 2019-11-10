@@ -1,7 +1,7 @@
 {
   "name": "tce-jodit",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.0",
+  "description": "Tailor content element for Jodit editor",
   "homepage": "https://github.com/ExtensionEngine/tce-jodit#readme",
   "bugs": {
     "url": "https://github.com/ExtensionEngine/tce-jodit/issues"
@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git+https://github.com/ExtensionEngine/tce-jodit.git"
   },
-  "license": "ISC",
-  "author": "",
+  "license": "MIT",
+  "author": "ExtensionEngine <info@extensionengine.com>",
   "main": "dist/tce-jodit.js",
   "module": "dist/tce-jodit.esm.js",
   "scripts": {
@@ -19,7 +19,8 @@
     "build": "bili",
     "lint": "npm run lint:js && npm run lint:scss",
     "lint:js": "eslint --ext .js,.vue .",
-    "lint:scss": "stylelint \"**/*.vue\" \"**/*.scss\""
+    "lint:scss": "stylelint \"**/*.vue\" \"**/*.scss\"",
+    "postshrinkwrap": "rewrite-lockfile package-lock.json"
   },
   "dependencies": {
     "auto-bind": "^3.0.0",
@@ -44,6 +45,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^5.2.3",
+    "rewrite-lockfile": "^1.0.1",
     "rollup-plugin-alias": "^2.2.0",
     "rollup-plugin-visualizer": "^2.7.2",
     "rollup-plugin-vue": "^5.1.2",
