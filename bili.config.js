@@ -14,6 +14,7 @@ module.exports = {
   bundleNodeModules: ['rollup-plugin-vue', 'vue-runtime-helpers'],
   plugins: {
     vue: true,
+    'tailor-ce': true,
     postcss: {
       extract: 'dist/tce-jodit.css'
     },
@@ -32,5 +33,8 @@ module.exports = {
       sourceMap: true,
       open: false
     }
+  },
+  resolvePlugins: {
+    'tailor-ce': require('@extensionengine/rollup-plugin-tailor-ce')
   }
 };
