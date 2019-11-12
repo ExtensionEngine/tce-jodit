@@ -11,17 +11,6 @@ import 'brace/theme/chrome';
 import scrollparent from 'scrollparent';
 import isFunction$3 from 'lodash/isFunction';
 
-var name = "tce-jodit";
-var version = "0.0.0";
-var tailor = {
-	label: "Html",
-	type: "JODIT_HTML",
-	ui: {
-		icon: "mdi-text",
-		forceFullWidth: false
-	}
-};
-
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -2019,49 +2008,33 @@ var Edit = normalizeComponent({
   staticRenderFns: __vue_staticRenderFns__$2
 }, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
 
-var tce = {
+var plugin__default = {
   initState: function initState() {
     return {};
   },
-  Edit: Edit,
-  Toolbar: Toolbar
+  components: {
+    Edit: Edit,
+    Toolbar: Toolbar
+  }
 };
 
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
+var plugin = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  Edit: Edit,
+  Toolbar: Toolbar,
+  'default': plugin__default
+});
 
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-
-function _objectWithoutProperties(source, excluded) {
-  if (source == null) return {};
-
-  var target = _objectWithoutPropertiesLoose(source, excluded);
-
-  var key, i;
-
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-
-  return target;
-}
+var name = "tce-jodit";
+var version = "0.0.0";
+var tailor = {
+	label: "Html",
+	type: "JODIT_HTML",
+	ui: {
+		icon: "mdi-text",
+		forceFullWidth: false
+	}
+};
 
 function _slicedToArray$1(arr, i) {
   return _arrayWithHoles$1(arr) || _iterableToArrayLimit$1(arr, i) || _nonIterableRest$1();
@@ -2212,29 +2185,39 @@ var paramCase = function (value, locale) {
   return noCase(value, locale, '-')
 };
 
-var initState = tce.initState,
-    Components = _objectWithoutProperties(tce, ["initState"]);
+var hasProp = function hasProp(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+};
 
 var isFunction$2 = function isFunction(arg) {
   return typeof arg === 'function';
 };
-
-var config = Object.assign({}, Components, {}, tailor, {
+var _contentElement$initS = plugin__default.initState,
+    initState = _contentElement$initS === void 0 ? function () {
+  return {};
+} : _contentElement$initS,
+    _contentElement$compo = plugin__default.components,
+    components = _contentElement$compo === void 0 ? {} : _contentElement$compo;
+var config = Object.assign({
+  version: version,
   initState: initState,
-  version: version
-});
+  components: components
+}, tailor);
 var install = function install(Vue) {
-  if (isFunction$2(tce.setup)) tce.setup(Vue);
-  Object.entries(Components).forEach(function (_ref) {
+  if (hasProp(plugin, 'install')) {
+    isFunction$2(_missingExportShim) && _missingExportShim(Vue);
+  }
+
+  Object.entries(components).forEach(function (_ref) {
     var _ref2 = _slicedToArray$1(_ref, 2),
         name$1 = _ref2[0],
-        Component = _ref2[1];
+        component = _ref2[1];
 
     name$1 = paramCase(name$1);
-    if (name$1 === 'edit') Vue.component(name, Component);
-    Vue.component("".concat(name, "--").concat(name$1), Component);
+    if (name$1 === 'edit') Vue.component(name, component);
+    Vue.component("".concat(name, "--").concat(name$1), component);
   });
 };
 
 export default install;
-export { config, install };
+export { Edit, Toolbar, config, install };

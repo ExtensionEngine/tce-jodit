@@ -33,7 +33,7 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.4.4",
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
     "@extensionengine/eslint-config": "^1.1.0",
-    "@extensionengine/rollup-plugin-tailor-ce": "^0.1.1",
+    "@extensionengine/rollup-plugin-tailor-ce": "^0.2.0",
     "@extensionengine/stylelint-config": "^1.1.0",
     "babel-eslint": "^10.0.3",
     "bili": "^4.8.1",

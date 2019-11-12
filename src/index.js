@@ -1,8 +1,12 @@
 import Edit from '@/edit';
 import Toolbar from '@/edit/Toolbar';
 
+export { Edit, Toolbar };
+
 export default {
   initState: () => ({}),
-  Edit,
-  Toolbar
+  components: {
+    Edit,
+    Toolbar
+  }
 };
