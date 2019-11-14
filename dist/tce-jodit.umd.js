@@ -4,6 +4,17 @@
   (global = global || self, factory((global.__TAILOR_CONTENT_ELEMENTS__ = global.__TAILOR_CONTENT_ELEMENTS__ || {}, global.__TAILOR_CONTENT_ELEMENTS__['tce-jodit'] = {})));
 }(this, (function (exports) { 'use strict';
 
+  var name = "tce-jodit";
+  var version = "0.0.0";
+  var tailor = {
+  	label: "Html",
+  	type: "JODIT_HTML",
+  	ui: {
+  		icon: "mdi-text",
+  		forceFullWidth: false
+  	}
+  };
+
   /**
    * Checks if `value` is the
    * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
@@ -30471,17 +30482,6 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
     'default': plugin__default
   });
 
-  var name = "tce-jodit";
-  var version = "0.0.0";
-  var tailor = {
-  	label: "Html",
-  	type: "JODIT_HTML",
-  	ui: {
-  		icon: "mdi-text",
-  		forceFullWidth: false
-  	}
-  };
-
   function _slicedToArray$1(arr, i) {
     return _arrayWithHoles$1(arr) || _iterableToArrayLimit$1(arr, i) || _nonIterableRest$1();
   }
@@ -30638,13 +30638,13 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
   var isFunction$3 = function isFunction(arg) {
     return typeof arg === 'function';
   };
-  var _contentElement$initS = plugin__default.initState,
-      initState = _contentElement$initS === void 0 ? function () {
+  var _pluginOptions$initSt = plugin__default.initState,
+      initState = _pluginOptions$initSt === void 0 ? function () {
     return {};
-  } : _contentElement$initS,
-      _contentElement$compo = plugin__default.components,
-      components = _contentElement$compo === void 0 ? {} : _contentElement$compo;
-  var config = Object.assign({
+  } : _pluginOptions$initSt,
+      _pluginOptions$compon = plugin__default.components,
+      components = _pluginOptions$compon === void 0 ? {} : _pluginOptions$compon;
+  var options$2 = Object.assign({
     version: version,
     initState: initState,
     components: components
@@ -30667,9 +30667,9 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
 
   exports.Edit = Edit;
   exports.Toolbar = Toolbar;
-  exports.config = config;
   exports.default = install$1;
   exports.install = install$1;
+  exports.options = options$2;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

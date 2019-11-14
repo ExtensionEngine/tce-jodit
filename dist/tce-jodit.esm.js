@@ -11,6 +11,17 @@ import 'brace/theme/chrome';
 import scrollparent from 'scrollparent';
 import isFunction$3 from 'lodash/isFunction';
 
+var name = "tce-jodit";
+var version = "0.0.0";
+var tailor = {
+	label: "Html",
+	type: "JODIT_HTML",
+	ui: {
+		icon: "mdi-text",
+		forceFullWidth: false
+	}
+};
+
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -2025,17 +2036,6 @@ var plugin = /*#__PURE__*/Object.freeze({
   'default': plugin__default
 });
 
-var name = "tce-jodit";
-var version = "0.0.0";
-var tailor = {
-	label: "Html",
-	type: "JODIT_HTML",
-	ui: {
-		icon: "mdi-text",
-		forceFullWidth: false
-	}
-};
-
 function _slicedToArray$1(arr, i) {
   return _arrayWithHoles$1(arr) || _iterableToArrayLimit$1(arr, i) || _nonIterableRest$1();
 }
@@ -2192,13 +2192,13 @@ var hasProp = function hasProp(obj, prop) {
 var isFunction$2 = function isFunction(arg) {
   return typeof arg === 'function';
 };
-var _contentElement$initS = plugin__default.initState,
-    initState = _contentElement$initS === void 0 ? function () {
+var _pluginOptions$initSt = plugin__default.initState,
+    initState = _pluginOptions$initSt === void 0 ? function () {
   return {};
-} : _contentElement$initS,
-    _contentElement$compo = plugin__default.components,
-    components = _contentElement$compo === void 0 ? {} : _contentElement$compo;
-var config = Object.assign({
+} : _pluginOptions$initSt,
+    _pluginOptions$compon = plugin__default.components,
+    components = _pluginOptions$compon === void 0 ? {} : _pluginOptions$compon;
+var options = Object.assign({
   version: version,
   initState: initState,
   components: components
@@ -2220,4 +2220,4 @@ var install = function install(Vue) {
 };
 
 export default install;
-export { Edit, Toolbar, config, install };
+export { Edit, Toolbar, install, options };
