@@ -1,10 +1,10 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = global || self, factory((global.__TAILOR_CONTENT_ELEMENTS__ = global.__TAILOR_CONTENT_ELEMENTS__ || {}, global.__TAILOR_CONTENT_ELEMENTS__['tce-jodit'] = {})));
+  (global = global || self, factory((global.__TAILOR_CONTENT_ELEMENTS__ = global.__TAILOR_CONTENT_ELEMENTS__ || {}, global.__TAILOR_CONTENT_ELEMENTS__['@extensionengine/tce-jodit'] = {})));
 }(this, (function (exports) { 'use strict';
 
-  var name = "tce-jodit";
+  var name = "@extensionengine/tce-jodit";
   var version = "0.0.0";
   var tailor = {
   	label: "Html",

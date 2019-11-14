@@ -17,7 +17,7 @@ require('brace/theme/chrome');
 var scrollparent = _interopDefault(require('scrollparent'));
 var isFunction$3 = _interopDefault(require('lodash/isFunction'));
 
-var name = "tce-jodit";
+var name = "@extensionengine/tce-jodit";
 var version = "0.0.0";
 var tailor = {
 	label: "Html",
