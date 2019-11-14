@@ -35,6 +35,7 @@ module.exports = {
     }
   },
   resolvePlugins: {
+    alias: require('@rollup/plugin-alias'),
     'tailor-ce': require('@extensionengine/rollup-plugin-tailor-ce')
   }
 };
