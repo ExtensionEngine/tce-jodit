@@ -1960,8 +1960,8 @@ var __vue_render__$2 = function __vue_render__() {
   return _c('div', {
     staticClass: "tce-jodit-html"
   }, [!_vm.isFocused && !_vm.content && _vm.showPlaceholder ? _c('div', {
-    staticClass: "well jodit-html-placeholder"
-  }, [_vm._m(0)]) : [_vm.isFocused ? _c('jodit-editor', {
+    staticClass: "jodit-html-placeholder"
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1)]) : [_vm.isFocused ? _c('jodit-editor', {
     attrs: {
       "min-height": _vm.$el.clientHeight,
       "readonly": _vm.readonly
@@ -1991,17 +1991,29 @@ var __vue_staticRenderFns__$2 = [function () {
   var _c = _vm._self._c || _h;
 
   return _c('div', {
+    staticClass: "placeholder-avatar"
+  }, [_c('span', [_vm._v("<")]), _vm._v(" "), _c('span', {
+    staticClass: "divider"
+  }, [_vm._v("/")]), _vm._v(" "), _c('span', [_vm._v(">")])]);
+}, function () {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c('div', {
     staticClass: "message"
   }, [_c('span', {
     staticClass: "heading"
-  }, [_vm._v("Text placeholder")]), _vm._v(" "), _c('span', [_vm._v("Click to edit")])]);
+  }, [_vm._v("HTML component")]), _vm._v(" "), _c('span', [_vm._v("Select to edit")])]);
 }];
 /* style */
 
 var __vue_inject_styles__$2 = undefined;
 /* scoped */
 
-var __vue_scope_id__$2 = "data-v-fe3f9eb6";
+var __vue_scope_id__$2 = "data-v-0b75dd64";
 /* module identifier */
 
 var __vue_module_identifier__$2 = undefined;

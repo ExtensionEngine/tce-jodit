@@ -2,10 +2,15 @@
   <div class="tce-jodit-html">
     <div
       v-if="!isFocused && !content && showPlaceholder"
-      class="well jodit-html-placeholder">
+      class="jodit-html-placeholder">
+      <div class="placeholder-avatar">
+        <span>&lt;</span>
+        <span class="divider">/</span>
+        <span>&gt;</span>
+      </div>
       <div class="message">
-        <span class="heading">Text placeholder</span>
-        <span>Click to edit</span>
+        <span class="heading">HTML component</span>
+        <span>Select to edit</span>
       </div>
     </div>
     <template v-else>
@@ -143,11 +148,31 @@ $tooltipColor: #455a64;
   }
 }
 
-.well {
+.placeholder-avatar {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  padding-top: 0.125rem;
+  color: #f1f1f1;
+  font-size: 2rem;
+  line-height: 2rem;
+  background: #263238;
+  border-radius: 50%;
+
+  .divider {
+    font-size: 0.75rem;
+  }
+}
+
+.jodit-html-placeholder {
+  display: flex;
+  align-items: center;
   flex-direction: column;
   min-height: $min-height;
   margin-bottom: 0;
+  padding: 0.5rem 0 0;
 }
 
 .jodit_container {
@@ -156,19 +181,21 @@ $tooltipColor: #455a64;
 }
 
 .jodit-html-placeholder .message {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: center;
-  font-size: 18px;
+  padding: 0.5rem 0;
   text-align: center;
+  font-family: Roboto, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.75rem;
 
   span {
     display: block;
   }
 
   .heading {
-    font-size: 24px;
+    padding: 0.5rem 0;
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 }
 
