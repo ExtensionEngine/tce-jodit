@@ -68,12 +68,12 @@ $text-size: 16px;
 $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 
 .jodit_toolbar_container {
-  min-height: 48px;
+  min-height: 72px;
 }
 
 .jodit_toolbar {
   margin: 0 !important;
-  padding: 8px !important;
+  padding: 20px 12px 0 !important;
   font-family: $font-family-secondary;
   font-size: $text-size;
   line-height: $text-size;
