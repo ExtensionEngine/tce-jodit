@@ -202,5 +202,6 @@ $tooltipColor: #455a64;
 ::v-deep .jodit_container:not(.jodit_inline) {
   min-height: $min-height;
   font-size: 16px;
+  background: transparent !important;
 }
 </style>

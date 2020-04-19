@@ -2019,7 +2019,7 @@ var __vue_staticRenderFns__$2 = [function () {
 var __vue_inject_styles__$2 = undefined;
 /* scoped */
 
-var __vue_scope_id__$2 = "data-v-0b75dd64";
+var __vue_scope_id__$2 = "data-v-b5a3281c";
 /* module identifier */
 
 var __vue_module_identifier__$2 = undefined;
