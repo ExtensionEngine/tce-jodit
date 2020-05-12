@@ -1885,6 +1885,14 @@ var script$2 = {
       type: Boolean,
       "default": false
     },
+    isDisabled: {
+      type: Boolean,
+      "default": false
+    },
+    dense: {
+      type: Boolean,
+      "default": false
+    },
     showPlaceholder: {
       type: Boolean,
       "default": true
@@ -1958,10 +1966,18 @@ var __vue_render__$2 = function __vue_render__() {
   var _c = _vm._self._c || _h;
 
   return _c('div', {
-    staticClass: "tce-jodit-html"
+    staticClass: "tce-jodit-html",
+    "class": {
+      sm: _vm.dense,
+      disabled: _vm.isDisabled
+    }
   }, [!_vm.isFocused && !_vm.content && _vm.showPlaceholder ? _c('div', {
     staticClass: "jodit-html-placeholder"
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1)]) : [_vm.isFocused ? _c('jodit-editor', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "message"
+  }, [_c('span', {
+    staticClass: "heading"
+  }, [_vm._v("HTML component")]), _vm._v(" "), !_vm.dense ? _c('span', [_vm._v("Select to edit")]) : _vm._e()])]) : [_vm.isFocused ? _c('jodit-editor', {
     attrs: {
       "min-height": _vm.$el.clientHeight,
       "readonly": _vm.readonly
@@ -1995,25 +2011,13 @@ var __vue_staticRenderFns__$2 = [function () {
   }, [_c('span', [_vm._v("<")]), _vm._v(" "), _c('span', {
     staticClass: "divider"
   }, [_vm._v("/")]), _vm._v(" "), _c('span', [_vm._v(">")])]);
-}, function () {
-  var _vm = this;
-
-  var _h = _vm.$createElement;
-
-  var _c = _vm._self._c || _h;
-
-  return _c('div', {
-    staticClass: "message"
-  }, [_c('span', {
-    staticClass: "heading"
-  }, [_vm._v("HTML component")]), _vm._v(" "), _c('span', [_vm._v("Select to edit")])]);
 }];
 /* style */
 
 var __vue_inject_styles__$2 = undefined;
 /* scoped */
 
-var __vue_scope_id__$2 = "data-v-b5a3281c";
+var __vue_scope_id__$2 = "data-v-0157a281";
 /* module identifier */
 
 var __vue_module_identifier__$2 = undefined;
