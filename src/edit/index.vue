@@ -89,7 +89,7 @@ export default {
 <style lang="scss" scoped>
 $min-width: 11.25rem;
 $min-height: 8.75rem;
-$min-height-sm: 5.875rem;
+$min-height-sm: 5.5rem;
 $borderSize: 6px;
 $tooltipColor: #37474f;
 
@@ -210,7 +210,11 @@ $tooltipColor: #37474f;
 
 .tce-jodit-html.disabled {
   .placeholder-avatar {
-    background: #616161;
+    background: #424242;
+  }
+
+  .message {
+    color: #424242;
   }
 }
 
