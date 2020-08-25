@@ -5,7 +5,7 @@
 }(this, (function (exports) { 'use strict';
 
   var name = "@extensionengine/tce-jodit";
-  var version = "0.0.1";
+  var version = "0.1.0";
   var tailor = {
   	label: "Html",
   	type: "JODIT_HTML",
@@ -91,6 +91,44 @@
   };
 
   var now_1 = now;
+
+  /** Used to match a single whitespace character. */
+  var reWhitespace = /\s/;
+
+  /**
+   * Used by `_.trim` and `_.trimEnd` to get the index of the last non-whitespace
+   * character of `string`.
+   *
+   * @private
+   * @param {string} string The string to inspect.
+   * @returns {number} Returns the index of the last non-whitespace character.
+   */
+  function trimmedEndIndex(string) {
+    var index = string.length;
+
+    while (index-- && reWhitespace.test(string.charAt(index))) {}
+    return index;
+  }
+
+  var _trimmedEndIndex = trimmedEndIndex;
+
+  /** Used to match leading whitespace. */
+  var reTrimStart = /^\s+/;
+
+  /**
+   * The base implementation of `_.trim`.
+   *
+   * @private
+   * @param {string} string The string to trim.
+   * @returns {string} Returns the trimmed string.
+   */
+  function baseTrim(string) {
+    return string
+      ? string.slice(0, _trimmedEndIndex(string) + 1).replace(reTrimStart, '')
+      : string;
+  }
+
+  var _baseTrim = baseTrim;
 
   /** Built-in value references. */
   var Symbol$1 = _root.Symbol;
@@ -250,9 +288,6 @@
   /** Used as references for various `Number` constants. */
   var NAN = 0 / 0;
 
-  /** Used to match leading and trailing whitespace. */
-  var reTrim = /^\s+|\s+$/g;
-
   /** Used to detect bad signed hexadecimal string values. */
   var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
 
@@ -302,7 +337,7 @@
     if (typeof value != 'string') {
       return value === 0 ? value : +value;
     }
-    value = value.replace(reTrim, '');
+    value = _baseTrim(value);
     var isBinary = reIsBinary.test(value);
     return (isBinary || reIsOctal.test(value))
       ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
@@ -3127,11 +3162,11 @@
    * _.keysIn(new Foo);
    * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
    */
-  function keysIn$1(object) {
+  function keysIn(object) {
     return isArrayLike_1(object) ? _arrayLikeKeys(object, true) : _baseKeysIn(object);
   }
 
-  var keysIn_1 = keysIn$1;
+  var keysIn_1 = keysIn;
 
   /**
    * The base implementation of `_.assignIn` without support for multiple sources
@@ -3910,7 +3945,7 @@
 
     var keysFunc = isFull
       ? (isFlat ? _getAllKeysIn : _getAllKeys)
-      : (isFlat ? keysIn : keys_1);
+      : (isFlat ? keysIn_1 : keys_1);
 
     var props = isArr ? undefined : keysFunc(value);
     _arrayEach(props || value, function(subValue, key) {
@@ -30247,12 +30282,6 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
         });
       }
     },
-    methods: {
-      input: function input(value) {
-        var innerText = this.$refs.jodit.$el.innerText;
-        return this.$emit('input', innerText ? value : '');
-      }
-    },
     watch: {
       readonly: function readonly(state) {
         var editor = this.$refs.jodit.editor;
@@ -30286,7 +30315,9 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
         "value": _vm.value
       },
       on: {
-        "input": _vm.input
+        "input": function input($event) {
+          return _vm.$emit('input', $event);
+        }
       }
     })], 1);
   };
@@ -30297,7 +30328,7 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
   var __vue_inject_styles__$2 = undefined;
   /* scoped */
 
-  var __vue_scope_id__$2 = "data-v-13b42c81";
+  var __vue_scope_id__$2 = "data-v-322c0166";
   /* module identifier */
 
   var __vue_module_identifier__$2 = undefined;

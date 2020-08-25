@@ -1,6 +1,10 @@
 <template>
   <div class="jodit_wrapper">
-    <jodit-vue ref="jodit" @input="input" :config="config" :value="value" />
+    <jodit-vue
+      ref="jodit"
+      @input="$emit('input', $event)"
+      :config="config"
+      :value="value" />
   </div>
 </template>
 
@@ -80,12 +84,6 @@ export default {
       placeholder: vm.placeholder,
       plugins
     })
-  },
-  methods: {
-    input(value) {
-      const innerText = this.$refs.jodit.$el.innerText;
-      return this.$emit('input', innerText ? value : '');
-    }
   },
   watch: {
     readonly(state) {
