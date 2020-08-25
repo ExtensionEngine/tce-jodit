@@ -30247,12 +30247,6 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
         });
       }
     },
-    methods: {
-      input: function input(value) {
-        var innerText = this.$refs.jodit.$el.innerText;
-        return this.$emit('input', innerText ? value : '');
-      }
-    },
     watch: {
       readonly: function readonly(state) {
         var editor = this.$refs.jodit.editor;
@@ -30286,7 +30280,9 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
         "value": _vm.value
       },
       on: {
-        "input": _vm.input
+        "input": function input($event) {
+          return _vm.$emit('input', $event);
+        }
       }
     })], 1);
   };
@@ -30297,7 +30293,7 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
   var __vue_inject_styles__$2 = undefined;
   /* scoped */
 
-  var __vue_scope_id__$2 = "data-v-13b42c81";
+  var __vue_scope_id__$2 = "data-v-322c0166";
   /* module identifier */
 
   var __vue_module_identifier__$2 = undefined;

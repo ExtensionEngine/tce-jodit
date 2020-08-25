@@ -1801,12 +1801,6 @@ var script$1 = {
       });
     }
   },
-  methods: {
-    input: function input(value) {
-      var innerText = this.$refs.jodit.$el.innerText;
-      return this.$emit('input', innerText ? value : '');
-    }
-  },
   watch: {
     readonly: function readonly(state) {
       var editor = this.$refs.jodit.editor;
@@ -1840,7 +1834,9 @@ var __vue_render__$1 = function __vue_render__() {
       "value": _vm.value
     },
     on: {
-      "input": _vm.input
+      "input": function input($event) {
+        return _vm.$emit('input', $event);
+      }
     }
   })], 1);
 };
@@ -1851,7 +1847,7 @@ var __vue_staticRenderFns__$1 = [];
 var __vue_inject_styles__$1 = undefined;
 /* scoped */
 
-var __vue_scope_id__$1 = "data-v-13b42c81";
+var __vue_scope_id__$1 = "data-v-322c0166";
 /* module identifier */
 
 var __vue_module_identifier__$1 = undefined;
