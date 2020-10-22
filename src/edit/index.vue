@@ -1,11 +1,16 @@
 <template>
-  <div class="tce-jodit-html">
+  <div :class="{ sm: dense, disabled: isDisabled }" class="tce-jodit-html">
     <div
       v-if="!isFocused && !content && showPlaceholder"
-      class="well jodit-html-placeholder">
+      class="jodit-html-placeholder">
+      <div class="placeholder-avatar">
+        <span>&lt;</span>
+        <span class="divider">/</span>
+        <span>&gt;</span>
+      </div>
       <div class="message">
-        <span class="heading">Text placeholder</span>
-        <span>Click to edit</span>
+        <span class="heading">HTML component</span>
+        <span v-if="!dense">Select to edit</span>
       </div>
     </div>
     <template v-else>
@@ -32,6 +37,8 @@ export default {
     element: { type: Object, required: true },
     isFocused: { type: Boolean, default: false },
     isDragged: { type: Boolean, default: false },
+    isDisabled: { type: Boolean, default: false },
+    dense: { type: Boolean, default: false },
     showPlaceholder: { type: Boolean, default: true }
   },
   data: vm => ({
@@ -80,10 +87,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$min-width: 180px;
-$min-height: 140px;
+$min-width: 11.25rem;
+$min-height: 8.75rem;
+$min-height-sm: 5.5rem;
 $borderSize: 6px;
-$tooltipColor: #455a64;
+$tooltipColor: #37474f;
 
 .tce-jodit-html ::v-deep {
   text-align: initial;
@@ -116,10 +124,10 @@ $tooltipColor: #455a64;
       content: attr(data-tooltip);
       position: absolute;
       bottom: calc(100% + #{$borderSize} - 1px);
-      left: -10px;
-      min-width: 150px;
-      max-width: 300px;
-      padding: 5px;
+      left: -0.625rem;
+      min-width: 9.375rem;
+      max-width: 18.75rem;
+      padding: 0.375rem;
       text-align: center;
       color: #fff;
       font-size: 0.9em;
@@ -137,17 +145,10 @@ $tooltipColor: #455a64;
 
     &:hover::after, &:hover::before {
       visibility: visible;
-      margin-bottom: 3px;
+      margin-bottom: 0.25rem;
       opacity: 1;
     }
   }
-}
-
-.well {
-  display: flex;
-  flex-direction: column;
-  min-height: $min-height;
-  margin-bottom: 0;
 }
 
 .jodit_container {
@@ -155,25 +156,97 @@ $tooltipColor: #455a64;
   min-height: $min-height;
 }
 
-.jodit-html-placeholder .message {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: center;
-  font-size: 18px;
-  text-align: center;
+::v-deep .jodit_container:not(.jodit_inline) {
+  min-height: $min-height;
+  font-size: 1rem;
+  background: transparent !important;
+}
 
-  span {
-    display: block;
+.jodit-html-placeholder {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: $min-height;
+  margin-bottom: 0;
+  padding: 0.5rem 0 0;
+
+  .placeholder-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3.75rem;
+    height: 3.75rem;
+    padding-top: 0.125rem;
+    color: #f1f1f1;
+    font-size: 2rem;
+    line-height: 2rem;
+    background: #263238;
+    border-radius: 50%;
+
+    .divider {
+      font-size: 0.75rem;
+    }
   }
 
-  .heading {
-    font-size: 24px;
+  .message {
+    padding: 0.5rem 0;
+    text-align: center;
+    font-family: Roboto, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.75rem;
+
+    span {
+      display: block;
+    }
+
+    .heading {
+      padding: 0.5rem 0;
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
   }
 }
 
-::v-deep .jodit_container:not(.jodit_inline) {
-  min-height: $min-height;
-  font-size: 16px;
+.tce-jodit-html.disabled {
+  .placeholder-avatar {
+    background: #424242;
+  }
+
+  .message {
+    color: #424242;
+  }
+}
+
+.tce-jodit-html.sm {
+  .jodit_container {
+    min-height: $min-height-sm;
+  }
+
+  ::v-deep .jodit_container:not(.jodit_inline) {
+    min-height: $min-height-sm;
+  }
+
+  .jodit-html-placeholder {
+    min-height: $min-height-sm;
+
+    .placeholder-avatar {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    .message {
+      padding: 0;
+    }
+
+    .heading {
+      padding: 0.5rem 0 0 0;
+      font-size: 0.875rem !important;
+      font-weight: 500;
+      line-height: 1.25rem;
+    }
+  }
 }
 </style>

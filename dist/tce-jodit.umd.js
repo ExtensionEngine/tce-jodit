@@ -5,7 +5,7 @@
 }(this, (function (exports) { 'use strict';
 
   var name = "@extensionengine/tce-jodit";
-  var version = "0.0.0";
+  var version = "0.0.1";
   var tailor = {
   	label: "Html",
   	type: "JODIT_HTML",
@@ -30331,6 +30331,14 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
         type: Boolean,
         "default": false
       },
+      isDisabled: {
+        type: Boolean,
+        "default": false
+      },
+      dense: {
+        type: Boolean,
+        "default": false
+      },
       showPlaceholder: {
         type: Boolean,
         "default": true
@@ -30404,10 +30412,18 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
     var _c = _vm._self._c || _h;
 
     return _c('div', {
-      staticClass: "tce-jodit-html"
+      staticClass: "tce-jodit-html",
+      "class": {
+        sm: _vm.dense,
+        disabled: _vm.isDisabled
+      }
     }, [!_vm.isFocused && !_vm.content && _vm.showPlaceholder ? _c('div', {
-      staticClass: "well jodit-html-placeholder"
-    }, [_vm._m(0)]) : [_vm.isFocused ? _c('jodit-editor', {
+      staticClass: "jodit-html-placeholder"
+    }, [_vm._m(0), _vm._v(" "), _c('div', {
+      staticClass: "message"
+    }, [_c('span', {
+      staticClass: "heading"
+    }, [_vm._v("HTML component")]), _vm._v(" "), !_vm.dense ? _c('span', [_vm._v("Select to edit")]) : _vm._e()])]) : [_vm.isFocused ? _c('jodit-editor', {
       attrs: {
         "min-height": _vm.$el.clientHeight,
         "readonly": _vm.readonly
@@ -30437,17 +30453,17 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
     var _c = _vm._self._c || _h;
 
     return _c('div', {
-      staticClass: "message"
-    }, [_c('span', {
-      staticClass: "heading"
-    }, [_vm._v("Text placeholder")]), _vm._v(" "), _c('span', [_vm._v("Click to edit")])]);
+      staticClass: "placeholder-avatar"
+    }, [_c('span', [_vm._v("<")]), _vm._v(" "), _c('span', {
+      staticClass: "divider"
+    }, [_vm._v("/")]), _vm._v(" "), _c('span', [_vm._v(">")])]);
   }];
   /* style */
 
   var __vue_inject_styles__$3 = undefined;
   /* scoped */
 
-  var __vue_scope_id__$3 = "data-v-fe3f9eb6";
+  var __vue_scope_id__$3 = "data-v-b17edcb2";
   /* module identifier */
 
   var __vue_module_identifier__$3 = undefined;
