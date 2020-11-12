@@ -2043,7 +2043,9 @@ var Edit = normalizeComponent({
 
 var plugin__default = {
   initState: function initState() {
-    return {};
+    return {
+      content: ''
+    };
   },
   components: {
     Edit: Edit,
