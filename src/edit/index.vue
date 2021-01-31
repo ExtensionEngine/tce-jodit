@@ -96,6 +96,12 @@ $tooltipColor: #37474f;
 .tce-jodit-html ::v-deep {
   text-align: initial;
 
+  mark {
+    color: #074e7d;
+    font-size: 2rem;
+    background: inherit !important;
+  }
+
   .jodit_workplace, .jodit_wysiwyg {
     overflow: visible;
   }

@@ -3,6 +3,17 @@ import autoBind from 'auto-bind';
 const JODIT_CONTROL_FONT = 'font';
 const JODIT_CONTROL_FONTSIZE = 'fontsize';
 const JODIT_CONTROL_PARAGRAPH_STYLE = 'paragraph';
+const FORMAT_BLOCKS = {
+  p: 'Normal',
+  h1: 'Heading 1',
+  h2: 'Heading 2',
+  h3: 'Heading 3',
+  h4: 'Heading 4',
+  mark: 'Question',
+  cite: 'Citation',
+  blockquote: 'Quote'
+};
+const IS_BLOCK = /^(SCRIPT|IFRAME|JODIT|JODIT-MEDIA|PRE|DIV|P|LI|UL|OL|H[1-6]|BLOCKQUOTE|TD|TH|TABLE|BODY|HTML|FIGCAPTION|FIGURE|DT|DD|MARK|CITE)$/i;
 
 const isEmpty = el => !el.innerHTML;
 const find = (arr, cb, defVal) => arr.find(cb) || defVal;
@@ -22,6 +33,7 @@ export default class FontControlsPlugin {
     options.defaultFontSize = options.defaultFontSize || 16; /* px */
     options.defaultParagraphStyle = options.defaultParagraphStyle || 'Normal';
     options.pickerLabelClass = options.pickerLabelClass || 'picker_label';
+    options.formatBlockList = options.formatBlockList || FORMAT_BLOCKS;
     autoBind(this);
   }
 
@@ -48,6 +60,7 @@ export default class FontControlsPlugin {
     if ((control = controls[JODIT_CONTROL_PARAGRAPH_STYLE])) {
       Object.assign(control, {
         defaultValue: this.options.defaultParagraphStyle,
+        list: this.options.formatBlockList,
         getLabel: this.getLabel
       });
     }
@@ -59,6 +72,14 @@ export default class FontControlsPlugin {
    * @param {Button} button
    */
   getLabel(jodit, control, button) {
+    const { constructor: Jodit } = jodit;
+    const { Dom } = Jodit.modules;
+    Dom.isBlock = (node, win) => (
+      node &&
+      typeof node === 'object' &&
+      Dom.isNode(node, win) &&
+      IS_BLOCK.test((node).nodeName)
+    );
     const entry = this.getActiveEntry(jodit, control, control.defaultValue);
     const [, key] = entry;
     const icon = button.createIcon(control.icon, control);

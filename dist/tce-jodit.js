@@ -28,6 +28,20 @@ var tailor = {
 	}
 };
 
+function _typeof(obj) {
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function (obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function (obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -267,6 +281,17 @@ function immediateCheckActiveButtons(toolbar) {
 var JODIT_CONTROL_FONT = 'font';
 var JODIT_CONTROL_FONTSIZE = 'fontsize';
 var JODIT_CONTROL_PARAGRAPH_STYLE = 'paragraph';
+var FORMAT_BLOCKS = {
+  p: 'Normal',
+  h1: 'Heading 1',
+  h2: 'Heading 2',
+  h3: 'Heading 3',
+  h4: 'Heading 4',
+  mark: 'Question',
+  cite: 'Citation',
+  blockquote: 'Quote'
+};
+var IS_BLOCK = /^(SCRIPT|IFRAME|JODIT|JODIT-MEDIA|PRE|DIV|P|LI|UL|OL|H[1-6]|BLOCKQUOTE|TD|TH|TABLE|BODY|HTML|FIGCAPTION|FIGURE|DT|DD|MARK|CITE)$/i;
 
 var isEmpty = function isEmpty(el) {
   return !el.innerHTML;
@@ -303,6 +328,7 @@ function () {
 
     options.defaultParagraphStyle = options.defaultParagraphStyle || 'Normal';
     options.pickerLabelClass = options.pickerLabelClass || 'picker_label';
+    options.formatBlockList = options.formatBlockList || FORMAT_BLOCKS;
     autoBind(this);
   }
   /**
@@ -333,6 +359,7 @@ function () {
       if (control = controls[JODIT_CONTROL_PARAGRAPH_STYLE]) {
         Object.assign(control, {
           defaultValue: this.options.defaultParagraphStyle,
+          list: this.options.formatBlockList,
           getLabel: this.getLabel
         });
       }
@@ -346,6 +373,13 @@ function () {
   }, {
     key: "getLabel",
     value: function getLabel(jodit, control, button) {
+      var Jodit = jodit.constructor;
+      var Dom = Jodit.modules.Dom;
+
+      Dom.isBlock = function (node, win) {
+        return node && _typeof(node) === 'object' && Dom.isNode(node, win) && IS_BLOCK.test(node.nodeName);
+      };
+
       var entry = this.getActiveEntry(jodit, control, control.defaultValue);
 
       var _entry = _slicedToArray(entry, 2),
@@ -2019,7 +2053,7 @@ var __vue_staticRenderFns__$2 = [function () {
 var __vue_inject_styles__$2 = undefined;
 /* scoped */
 
-var __vue_scope_id__$2 = "data-v-b17edcb2";
+var __vue_scope_id__$2 = "data-v-1f5e621b";
 /* module identifier */
 
 var __vue_module_identifier__$2 = undefined;

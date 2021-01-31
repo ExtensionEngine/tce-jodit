@@ -82,6 +82,12 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
   border: none;
   box-shadow: none;
 
+  mark {
+    color: #074e7d;
+    font-size: 2rem;
+    background: inherit !important;
+  }
+
   & > li.jodit_toolbar_btn {
     min-width: 30px;
     line-height: 100%;
