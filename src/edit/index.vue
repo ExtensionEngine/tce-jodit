@@ -104,6 +104,12 @@ $tooltipColor: #37474f;
     overflow-wrap: break-word;
   }
 
+  mark {
+    color: #074e7d;
+    font-size: 2rem;
+    background: inherit !important;
+  }
+
   .tce-jodit-tooltip {
     display: inline-block;
     position: relative;
