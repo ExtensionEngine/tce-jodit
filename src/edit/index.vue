@@ -98,7 +98,7 @@ $tooltipColor: #37474f;
 
   mark {
     color: #074e7d;
-    font-size: 2rem;
+    font-weight: 700;
     background: inherit !important;
   }
 
