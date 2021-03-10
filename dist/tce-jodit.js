@@ -1573,6 +1573,10 @@ var isTooltipNode = function isTooltipNode(node) {
   if (!node || !isFunction$3(node.hasAttribute)) return false;
   return node.hasAttribute(TOOLTIP_ATTR);
 };
+
+var isHtmlElement = function isHtmlElement(el) {
+  return el && el instanceof HTMLElement;
+};
 /** @typedef {import('jodit').IJodit} Jodit */
 
 /** @typedef {import('jodit').IToolbarButton} Button */
@@ -1625,7 +1629,7 @@ function () {
       if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
       var Dom = Jodit.modules.Dom;
       return Dom.up(start, function (el) {
-        return isFunction$3(el.matches) && el.matches('table');
+        return isHtmlElement(el) && el.matches('table');
       }, editor);
     }
     /**
@@ -1643,7 +1647,7 @@ function () {
       if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
       var Dom = Jodit.modules.Dom;
       return Dom.up(start, function (el) {
-        return isFunction$3(el.matches) && el.matches(".".concat(TOOLTIP_CLASS));
+        return isHtmlElement(el) && el.matches(".".concat(TOOLTIP_CLASS));
       }, editor);
     }
     /**

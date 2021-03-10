@@ -20,6 +20,8 @@ const isTooltipNode = node => {
   return node.hasAttribute(TOOLTIP_ATTR);
 };
 
+const isHtmlElement = el => el && el instanceof HTMLElement;
+
 /** @typedef {import('jodit').IJodit} Jodit */
 /** @typedef {import('jodit').IToolbarButton} Button */
 /** @typedef {import('jodit').IControlType<Jodit,Button} Control */
@@ -53,7 +55,7 @@ export default class TooltipPlugin {
     let start = selection.sel.anchorNode;
     if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
     const { Dom } = Jodit.modules;
-    return Dom.up(start, el => isFunction(el.matches) && el.matches('table'), editor);
+    return Dom.up(start, el => isHtmlElement(el) && el.matches('table'), editor);
   }
 
   /**
@@ -65,7 +67,7 @@ export default class TooltipPlugin {
     let start = selection.sel.anchorNode;
     if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
     const { Dom } = Jodit.modules;
-    return Dom.up(start, el => isFunction(el.matches) && el.matches(`.${TOOLTIP_CLASS}`), editor);
+    return Dom.up(start, el => isHtmlElement(el) && el.matches(`.${TOOLTIP_CLASS}`), editor);
   }
 
   /**
