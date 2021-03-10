@@ -30008,10 +30008,15 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
   var TOOLTIP_ATTR = 'data-tooltip';
   var TOOLTIP_CLASS = 'tce-jodit-tooltip';
   var TOOLTIP_POPUP_FORM = "\n  <form class=\"jodit_form\">\n    <textarea name=\"tooltip\" placeholder=\"Tooltip\"></textarea>\n    <input name=\"text\" type=\"text\" placeholder=\"Text\">\n    <div style=\"text-align: right\">\n      <button name=\"delete\" type=\"button\">Delete</button>\n      <button name=\"submit\" type=\"submit\">Submit</button>\n    </div>\n  </form>";
+  var JODIT_CONTAINER = 'jodit_wysiwyg';
 
   var isTooltipNode = function isTooltipNode(node) {
     if (!node || !isFunction_1(node.hasAttribute)) return false;
     return node.hasAttribute(TOOLTIP_ATTR);
+  };
+
+  var hasJoditParent = function hasJoditParent(node) {
+    return (node === null || node === void 0 ? void 0 : node.parentElement.className) === JODIT_CONTAINER;
   };
   /** @typedef {import('jodit').IJodit} Jodit */
 
@@ -30057,15 +30062,12 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
     }, {
       key: "isDisabled",
       value: function isDisabled(jodit) {
-        var _start;
-
         var Jodit = jodit.constructor,
             editor = jodit.editor,
             selection = jodit.selection;
         if (!jodit.isInited || !selection.isFocused()) return;
         var start = selection.sel.anchorNode;
-        var hasJoditParent = ((_start = start) === null || _start === void 0 ? void 0 : _start.parentElement.className) === 'jodit_wysiwyg';
-        if (!hasJoditParent) return;
+        if (!hasJoditParent(start)) return;
         if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
         var Dom = Jodit.modules.Dom;
         return Dom.up(start, function (el) {
@@ -30079,15 +30081,12 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
     }, {
       key: "isActive",
       value: function isActive(jodit) {
-        var _start2;
-
         var Jodit = jodit.constructor,
             editor = jodit.editor,
             selection = jodit.selection;
         if (!jodit.isInited || !selection.isFocused()) return;
         var start = selection.sel.anchorNode;
-        var hasJoditParent = ((_start2 = start) === null || _start2 === void 0 ? void 0 : _start2.parentElement.className) === 'jodit_wysiwyg';
-        if (!hasJoditParent) return;
+        if (!hasJoditParent(start)) return;
         if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
         var Dom = Jodit.modules.Dom;
         return Dom.up(start, function (el) {

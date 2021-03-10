@@ -15,10 +15,14 @@ const TOOLTIP_POPUP_FORM = `
     </div>
   </form>`;
 
+const JODIT_CONTAINER = 'jodit_wysiwyg';
+
 const isTooltipNode = node => {
   if (!node || !isFunction(node.hasAttribute)) return false;
   return node.hasAttribute(TOOLTIP_ATTR);
 };
+
+const hasJoditParent = node => node?.parentElement.className === JODIT_CONTAINER;
 
 /** @typedef {import('jodit').IJodit} Jodit */
 /** @typedef {import('jodit').IToolbarButton} Button */
@@ -51,8 +55,7 @@ export default class TooltipPlugin {
     const { constructor: Jodit, editor, selection } = jodit;
     if (!jodit.isInited || !selection.isFocused()) return;
     let start = selection.sel.anchorNode;
-    const hasJoditParent = start?.parentElement.className === 'jodit_wysiwyg';
-    if (!hasJoditParent) return;
+    if (!hasJoditParent(start)) return;
     if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
     const { Dom } = Jodit.modules;
     return Dom.up(start, el => el.matches('table'), editor);
@@ -65,8 +68,7 @@ export default class TooltipPlugin {
     const { constructor: Jodit, editor, selection } = jodit;
     if (!jodit.isInited || !selection.isFocused()) return;
     let start = selection.sel.anchorNode;
-    const hasJoditParent = start?.parentElement.className === 'jodit_wysiwyg';
-    if (!hasJoditParent) return;
+    if (!hasJoditParent(start)) return;
     if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
     const { Dom } = Jodit.modules;
     return Dom.up(start, el => el.matches(`.${TOOLTIP_CLASS}`), editor);
