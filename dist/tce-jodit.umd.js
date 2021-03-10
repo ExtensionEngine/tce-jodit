@@ -29740,6 +29740,7 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
 
   const isOldIE = typeof navigator !== 'undefined' &&
       /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+  //# sourceMappingURL=index.mjs.map
 
   /* script */
   var __vue_script__$1 = script$1;
@@ -30056,11 +30057,15 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
     }, {
       key: "isDisabled",
       value: function isDisabled(jodit) {
+        var _start;
+
         var Jodit = jodit.constructor,
             editor = jodit.editor,
             selection = jodit.selection;
         if (!jodit.isInited || !selection.isFocused()) return;
         var start = selection.sel.anchorNode;
+        var hasJoditParent = ((_start = start) === null || _start === void 0 ? void 0 : _start.parentElement.className) === 'jodit_wysiwyg';
+        if (!hasJoditParent) return;
         if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
         var Dom = Jodit.modules.Dom;
         return Dom.up(start, function (el) {
@@ -30074,11 +30079,15 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
     }, {
       key: "isActive",
       value: function isActive(jodit) {
+        var _start2;
+
         var Jodit = jodit.constructor,
             editor = jodit.editor,
             selection = jodit.selection;
         if (!jodit.isInited || !selection.isFocused()) return;
         var start = selection.sel.anchorNode;
+        var hasJoditParent = ((_start2 = start) === null || _start2 === void 0 ? void 0 : _start2.parentElement.className) === 'jodit_wysiwyg';
+        if (!hasJoditParent) return;
         if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
         var Dom = Jodit.modules.Dom;
         return Dom.up(start, function (el) {

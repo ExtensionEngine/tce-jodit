@@ -51,6 +51,8 @@ export default class TooltipPlugin {
     const { constructor: Jodit, editor, selection } = jodit;
     if (!jodit.isInited || !selection.isFocused()) return;
     let start = selection.sel.anchorNode;
+    const hasJoditParent = start?.parentElement.className === 'jodit_wysiwyg';
+    if (!hasJoditParent) return;
     if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
     const { Dom } = Jodit.modules;
     return Dom.up(start, el => el.matches('table'), editor);
@@ -63,6 +65,8 @@ export default class TooltipPlugin {
     const { constructor: Jodit, editor, selection } = jodit;
     if (!jodit.isInited || !selection.isFocused()) return;
     let start = selection.sel.anchorNode;
+    const hasJoditParent = start?.parentElement.className === 'jodit_wysiwyg';
+    if (!hasJoditParent) return;
     if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
     const { Dom } = Jodit.modules;
     return Dom.up(start, el => el.matches(`.${TOOLTIP_CLASS}`), editor);
