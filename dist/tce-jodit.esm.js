@@ -1,4 +1,3 @@
-import debounce from 'lodash/debounce';
 import { Jodit, JoditVue } from 'jodit-vue';
 import autoBind from 'auto-bind';
 import cloneDeep from 'lodash/cloneDeep';
@@ -1975,9 +1974,11 @@ var script$2 = {
         this.readonly = false;
       }
     },
-    content: debounce(function () {
-      this.save();
-    }, 4000)
+    content: function content(_content) {
+      return this.$emit('update', {
+        content: _content
+      });
+    }
   },
   components: {
     JoditEditor: JoditEditor
@@ -2047,7 +2048,7 @@ var __vue_staticRenderFns__$2 = [function () {
 var __vue_inject_styles__$2 = undefined;
 /* scoped */
 
-var __vue_scope_id__$2 = "data-v-b3804efe";
+var __vue_scope_id__$2 = "data-v-998f0600";
 /* module identifier */
 
 var __vue_module_identifier__$2 = undefined;
