@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import debounce from 'lodash/debounce';
 import JoditEditor from '@/edit/Editor';
 
 export default {
@@ -76,9 +75,9 @@ export default {
         this.readonly = false;
       }
     },
-    content: debounce(function () {
-      this.save();
-    }, 4000)
+    content(content) {
+      return this.$emit('update', { content });
+    }
   },
   components: {
     JoditEditor
