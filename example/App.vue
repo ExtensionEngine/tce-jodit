@@ -68,7 +68,7 @@ body {
   }
 }
 
-.jodit_toolbar_container {
+.jodit-toolbar-editor-collection_container {
   background: #fff;
   box-shadow: -1px 1px 4px 0 #ddd;
 }
