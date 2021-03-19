@@ -101,7 +101,6 @@ export default class TooltipPlugin {
     }
 
     this.selectionInfo = selection.save();
-    debugger;
     events.on(form, 'submit', event => this.attachTooltip(event, current, close));
     events.on(deleteButton, 'click', event => this.detachTooltip(event, current, close));
 
@@ -114,7 +113,6 @@ export default class TooltipPlugin {
    * @param {Function} close
    */
   attachTooltip(event, current, close) {
-    debugger;
     const { constructor: Jodit, selection } = this.jodit;
     const { val } = Jodit.modules.Helpers;
     event.preventDefault();

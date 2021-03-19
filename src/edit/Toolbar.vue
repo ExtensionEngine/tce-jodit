@@ -118,6 +118,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
   }
 }
 
+/* stylelint-disable-next-line  */
 .jodit-toolbar-editor-collection > .jodit-toolbar-button:not(.jodit-toolbar-editor-collection-input) {
   @mixin colorize($color, $background: none) {
     color: $color;
@@ -242,6 +243,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 }
 
 .jodit-toolbar-button_tooltip {
+  /* stylelint-disable-next-line  */
   .mdi {
     &::before {
       content: "\F0528";

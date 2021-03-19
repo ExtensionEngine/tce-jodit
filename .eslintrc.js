@@ -9,5 +9,8 @@ module.exports = {
       parser: 'babel-eslint',
       sourceType: 'module'
     }
-  }]
+  }],
+  rules: {
+    'vue/component-definition-name-casing': ['warn', 'kebab-case']
+  }
 };

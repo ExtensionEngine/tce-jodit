@@ -38,7 +38,7 @@ pluginsAdapter(Jodit);
 
 const plugins = [{
   use: MdiIconsPlugin
-},{
+}, {
   use: TooltipPlugin
 }, {
   use: ToolbarBuilderPlugin,
