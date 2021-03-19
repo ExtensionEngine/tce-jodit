@@ -59,7 +59,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/../node_modules/jodit/build/jodit.min.css';
+@import '~jodit/build/jodit.min.css';
 
 $icon-color: #333;
 $icon-accent-color: #ff6590;

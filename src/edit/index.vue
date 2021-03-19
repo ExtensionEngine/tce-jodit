@@ -17,7 +17,7 @@
       <jodit-editor
         v-if="isFocused"
         v-model="content"
-        :min-height="$el.clientHeight"
+        :min-height="$el ? $el.clientHeight : 500"
         :readonly="readonly" />
       <div v-else class="jodit_container">
         <!-- eslint-disable-next-line vue/no-v-html -->
