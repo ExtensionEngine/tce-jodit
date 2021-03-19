@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" class="jodit_toolbar_container"></div>
+  <div :id="id" class="jodit-toolbar-editor-collection_container"></div>
 </template>
 
 <script>
@@ -67,60 +67,58 @@ $icon-size: 20px;
 $text-size: 16px;
 $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 
-.jodit_toolbar_container {
+.jodit-toolbar-editor-collection_container {
   min-height: 72px;
 }
 
-.jodit_toolbar {
+.jodit-toolbar-editor-collection {
   margin: 0 !important;
   padding: 20px 12px 0 !important;
   font-family: $font-family-secondary;
   font-size: $text-size;
   line-height: $text-size;
   text-align: initial;
-  background: transparent;
+  background: none !important;
   border: none;
   box-shadow: none;
 
-  & > li.jodit_toolbar_btn {
-    min-width: 30px;
-    line-height: 100%;
-
-    & > a {
-      padding: 6px 5px;
+  .jodit-ui-group {
+    .jodit-toolbar-button {
+      min-width: 30px;
+      line-height: 100%;
 
       &:focus {
         outline: none;
       }
-    }
 
-    .jodit_icon {
-      display: inline-block;
-      width: $icon-size;
-      height: $icon-size;
-      color: $icon-color;
-      font-size: $icon-size;
-      line-height: $icon-size;
-      vertical-align: top;
+      .jodit-icon {
+        display: inline-block;
+        width: $icon-size;
+        height: $icon-size;
+        color: $icon-color;
+        font-size: $icon-size;
+        line-height: $icon-size;
+        vertical-align: top;
 
-      &.stack {
-        position: relative;
-      }
+        &.stack {
+          position: relative;
+        }
 
-      .stacked {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        line-height: 100%;
-        text-align: center;
+        .stacked {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          line-height: 100%;
+          text-align: center;
+        }
       }
     }
   }
 }
 
-.jodit_toolbar > .jodit_toolbar_btn:not(.jodit_toolbar-input) {
+.jodit-toolbar-editor-collection > .jodit-toolbar-button:not(.jodit-toolbar-editor-collection-input) {
   @mixin colorize($color, $background: none) {
     color: $color;
     background: $background;
@@ -157,7 +155,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
     @include colorize($color: #c3c3c3);
   }
 
-  &.jodit_toolbar_btn-separator {
+  &.jodit-toolbar-button-separator {
     min-width: 0;
   }
 
@@ -181,18 +179,18 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
   }
 }
 
-.jodit_toolbar_list > .jodit_toolbar {
-  &, & .jodit_toolbar {
+.jodit-toolbar-editor-collection_list > .jodit-toolbar-editor-collection {
+  &, & .jodit-toolbar-editor-collection {
     padding: 0 !important;
     background: #fff;
     border: 1px solid #ccc;
     box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
   }
 
-  li.jodit_toolbar_btn > a {
+  .jodit-toolbar-button > button {
     padding: 8px 16px;
 
-    .jodit_toolbar_btn-left & {
+    .jodit-toolbar-button-left & {
       padding: 8px 12px;
     }
   }
@@ -239,53 +237,19 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
   }
 }
 
-.jodit_toolbar_btn .jodit_tooltip {
-  $background-color: #2a2a2a;
-  $text-color: #fff;
-  $offset: -1px;
-  $arrow-size: 5px;
-
-  $horizontal-padding: 12px;
-
-  display: block;
-  position: absolute;
-  z-index: 999;
-  width: auto;
-  min-width: 90px;
-  margin-top: $arrow-size + $offset;
-  padding: 6px $horizontal-padding;
-  color: $text-color;
-  font-size: 0.96rem;
-  font-family: $font-family-secondary;
-  font-weight: 500;
-  text-align: center;
-  line-height: 1.42;
-  background: $background-color;
-  border: 1px solid #fff;
-  border-radius: 0;
-  user-select: none;
-  cursor: default;
-
-  &::before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: -$arrow-size;
-    left: calc(50% - #{$arrow-size} - #{$horizontal-padding / 2});
-    width: 0;
-    height: 0;
-    margin: 0 $arrow-size;
-    border: $arrow-size solid transparent;
-    border-top-width: 0;
-    border-bottom-color: $background-color;
-  }
-}
-
-.jodit_toolbar_btn.popup_open .jodit_tooltip {
-  display: none;
-}
-
-.jodit_toolbar_popup {
+.jodit-toolbar-editor-collection_popup {
   margin-top: 6px;
+}
+
+.jodit-toolbar-button_tooltip {
+  .mdi {
+    &::before {
+      content: "\F0528";
+    }
+  }
+
+  .jodit-toolbar-button__text {
+    display: none;
+  }
 }
 </style>
