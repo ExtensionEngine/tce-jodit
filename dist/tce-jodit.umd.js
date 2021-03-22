@@ -29862,7 +29862,6 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
       }
 
       this.selectionInfo = selection.save();
-      debugger;
       events.on(form, 'submit', event => this.attachTooltip(event, current, close));
       events.on(deleteButton, 'click', event => this.detachTooltip(event, current, close));
       return form;
@@ -29875,7 +29874,6 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
 
 
     attachTooltip(event, current, close) {
-      debugger;
       const {
         constructor: Jodit,
         selection
@@ -29917,11 +29915,6 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
   }
 
   //
-  //       caused by: https://github.com/xdan/jodit/blob/3.2.55/src/modules/helpers/checker/isJoditObject.ts#L18
-
-  Object.defineProperty(_missingExportShim, 'name', {
-    value: 'Jodit'
-  });
   const JODIT_READY_EVENT = 'joditReady';
   /** @type {import('jodit/src/Config').Config & import('jodit/src/plugins')} */
 
@@ -30043,7 +30036,7 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
   const __vue_inject_styles__$2 = undefined;
   /* scoped */
 
-  const __vue_scope_id__$2 = "data-v-0444a28b";
+  const __vue_scope_id__$2 = "data-v-14f41e57";
   /* module identifier */
 
   const __vue_module_identifier__$2 = undefined;

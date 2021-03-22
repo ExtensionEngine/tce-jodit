@@ -1391,7 +1391,6 @@ class TooltipPlugin {
     }
 
     this.selectionInfo = selection.save();
-    debugger;
     events.on(form, 'submit', event => this.attachTooltip(event, current, close));
     events.on(deleteButton, 'click', event => this.detachTooltip(event, current, close));
     return form;
@@ -1404,7 +1403,6 @@ class TooltipPlugin {
 
 
   attachTooltip(event, current, close) {
-    debugger;
     const {
       constructor: Jodit,
       selection
@@ -1446,11 +1444,6 @@ class TooltipPlugin {
 }
 
 //
-//       caused by: https://github.com/xdan/jodit/blob/3.2.55/src/modules/helpers/checker/isJoditObject.ts#L18
-
-Object.defineProperty(Jodit, 'name', {
-  value: 'Jodit'
-});
 const JODIT_READY_EVENT = 'joditReady';
 /** @type {import('jodit/src/Config').Config & import('jodit/src/plugins')} */
 
@@ -1572,7 +1565,7 @@ var __vue_staticRenderFns__$1 = [];
 const __vue_inject_styles__$1 = undefined;
 /* scoped */
 
-const __vue_scope_id__$1 = "data-v-0444a28b";
+const __vue_scope_id__$1 = "data-v-14f41e57";
 /* module identifier */
 
 const __vue_module_identifier__$1 = undefined;

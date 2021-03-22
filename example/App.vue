@@ -16,8 +16,8 @@ export default {
       type: 'JODIT_HTML',
       position: 1,
       data: {
-        content: ""
-      },
+        content: ''
+      }
     }
   })
 };
