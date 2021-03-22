@@ -56,6 +56,7 @@
     "eslint-plugin-require-sort": "^1.2.2",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^7.7.0",
+    "husky": "^5.2.0",
     "rewrite-lockfile": "^1.0.1",
     "rollup-plugin-visualizer": "^2.7.2",
     "rollup-plugin-vue": "^5.1.2",
@@ -67,6 +68,11 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
+    }
   },
   "tailor": {
     "label": "Html",
