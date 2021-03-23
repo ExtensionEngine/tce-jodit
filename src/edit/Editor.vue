@@ -107,9 +107,12 @@ $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", m
 
 .jodit_wrapper ::v-deep {
   .jodit_container:not(.jodit_inline) {
+    display: flex;
     min-height: $min-height;
+    flex-direction: column;
 
     .jodit_workplace {
+      margin-top: auto;
       border: none;
     }
   }
