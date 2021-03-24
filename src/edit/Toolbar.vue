@@ -126,26 +126,26 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
       color: inherit;
       background: inherit;
 
-      .jodit_icon {
+      .jodit-icon {
         color: inherit;
       }
 
       // dropdown chevrons
-      .jodit_with_dropdownlist-trigger svg {
+      .jodit-with_dropdownlist-trigger svg {
         fill: currentColor;
       }
     }
   }
 
-  &:not(.jodit_disabled):not(.popup_open) {
-    &.jodit_active {
+  &:not(.jodit-disabled):not(.popup_open) {
+    &.jodit-active {
       @include colorize(
         $color: $icon-accent-color,
         $background: lighten($icon-accent-color, 25%)
       );
     }
 
-    &:not(.jodit_active):hover {
+    &:not(.jodit-active):hover {
       @include colorize($color: $icon-accent-color);
     }
   }
@@ -158,7 +158,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
     min-width: 0;
   }
 
-  & > a .jodit_with_dropdownlist-trigger {
+  & > a .jodit-with_dropdownlist-trigger {
     vertical-align: top;
   }
 
@@ -195,11 +195,11 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
   }
 }
 
-.jodit_colorpicker > div {
+.jodit-colorpicker > div {
   margin-bottom: 8px;
 }
 
-.jodit_colorpicker .btn_reset_color {
+.jodit-colorpicker .btn_reset_color {
   width: auto;
 
   &:active, &:hover {
@@ -220,13 +220,13 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
       outline: none;
     }
 
-    span.jodit_icon {
+    span.jodit-icon {
       color: inherit;
     }
   }
 }
 
-.jodit_colorpicker .selected_color_marker {
+.jodit-colorpicker .selected_color_marker {
   &::before {
     display: none;
   }
@@ -242,9 +242,20 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 
 .jodit-toolbar-button_tooltip {
   /* stylelint-disable-next-line  */
-  .mdi {
+  .jodit-toolbar-button__icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+
     &::before {
       content: "\F0528";
+      display: inline-block;
+      font: normal normal normal 24px/1 "Material Design Icons";
+      font-size: inherit;
+      text-rendering: auto;
+      line-height: inherit;
+      -webkit-font-smoothing: antialiased;
     }
   }
 

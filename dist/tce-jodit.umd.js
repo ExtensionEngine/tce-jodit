@@ -785,6 +785,7 @@
     <svg width="0" height="0" style="display: none;"></svg>
   </span>`;
   function getMdiIcon(name) {
+    if (!name) return;
     if (name === 'brush') return textColor;
     const code = mdiIcons[name];
     return `<span class="mdi mdi-${code}"></span>`;
@@ -4453,7 +4454,7 @@
     var _c = _vm._self._c || _h;
 
     return _c('div', {
-      staticClass: "jodit_wrapper"
+      staticClass: "jodit-wrapper"
     }, [_c('jodit-vue', {
       ref: "jodit",
       attrs: {
@@ -4472,7 +4473,7 @@
   const __vue_inject_styles__$1 = undefined;
   /* scoped */
 
-  const __vue_scope_id__$1 = "data-v-162d54ef";
+  const __vue_scope_id__$1 = "data-v-b67d92f0";
   /* module identifier */
 
   const __vue_module_identifier__$1 = undefined;
@@ -4614,9 +4615,9 @@
         expression: "content"
       }
     }) : _c('div', {
-      staticClass: "jodit_container"
+      staticClass: "jodit-container"
     }, [_c('div', {
-      staticClass: "jodit_wysiwyg",
+      staticClass: "jodit-wysiwyg",
       domProps: {
         "innerHTML": _vm._s(_vm.content)
       }
@@ -4641,7 +4642,7 @@
   const __vue_inject_styles__ = undefined;
   /* scoped */
 
-  const __vue_scope_id__ = "data-v-c19e492a";
+  const __vue_scope_id__ = "data-v-a70a70c4";
   /* module identifier */
 
   const __vue_module_identifier__ = undefined;

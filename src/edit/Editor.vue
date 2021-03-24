@@ -1,5 +1,5 @@
 <template>
-  <div class="jodit_wrapper">
+  <div class="jodit-wrapper">
     <jodit-vue ref="jodit" @input="input" :config="config" :value="value" />
   </div>
 </template>
@@ -104,38 +104,38 @@ $statusbar-border-size: 1px;
 $min-height: 140px;
 $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", monospace;
 
-.jodit_wrapper ::v-deep {
-  .jodit_container:not(.jodit_inline) {
+.jodit-wrapper ::v-deep {
+  .jodit-container:not(.jodit_inline) {
     display: flex;
     min-height: $min-height;
     flex-direction: column;
 
-    .jodit_workplace {
-      margin-top: auto;
+    .jodit-workplace {
       border: none;
     }
   }
 
-  .jodit_placeholder {
+  .jodit-placeholder {
     font-style: italic;
   }
 
-  .jodit_source .ace_editor {
+  .jodit-source .ace-editor {
     font-size: 13px;
     font-family: $font-family-monospace;
   }
 
-  .jodit_statusbar {
+  .jodit-status-bar {
     height: $statusbar-height;
+    margin-top: auto;
     line-height: $statusbar-height - $statusbar-border-size;
     background-color: transparent;
     border: none;
 
-    .jodit_statusbar_item {
+    .jodit-status-bar__item {
       line-height: inherit;
     }
 
-    .jodit_toolbar_btn {
+    .jodit-toolbar-button {
       line-height: inherit;
       vertical-align: top;
 
@@ -143,7 +143,7 @@ $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", m
         vertical-align: middle;
       }
 
-      .jodit_icon {
+      .jodit-icon {
         display: inline-block;
         width: $icon-size;
         height: $icon-size;

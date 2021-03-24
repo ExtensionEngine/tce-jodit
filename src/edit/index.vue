@@ -19,9 +19,9 @@
         v-model="content"
         :min-height="$el ? $el.clientHeight : 500"
         :readonly="readonly" />
-      <div v-else class="jodit_container">
+      <div v-else class="jodit-container">
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <div class="jodit_wysiwyg" v-html="content"></div>
+        <div class="jodit-wysiwyg" v-html="content"></div>
       </div>
     </template>
   </div>
@@ -96,21 +96,12 @@ $tooltipColor: #37474f;
 .tce-jodit-html ::v-deep {
   text-align: initial;
 
-  .jodit_workplace, .jodit_wysiwyg {
+  .jodit-workplace, .jodit-wysiwyg {
     overflow: visible;
   }
 
-  .jodit_wysiwyg {
+  .jodit-wysiwyg {
     overflow-wrap: break-word;
-  }
-
-  .jodit-container {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .jodit-status-bar {
-    margin-top: auto;
   }
 
   .tce-jodit-tooltip {
@@ -160,12 +151,12 @@ $tooltipColor: #37474f;
   }
 }
 
-.jodit_container {
+.jodit-container {
   min-width: $min-width;
   min-height: $min-height;
 }
 
-::v-deep .jodit_container:not(.jodit_inline) {
+::v-deep .jodit-container:not(.jodit-inline) {
   min-height: $min-height;
   font-size: 1rem;
   background: transparent !important;
@@ -228,11 +219,11 @@ $tooltipColor: #37474f;
 }
 
 .tce-jodit-html.sm {
-  .jodit_container {
+  .jodit-container {
     min-height: $min-height-sm;
   }
 
-  ::v-deep .jodit_container:not(.jodit_inline) {
+  ::v-deep .jodit-container:not(.jodit-inline) {
     min-height: $min-height-sm;
   }
 
