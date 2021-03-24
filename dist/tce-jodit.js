@@ -3,6 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 require('jodit/build/jodit.min.css');
+var debounce = require('lodash/debounce');
 var joditVue = require('jodit-vue');
 var autoBind = require('auto-bind');
 var cloneDeep = require('lodash/cloneDeep');
@@ -17,6 +18,7 @@ var isFunction$2 = require('lodash/isFunction');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
+var debounce__default = /*#__PURE__*/_interopDefaultLegacy(debounce);
 var autoBind__default = /*#__PURE__*/_interopDefaultLegacy(autoBind);
 var cloneDeep__default = /*#__PURE__*/_interopDefaultLegacy(cloneDeep);
 var keysIn__default = /*#__PURE__*/_interopDefaultLegacy(keysIn);
@@ -1676,10 +1678,9 @@ var script = {
       }
     },
 
-    content() {
-      return this.save();
-    }
-
+    content: debounce__default['default'](function () {
+      this.save();
+    }, 4000)
   },
   components: {
     JoditEditor: __vue_component__$1
@@ -1749,7 +1750,7 @@ var __vue_staticRenderFns__ = [function () {
 const __vue_inject_styles__ = undefined;
 /* scoped */
 
-const __vue_scope_id__ = "data-v-5f13efc8";
+const __vue_scope_id__ = "data-v-c19e492a";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;

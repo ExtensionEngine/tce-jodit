@@ -1,4 +1,5 @@
 import 'jodit/build/jodit.min.css';
+import debounce from 'lodash/debounce';
 import { Jodit, JoditVue } from 'jodit-vue';
 import autoBind from 'auto-bind';
 import cloneDeep from 'lodash/cloneDeep';
@@ -1661,10 +1662,9 @@ var script = {
       }
     },
 
-    content() {
-      return this.save();
-    }
-
+    content: debounce(function () {
+      this.save();
+    }, 4000)
   },
   components: {
     JoditEditor: __vue_component__$1
@@ -1734,7 +1734,7 @@ var __vue_staticRenderFns__ = [function () {
 const __vue_inject_styles__ = undefined;
 /* scoped */
 
-const __vue_scope_id__ = "data-v-5f13efc8";
+const __vue_scope_id__ = "data-v-c19e492a";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;

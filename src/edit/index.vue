@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import debounce from 'lodash/debounce';
 import JoditEditor from '@/edit/Editor.vue';
 
 export default {
@@ -75,9 +76,9 @@ export default {
         this.readonly = false;
       }
     },
-    content() {
-      return this.save();
-    }
+    content: debounce(function () {
+      this.save();
+    }, 4000)
   },
   components: {
     JoditEditor
