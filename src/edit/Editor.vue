@@ -79,8 +79,7 @@ export default {
   },
   methods: {
     input(value) {
-      const innerText = this.$refs.jodit.$el.innerText;
-      return this.$emit('input', innerText ? value : '');
+      return this.$emit('input', value);
     }
   },
   watch: {
