@@ -29,7 +29,7 @@
 
 <script>
 import debounce from 'lodash/debounce';
-import JoditEditor from '@/edit/Editor';
+import JoditEditor from '@/edit/Editor.vue';
 
 export default {
   name: 'tce-jodit-html',

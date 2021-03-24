@@ -13,7 +13,7 @@ import MdiIconsPlugin from './plugins/mdi-icons';
 import pluginsAdapter from './plugins-adapter';
 import SourceEditorPlugin from './plugins/source-editor';
 import TablePopupsPlugin from './plugins/table-popups';
-import Toolbar from '@/edit/Toolbar';
+import Toolbar from '@/edit/Toolbar.vue';
 import ToolbarBuilderPlugin from './plugins/toolbar-builder';
 import ToolbarPopupsPlugin from './plugins/toolbar-popups';
 import TooltipPlugin from './plugins/tooltip';

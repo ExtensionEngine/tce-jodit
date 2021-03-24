@@ -2,20 +2,31 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var debounce = _interopDefault(require('lodash/debounce'));
+require('jodit/build/jodit.min.css');
+var debounce = require('lodash/debounce');
 var joditVue = require('jodit-vue');
-var autoBind = _interopDefault(require('auto-bind'));
-var cloneDeep = _interopDefault(require('lodash/cloneDeep'));
-var keysIn = _interopDefault(require('lodash/keysIn'));
-var uniqueId = _interopDefault(require('lodash/uniqueId'));
-var ace = _interopDefault(require('brace'));
-var beautify = _interopDefault(require('js-beautify/js/src/html'));
+var autoBind = require('auto-bind');
+var cloneDeep = require('lodash/cloneDeep');
+var keysIn = require('lodash/keysIn');
+var uniqueId = require('lodash/uniqueId');
+var ace = require('brace');
+var beautify = require('js-beautify/js/src/html');
 require('brace/mode/html');
 require('brace/theme/chrome');
-var scrollparent = _interopDefault(require('scrollparent'));
-var isFunction$2 = _interopDefault(require('lodash/isFunction'));
+var scrollparent = require('scrollparent');
+var isFunction$2 = require('lodash/isFunction');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var debounce__default = /*#__PURE__*/_interopDefaultLegacy(debounce);
+var autoBind__default = /*#__PURE__*/_interopDefaultLegacy(autoBind);
+var cloneDeep__default = /*#__PURE__*/_interopDefaultLegacy(cloneDeep);
+var keysIn__default = /*#__PURE__*/_interopDefaultLegacy(keysIn);
+var uniqueId__default = /*#__PURE__*/_interopDefaultLegacy(uniqueId);
+var ace__default = /*#__PURE__*/_interopDefaultLegacy(ace);
+var beautify__default = /*#__PURE__*/_interopDefaultLegacy(beautify);
+var scrollparent__default = /*#__PURE__*/_interopDefaultLegacy(scrollparent);
+var isFunction__default = /*#__PURE__*/_interopDefaultLegacy(isFunction$2);
 
 var name = "@extensionengine/tce-jodit";
 var version = "0.0.1";
@@ -38,7 +49,7 @@ class AutofocusPlugin {
   constructor(options) {
     options.readyEvent = options.readyEvent || 'joditReady';
     options.cursorStyle = options.cursorStyle || 'auto';
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {Jodit} jodit
@@ -62,9 +73,9 @@ class AutofocusPlugin {
 
 }
 
-const isString = arg => typeof arg === 'string';
+const isString$1 = arg => typeof arg === 'string';
 
-const splitArray = arg => isString(arg) ? arg.split(/[,\s]+/) : arg;
+const splitArray$1 = arg => isString$1(arg) ? arg.split(/[,\s]+/) : arg;
 /** @typedef {import('jodit/src/Config').Config & import('jodit/src/plugins')} Config */
 
 /** @typedef {import('jodit').IJodit} Jodit */
@@ -77,7 +88,7 @@ class ExternalToolbarPlugin {
 
   constructor(options) {
     options.readyEvent = options.readyEvent || 'ready';
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {Config} config
@@ -86,7 +97,7 @@ class ExternalToolbarPlugin {
 
   apply(config) {
     config.toolbar = false;
-    this.options.buttons = splitArray(config.buttons).concat(config.extraButtons);
+    this.options.buttons = splitArray$1(config.buttons).concat(config.extraButtons);
   }
   /**
    * @param {Jodit} jodit
@@ -127,7 +138,7 @@ class FontControlsPlugin {
 
     options.defaultParagraphStyle = options.defaultParagraphStyle || 'Normal';
     options.pickerLabelClass = options.pickerLabelClass || 'picker_label';
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {Config} config
@@ -312,7 +323,7 @@ const JODIT_COMMAND_BACKGROUND_COLOR = 'background';
 const JODIT_COMMAND_TEXT_COLOR = 'forecolor';
 const JODIT_CONTROL_ALIGN = 'align';
 const JODIT_CONTROL_COLOR = 'brush';
-const JODIT_DEFAULT_EVENT_NAMESPACE = 'JoditEventDefaultNamespace';
+const JODIT_DEFAULT_EVENT_NAMESPACE$2 = 'JoditEventDefaultNamespace';
 const JODIT_PICKER_SELECTION_EVENTS = ['mousedown', 'touchend'];
 
 const noop = () => {};
@@ -342,7 +353,7 @@ class MdiIconsPlugin {
   constructor(options) {
     options.btnResetColorClass = options.btnResetColorClass || 'btn_reset_color';
     options.selectedMarkerClass = options.selectedMarkerClass || 'selected_color_marker';
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {HTMLElement} el
@@ -490,10 +501,10 @@ class MdiIconsPlugin {
     pickers.forEach(picker => {
       const selected = picker.querySelector('.active');
       if (selected) this.changeSelectedMarker(selected);
-      const [eventDesc] = events.getStore(picker).get(JODIT_PICKER_SELECTION_EVENTS[0], JODIT_DEFAULT_EVENT_NAMESPACE);
+      const [eventDesc] = events.getStore(picker).get(JODIT_PICKER_SELECTION_EVENTS[0], JODIT_DEFAULT_EVENT_NAMESPACE$2);
       const oldListener = eventDesc && eventDesc.originalCallback;
       if (!oldListener) return;
-      replaceListener(jodit, picker, JODIT_PICKER_SELECTION_EVENTS.join(' '), newListener, oldListener);
+      replaceListener$1(jodit, picker, JODIT_PICKER_SELECTION_EVENTS.join(' '), newListener, oldListener);
 
       function newListener(e) {
         oldListener.apply(this, arguments);
@@ -641,7 +652,7 @@ function onSelect(events, target, listener) {
  */
 
 
-function replaceListener(jodit, target, events, listener, oldListener) {
+function replaceListener$1(jodit, target, events, listener, oldListener) {
   jodit.events.off(target, events, oldListener).on(target, events, listener);
 }
 /**
@@ -676,11 +687,11 @@ function createIcon(name) {
   return icon;
 }
 
-const isFunction = arg => typeof arg === 'function';
+const isFunction$1 = arg => typeof arg === 'function';
 
-const isString$1 = arg => typeof arg === 'string';
+const isString = arg => typeof arg === 'string';
 
-const splitArray$1 = arg => isString$1(arg) ? arg.split(/[,\s]+/) : arg;
+const splitArray = arg => isString(arg) ? arg.split(/[,\s]+/) : arg;
 /** @typedef {import('jodit/src/Config').Config & import('jodit/src/plugins')} Config */
 
 /** @typedef {import('jodit').IJodit} Jodit */
@@ -694,7 +705,7 @@ class PluginProxy {
   constructor(plugin, jodit) {
     this._plugin = plugin;
     this.jodit = jodit;
-    autoBind(this);
+    autoBind__default['default'](this);
     jodit.attachEvents({
       afterInit: this.afterInit,
       beforeDestruct: this.beforeDestruct
@@ -702,20 +713,20 @@ class PluginProxy {
   }
 
   afterInit() {
-    if (!isFunction(this._plugin.afterInit)) return;
+    if (!isFunction$1(this._plugin.afterInit)) return;
 
     this._plugin.afterInit(this.jodit);
   }
 
   beforeDestruct() {
     this.jodit.events.off('beforeDestruct', this.beforeDestruct);
-    if (!isFunction(this._plugin.beforeDestruct)) return;
+    if (!isFunction$1(this._plugin.beforeDestruct)) return;
 
     this._plugin.beforeDestruct(this.jodit);
   }
 
   destruct() {
-    if (!isFunction(this._plugin.destruct)) return;
+    if (!isFunction$1(this._plugin.destruct)) return;
 
     this._plugin.destruct();
   }
@@ -730,7 +741,7 @@ function extend(Jodit) {
     const {
       plugins = []
     } = config;
-    const disablePlugins = splitArray$1(config.disablePlugins);
+    const disablePlugins = splitArray(config.disablePlugins);
     this.__plugins = this.__plugins = {};
     this.$plugins = new Map();
     plugins.forEach(({
@@ -745,9 +756,9 @@ function extend(Jodit) {
       const plugin = new Plugin(options);
       plugin.options = options;
       this.$plugins.set(pluginName, plugin);
-      this.__plugins[uniqueId('plugin_proxy__')] = new PluginProxy(plugin, this); // Apply plugin on jodit options.
+      this.__plugins[uniqueId__default['default']('plugin_proxy__')] = new PluginProxy(plugin, this); // Apply plugin on jodit options.
 
-      if (isFunction(plugin.apply)) plugin.apply(config, Jodit);
+      if (isFunction$1(plugin.apply)) plugin.apply(config, Jodit);
     });
   };
 
@@ -775,7 +786,7 @@ function extend(Jodit) {
 
   Jodit.prototype.afterInitHook = function () {
     this.$plugins.forEach(plugin => {
-      if (isFunction(plugin.init)) plugin.init(this, plugin.options);
+      if (isFunction$1(plugin.init)) plugin.init(this, plugin.options);
       plugin.jodit = this;
     });
     return afterInitHook.apply(this, arguments);
@@ -784,16 +795,16 @@ function extend(Jodit) {
 
 function cloneOptions(options) {
   const shared = ['ownerDocument', 'ownerWindow'];
-  return Object.fromEntries(keysIn(options).map(key => {
+  return Object.fromEntries(keysIn__default['default'](options).map(key => {
     const value = options[key];
     if (shared.includes(key)) return [key, value];
-    return [key, cloneDeep(value)];
+    return [key, cloneDeep__default['default'](value)];
   }));
 }
 
 // NOTE: `brace` is browserify compatible ACE wrapper.
 
-window.ace = ace;
+window.ace = ace__default['default'];
 /** @typedef {import('jodit/src/Config').Config & import('jodit/src/plugins')} Config */
 
 /** @typedef {import('jodit').IJodit} Jodit */
@@ -805,7 +816,7 @@ class SourceEditorPlugin {
 
   constructor(options) {
     options.theme = options.theme || 'ace/theme/chrome';
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {Config} config
@@ -827,7 +838,7 @@ class SourceEditorPlugin {
   init(jodit) {
     if (jodit.options.beautifyHTML) {
       // NOTE: Unfortunately jodit gets beautify function from window global. :(
-      window.html_beautify = beautify;
+      window.html_beautify = beautify__default['default'];
     }
 
     jodit.events.on('aceInited', this.onAceEditorReady);
@@ -863,7 +874,7 @@ class TablePopupsPlugin {
   }
 
   constructor() {
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {Jodit} jodit
@@ -879,7 +890,7 @@ class TablePopupsPlugin {
     jodit.afterInitHook = function () {
       afterInitHook.apply(this, arguments);
       self.observeTables(jodit);
-      self.scrollContainer = scrollparent(jodit.container);
+      self.scrollContainer = scrollparent__default['default'](jodit.container);
       if (self.scrollContainer) self.addScrollHandler(jodit);
     };
   }
@@ -950,7 +961,7 @@ class TablePopupsPlugin {
 //
 const id = 'joditToolbar';
 const buttons = [[['source', 'Source']], [['undo', 'Undo'], ['redo', 'Redo'], ['cut', 'Cut selection'], ['copyformat', 'Paint format']], [['paragraph', 'Style'], ['font', 'Font'], ['fontsize', 'Font size']], [['bold', 'Bold'], ['italic', 'Italic'], ['underline', 'Underline'], ['strikethrough', 'Strikethrough']], [['brush', 'Text color']], [['link', 'Insert link...'], ['table', 'Insert table'], ['image', 'Image'], ['tooltip', 'Tooltip'], ['symbol', 'Insert special character'], ['hr', 'Horizontal line']], [['ol', 'Numbered list'], ['ul', 'Bulleted list'], ['outdent', 'Decrease indent'], ['indent', 'Increase indent']], [['align', 'Alignment']], [['subscript', 'Subscript'], ['superscript', 'Superscript']], [['eraser', 'Clear formatting']]];
-var script = {
+var script$2 = {
   get $containerId() {
     return `#${id}`;
   },
@@ -1041,10 +1052,10 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
 }
 
 /* script */
-const __vue_script__ = script;
+const __vue_script__$2 = script$2;
 /* template */
 
-var __vue_render__ = function () {
+var __vue_render__$2 = function () {
   var _vm = this;
 
   var _h = _vm.$createElement;
@@ -1059,29 +1070,29 @@ var __vue_render__ = function () {
   });
 };
 
-var __vue_staticRenderFns__ = [];
+var __vue_staticRenderFns__$2 = [];
 /* style */
 
-const __vue_inject_styles__ = undefined;
+const __vue_inject_styles__$2 = undefined;
 /* scoped */
 
-const __vue_scope_id__ = undefined;
+const __vue_scope_id__$2 = undefined;
 /* module identifier */
 
-const __vue_module_identifier__ = undefined;
+const __vue_module_identifier__$2 = undefined;
 /* functional template */
 
-const __vue_is_functional_template__ = false;
+const __vue_is_functional_template__$2 = false;
 /* style inject */
 
 /* style inject SSR */
 
 /* style inject shadow dom */
 
-const __vue_component__ = /*#__PURE__*/normalizeComponent({
-  render: __vue_render__,
-  staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
+const __vue_component__$2 = /*#__PURE__*/normalizeComponent({
+  render: __vue_render__$2,
+  staticRenderFns: __vue_staticRenderFns__$2
+}, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
 
 /** @typedef {import('jodit').IJodit} Jodit */
 
@@ -1093,7 +1104,7 @@ class ToolbarBuilderPlugin {
   constructor(options) {
     options.buttons = options.buttons || [];
     options.separator = options.separator || '|';
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {Config} config
@@ -1103,8 +1114,8 @@ class ToolbarBuilderPlugin {
 
   apply(config, Jodit) {
     const language = config.language || 'en';
-    config.language = uniqueId(`${language}_`);
-    Jodit.lang[config.language] = cloneDeep(Jodit.lang[language]);
+    config.language = uniqueId__default['default'](`${language}_`);
+    Jodit.lang[config.language] = cloneDeep__default['default'](Jodit.lang[language]);
     this.options.language = config.language;
     config.buttons = [];
     this.options.buttons.forEach(it => this.addGroup(config, Jodit, it));
@@ -1135,7 +1146,7 @@ class ToolbarBuilderPlugin {
 
 }
 
-const JODIT_DEFAULT_EVENT_NAMESPACE$2 = 'JoditEventDefaultNamespace';
+const JODIT_DEFAULT_EVENT_NAMESPACE = 'JoditEventDefaultNamespace';
 const JODIT_POPUP_ARROW = '.jodit_popup_triangle';
 const JODIT_POPUP_TRIGGER_EVENTS = ['mousedown', 'touchend'];
 const JODIT_TOOLBAR_BUTTON = '.jodit_toolbar_btn';
@@ -1158,7 +1169,7 @@ class ToolbarPopupsPlugin {
 
   constructor(options) {
     options.popupOpenClass = options.popupOpenClass || 'popup_open';
-    autoBind(this);
+    autoBind__default['default'](this);
     this.popups = new Map();
   }
   /**
@@ -1194,10 +1205,10 @@ class ToolbarPopupsPlugin {
       self.onClosePopup(popup);
     };
 
-    const [eventDesc] = this.jodit.events.getStore(popup.target).get(JODIT_POPUP_TRIGGER_EVENTS[0], JODIT_DEFAULT_EVENT_NAMESPACE$2);
+    const [eventDesc] = this.jodit.events.getStore(popup.target).get(JODIT_POPUP_TRIGGER_EVENTS[0], JODIT_DEFAULT_EVENT_NAMESPACE);
     const oldListener = eventDesc && eventDesc.originalCallback;
     if (!oldListener || oldListener[toggle]) return;
-    replaceListener$1(this.jodit, popup.target, JODIT_POPUP_TRIGGER_EVENTS.join(' '), this.createToggleAction(popup.target, oldListener), oldListener);
+    replaceListener(this.jodit, popup.target, JODIT_POPUP_TRIGGER_EVENTS.join(' '), this.createToggleAction(popup.target, oldListener), oldListener);
   }
   /**
    * @param {Component} popup
@@ -1264,7 +1275,7 @@ class ToolbarPopupsPlugin {
  * @param {EventListener} oldListener
  */
 
-function replaceListener$1(jodit, target, events, listener, oldListener) {
+function replaceListener(jodit, target, events, listener, oldListener) {
   jodit.events.off(target, events, oldListener).on(target, events, listener);
 }
 
@@ -1293,7 +1304,7 @@ const TOOLTIP_POPUP_FORM = `
   </form>`;
 
 const isTooltipNode = node => {
-  if (!node || !isFunction$2(node.hasAttribute)) return false;
+  if (!node || !isFunction__default['default'](node.hasAttribute)) return false;
   return node.hasAttribute(TOOLTIP_ATTR);
 };
 /** @typedef {import('jodit').IJodit} Jodit */
@@ -1309,7 +1320,7 @@ class TooltipPlugin {
   }
 
   constructor() {
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {Config} config
@@ -1469,13 +1480,13 @@ const plugins = [{
 }, {
   use: ToolbarBuilderPlugin,
   options: {
-    buttons: __vue_component__.$buttons
+    buttons: __vue_component__$2.$buttons
   }
 }, {
   use: ExternalToolbarPlugin,
   options: {
     readyEvent: JODIT_READY_EVENT,
-    toolbarContainer: __vue_component__.$containerId
+    toolbarContainer: __vue_component__$2.$containerId
   }
 }, {
   use: FontControlsPlugin
@@ -1571,7 +1582,7 @@ var __vue_staticRenderFns__$1 = [];
 const __vue_inject_styles__$1 = undefined;
 /* scoped */
 
-const __vue_scope_id__$1 = "data-v-14f41e57";
+const __vue_scope_id__$1 = "data-v-0e24c84e";
 /* module identifier */
 
 const __vue_module_identifier__$1 = undefined;
@@ -1590,7 +1601,7 @@ const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
 }, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
 
 //
-var script$2 = {
+var script = {
   name: 'tce-jodit-html',
   props: {
     element: {
@@ -1668,7 +1679,7 @@ var script$2 = {
       }
     },
 
-    content: debounce(function () {
+    content: debounce__default['default'](function () {
       this.save();
     }, 4000)
   },
@@ -1678,10 +1689,10 @@ var script$2 = {
 };
 
 /* script */
-const __vue_script__$2 = script$2;
+const __vue_script__ = script;
 /* template */
 
-var __vue_render__$2 = function () {
+var __vue_render__ = function () {
   var _vm = this;
 
   var _h = _vm.$createElement;
@@ -1722,7 +1733,7 @@ var __vue_render__$2 = function () {
   })])]], 2);
 };
 
-var __vue_staticRenderFns__$2 = [function () {
+var __vue_staticRenderFns__ = [function () {
   var _vm = this;
 
   var _h = _vm.$createElement;
@@ -1737,39 +1748,39 @@ var __vue_staticRenderFns__$2 = [function () {
 }];
 /* style */
 
-const __vue_inject_styles__$2 = undefined;
+const __vue_inject_styles__ = undefined;
 /* scoped */
 
-const __vue_scope_id__$2 = "data-v-67373a0c";
+const __vue_scope_id__ = "data-v-46c6c5b8";
 /* module identifier */
 
-const __vue_module_identifier__$2 = undefined;
+const __vue_module_identifier__ = undefined;
 /* functional template */
 
-const __vue_is_functional_template__$2 = false;
+const __vue_is_functional_template__ = false;
 /* style inject */
 
 /* style inject SSR */
 
 /* style inject shadow dom */
 
-const __vue_component__$2 = /*#__PURE__*/normalizeComponent({
-  render: __vue_render__$2,
-  staticRenderFns: __vue_staticRenderFns__$2
-}, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
+const __vue_component__ = /*#__PURE__*/normalizeComponent({
+  render: __vue_render__,
+  staticRenderFns: __vue_staticRenderFns__
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
 
 var plugin__default = {
   initState: () => ({}),
   components: {
-    Edit: __vue_component__$2,
-    Toolbar: __vue_component__
+    Edit: __vue_component__,
+    Toolbar: __vue_component__$2
   }
 };
 
 var plugin = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  Edit: __vue_component__$2,
-  Toolbar: __vue_component__,
+  Edit: __vue_component__,
+  Toolbar: __vue_component__$2,
   'default': plugin__default
 });
 
@@ -1926,7 +1937,7 @@ var hasProp = function hasProp(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 };
 
-var isFunction$1 = function isFunction(arg) {
+var isFunction = function isFunction(arg) {
   return typeof arg === 'function';
 };
 var _pluginOptions$initSt = plugin__default.initState,
@@ -1942,7 +1953,7 @@ var options = Object.assign({
 }, tailor);
 var install = function install(Vue) {
   if (hasProp(plugin, 'install')) {
-    isFunction$1(_missingExportShim) && _missingExportShim(Vue);
+    isFunction(_missingExportShim) && _missingExportShim(Vue);
   }
 
   Object.entries(components).forEach(function (_ref) {
@@ -1956,8 +1967,8 @@ var install = function install(Vue) {
   });
 };
 
-exports.Edit = __vue_component__$2;
-exports.Toolbar = __vue_component__;
+exports.Edit = __vue_component__;
+exports.Toolbar = __vue_component__$2;
 exports.default = install;
 exports.install = install;
 exports.options = options;

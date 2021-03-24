@@ -59,8 +59,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~jodit/build/jodit.min.css';
-
 $icon-color: #333;
 $icon-accent-color: #ff6590;
 $icon-size: 20px;
