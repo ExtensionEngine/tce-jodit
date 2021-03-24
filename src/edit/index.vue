@@ -103,6 +103,15 @@ $tooltipColor: #37474f;
     overflow-wrap: break-word;
   }
 
+  .jodit-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .jodit-status-bar {
+    margin-top: auto;
+  }
+
   .tce-jodit-tooltip {
     display: inline-block;
     position: relative;
