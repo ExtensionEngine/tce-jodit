@@ -1455,7 +1455,10 @@ const joditConfig = {
   showTooltipDelay: 350,
   colorPickerDefaultTab: 'color',
   disablePlugins: ['fullsize'],
-  language: 'en'
+  language: 'en',
+  extraIcons: {
+    tooltip: '<span class="mdi mdi-tooltip-text"></span>'
+  }
 };
 extend(Jodit);
 const plugins = [{
@@ -1566,7 +1569,7 @@ var __vue_staticRenderFns__$1 = [];
 const __vue_inject_styles__$1 = undefined;
 /* scoped */
 
-const __vue_scope_id__$1 = "data-v-b67d92f0";
+const __vue_scope_id__$1 = "data-v-059ecc45";
 /* module identifier */
 
 const __vue_module_identifier__$1 = undefined;

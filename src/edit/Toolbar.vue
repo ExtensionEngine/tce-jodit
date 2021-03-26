@@ -247,16 +247,6 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
     width: 20px;
     height: 20px;
     font-size: 20px;
-
-    &::before {
-      content: "\F0528";
-      display: inline-block;
-      font: normal normal normal 24px/1 "Material Design Icons";
-      font-size: inherit;
-      text-rendering: auto;
-      line-height: inherit;
-      -webkit-font-smoothing: antialiased;
-    }
   }
 
   .jodit-toolbar-button__text {
