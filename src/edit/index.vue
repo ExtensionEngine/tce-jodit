@@ -17,7 +17,7 @@
       <jodit-editor
         v-if="isFocused"
         v-model="content"
-        :min-height="$el ? $el.clientHeight : 500"
+        :min-height="$el.clientHeight"
         :readonly="readonly" />
       <div v-else class="jodit-container">
         <!-- eslint-disable-next-line vue/no-v-html -->
@@ -29,7 +29,7 @@
 
 <script>
 import debounce from 'lodash/debounce';
-import JoditEditor from '@/edit/Editor.vue';
+import JoditEditor from './Editor.vue';
 
 export default {
   name: 'tce-jodit-html',
@@ -95,6 +95,10 @@ $tooltipColor: #37474f;
 
 .tce-jodit-html ::v-deep {
   text-align: initial;
+
+  .jodit-container {
+    border: none;
+  }
 
   .jodit-workplace, .jodit-wysiwyg {
     overflow: visible;

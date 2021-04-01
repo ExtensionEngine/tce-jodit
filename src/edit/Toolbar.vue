@@ -117,36 +117,58 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* stylelint-disable-next-line  */
-.jodit-toolbar-editor-collection > .jodit-toolbar-button:not(.jodit-toolbar-editor-collection-input) {
+.jodit-toolbar-button {
   @mixin colorize($color, $background: none) {
     color: $color;
     background: $background;
 
-    & > a {
+    & > button {
       color: inherit;
       background: inherit;
+    }
 
-      .jodit-icon {
-        color: inherit;
-      }
+    .jodit-icon {
+      color: inherit;
+    }
 
-      // dropdown chevrons
-      .jodit-with_dropdownlist-trigger svg {
-        fill: currentColor;
-      }
+    // dropdown chevrons
+    .jodit-with_dropdownlist-trigger svg {
+      fill: currentColor;
     }
   }
 
-  &:not(.jodit-disabled):not(.popup_open) {
-    &.jodit-active {
-      @include colorize(
-        $color: $icon-accent-color,
-        $background: lighten($icon-accent-color, 25%)
-      );
+  &__button {
+    transition: all 0.2s linear, opacity 0.1s linear;
+
+    &:active {
+      &:not([disabled]) {
+        @include colorize(
+          $color: $icon-accent-color,
+          $background: lighten($icon-accent-color, 25%)
+        );
+      }
+    }
+    /* stylelint-disable-next-line  */
+    &:hover {
+      &:not([disabled]) {
+        background-color: transparent;
+        @include colorize($color: $icon-accent-color);
+      }
     }
 
-    &:not(.jodit-active):hover {
-      @include colorize($color: $icon-accent-color);
+    &[aria-pressed=true] {
+      &:not([disabled]) {
+        @include colorize(
+          $color: $icon-accent-color,
+          $background: lighten($icon-accent-color, 25%)
+        );
+      }
+
+      &:hover {
+        &:not([disabled]) {
+          @include colorize($color: $icon-accent-color);
+        }
+      }
     }
   }
 

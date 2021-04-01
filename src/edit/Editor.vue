@@ -13,7 +13,7 @@ import MdiIconsPlugin from './plugins/mdi-icons';
 import pluginsAdapter from './plugins-adapter';
 import SourceEditorPlugin from './plugins/source-editor';
 import TablePopupsPlugin from './plugins/table-popups';
-import Toolbar from '@/edit/Toolbar.vue';
+import Toolbar from './Toolbar.vue';
 import ToolbarBuilderPlugin from './plugins/toolbar-builder';
 import ToolbarPopupsPlugin from './plugins/toolbar-popups';
 import TooltipPlugin from './plugins/tooltip';
@@ -112,6 +112,7 @@ $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", m
     display: flex;
     min-height: $min-height;
     flex-direction: column;
+    border: none;
 
     .jodit-workplace {
       border: none;
