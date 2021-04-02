@@ -71,7 +71,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 
 .jodit-toolbar-editor-collection {
   margin: 0 !important;
-  padding: 20px 12px 0 !important;
+  padding: 0 !important;
   font-family: $font-family-secondary;
   font-size: $text-size;
   line-height: $text-size;
@@ -79,6 +79,10 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
   background: none !important;
   border: none;
   box-shadow: none;
+
+  &_mode_horizontal {
+    padding: 20px 12px 0 !important;
+  }
 
   .jodit-ui-group {
     .jodit-toolbar-button {
@@ -117,7 +121,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* stylelint-disable-next-line  */
-.jodit-toolbar-button {
+.jodit-toolbar-editor-collection .jodit-toolbar-button {
   @mixin colorize($color, $background: none) {
     color: $color;
     background: $background;
@@ -132,43 +136,49 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
     }
 
     // dropdown chevrons
-    .jodit-with_dropdownlist-trigger svg {
+    .jodit-toolbar-button__trigger svg {
       fill: currentColor;
     }
   }
 
-  &__button {
-    transition: all 0.2s linear, opacity 0.1s linear;
+  transition: all 0.2s linear, opacity 0.1s linear;
 
-    &:active {
-      &:not([disabled]) {
-        @include colorize(
-          $color: $icon-accent-color,
-          $background: lighten($icon-accent-color, 25%)
-        );
+  &_with-trigger_true {
+    padding: 0 5px;
+    border: none;
+
+    .jodit-toolbar-button__trigger {
+      opacity: 1;
+      background: none;
+
+      svg {
+        fill: currentColor;
       }
     }
-    /* stylelint-disable-next-line  */
-    &:hover {
-      &:not([disabled]) {
-        background-color: transparent;
-        @include colorize($color: $icon-accent-color);
-      }
+  }
+
+  &:active {
+    &:not([disabled]) {
+      @include colorize(
+        $color: $icon-accent-color,
+        $background: lighten($icon-accent-color, 25%)
+      );
     }
+  }
+  /* stylelint-disable-next-line  */
+  &:hover {
+    &:not([disabled]) {
+      background-color: transparent;
+      @include colorize($color: $icon-accent-color);
+    }
+  }
 
-    &[aria-pressed=true] {
-      &:not([disabled]) {
-        @include colorize(
-          $color: $icon-accent-color,
-          $background: lighten($icon-accent-color, 25%)
-        );
-      }
-
-      &:hover {
-        &:not([disabled]) {
-          @include colorize($color: $icon-accent-color);
-        }
-      }
+  &[aria-pressed=true] {
+    &:not([disabled]) {
+      @include colorize(
+        $color: $icon-accent-color,
+        $background: lighten($icon-accent-color, 25%)
+      );
     }
   }
 

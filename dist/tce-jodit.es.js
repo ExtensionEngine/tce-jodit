@@ -1569,7 +1569,7 @@ var __vue_staticRenderFns__$1 = [];
 const __vue_inject_styles__$1 = undefined;
 /* scoped */
 
-const __vue_scope_id__$1 = "data-v-059ecc45";
+const __vue_scope_id__$1 = "data-v-355d3e93";
 /* module identifier */
 
 const __vue_module_identifier__$1 = undefined;
@@ -1700,7 +1700,7 @@ var __vue_render__ = function () {
     staticClass: "heading"
   }, [_vm._v("HTML component")]), _vm._v(" "), !_vm.dense ? _c('span', [_vm._v("Select to edit")]) : _vm._e()])]) : [_vm.isFocused ? _c('jodit-editor', {
     attrs: {
-      "min-height": _vm.$el ? _vm.$el.clientHeight : 500,
+      "min-height": _vm.$el.clientHeight,
       "readonly": _vm.readonly
     },
     model: {
@@ -1738,7 +1738,7 @@ var __vue_staticRenderFns__ = [function () {
 const __vue_inject_styles__ = undefined;
 /* scoped */
 
-const __vue_scope_id__ = "data-v-a70a70c4";
+const __vue_scope_id__ = "data-v-d2f8e2ca";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;
