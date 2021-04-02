@@ -93,6 +93,11 @@ $min-height-sm: 5.5rem;
 $borderSize: 6px;
 $tooltipColor: #37474f;
 
+.jodit-container {
+  min-width: $min-width;
+  min-height: $min-height;
+}
+
 .tce-jodit-html ::v-deep {
   text-align: initial;
 
@@ -153,11 +158,6 @@ $tooltipColor: #37474f;
       opacity: 1;
     }
   }
-}
-
-.jodit-container {
-  min-width: $min-width;
-  min-height: $min-height;
 }
 
 ::v-deep .jodit-container:not(.jodit-inline) {

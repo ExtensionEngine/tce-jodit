@@ -156,7 +156,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
       }
     }
   }
-
+  /* stylelint-disable-next-line  */
   &:active {
     &:not([disabled]) {
       @include colorize(
@@ -262,7 +262,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
   &::before {
     display: none;
   }
-
+  /* stylelint-disable-next-line  */
   svg {
     display: none;
   }
