@@ -30013,6 +30013,10 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
     if (!node || !isFunction_1(node.hasAttribute)) return false;
     return node.hasAttribute(TOOLTIP_ATTR);
   };
+
+  var isHtmlElement = function isHtmlElement(el) {
+    return el && el instanceof HTMLElement;
+  };
   /** @typedef {import('jodit').IJodit} Jodit */
 
   /** @typedef {import('jodit').IToolbarButton} Button */
@@ -30065,7 +30069,7 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
         if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
         var Dom = Jodit.modules.Dom;
         return Dom.up(start, function (el) {
-          return el.matches('table');
+          return isHtmlElement(el) && el.matches('table');
         }, editor);
       }
       /**
@@ -30083,7 +30087,7 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
         if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
         var Dom = Jodit.modules.Dom;
         return Dom.up(start, function (el) {
-          return el.matches(".".concat(TOOLTIP_CLASS));
+          return isHtmlElement(el) && el.matches(".".concat(TOOLTIP_CLASS));
         }, editor);
       }
       /**
