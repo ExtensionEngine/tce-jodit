@@ -54,7 +54,8 @@ export default {
   methods: {
     save() {
       if (!this.hasChanges) return;
-      this.$emit('save', { content: this.content });
+      const { element, content } = this;
+      this.$emit('save', { ...element.data, content });
     }
   },
   watch: {

@@ -29740,6 +29740,7 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
 
   const isOldIE = typeof navigator !== 'undefined' &&
       /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+  //# sourceMappingURL=index.mjs.map
 
   /* script */
   var __vue_script__$1 = script$1;
@@ -30363,9 +30364,11 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
     methods: {
       save: function save() {
         if (!this.hasChanges) return;
-        this.$emit('save', {
-          content: this.content
-        });
+        var element = this.element,
+            content = this.content;
+        this.$emit('save', Object.assign({}, element.data, {
+          content: content
+        }));
       }
     },
     watch: {
@@ -30463,7 +30466,7 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
   var __vue_inject_styles__$3 = undefined;
   /* scoped */
 
-  var __vue_scope_id__$3 = "data-v-b17edcb2";
+  var __vue_scope_id__$3 = "data-v-e0ab2368";
   /* module identifier */
 
   var __vue_module_identifier__$3 = undefined;
