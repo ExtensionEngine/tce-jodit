@@ -6,12 +6,22 @@ const TOOLTIP_TAG = 'span';
 const TOOLTIP_ATTR = 'data-tooltip';
 const TOOLTIP_CLASS = 'tce-jodit-tooltip';
 const TOOLTIP_POPUP_FORM = `
-  <form class="jodit_form">
-    <textarea name="tooltip" placeholder="Tooltip"></textarea>
-    <input name="text" type="text" placeholder="Text">
-    <div style="text-align: right">
-      <button name="delete" type="button">Delete</button>
-      <button name="submit" type="submit">Submit</button>
+  <form class="jodit-ui-form">
+    <div class="jodit-ui-block jodit-ui-block_align_left jodit-ui-block_size_middle">
+      <div class="jodit-ui-input">
+        <span class="jodit-ui-input__label">Tooltip</span>
+        <textarea name="tooltip" class="jodit-ui-input__input" rows="5" style="height: auto;"></textarea>
+      </div>
+    </div>
+  <div class="jodit-ui-block jodit-ui-block_align_left jodit-ui-block_size_middle">
+    <div class="jodit-ui-input">
+      <span class="jodit-ui-input__label">Text</span>
+      <input name="text" type="text" class="jodit-ui-input__input">
+    </div>
+  </div>
+    <div class="jodit-ui-block jodit-ui-block_align_left jodit-ui-block_size_middle">
+      <button class="jodit-ui-button jodit-ui-button_size_middle jodit-ui-button_unlink jodit-ui-button_status_default jodit-ui-button_text-icons_true" name="delete" type="button">Delete</button>
+      <button class="jodit-ui-button jodit-ui-button_size_middle jodit-ui-button_insert jodit-ui-button_status_primary jodit-ui-button_text-icons_true" name="submit" type="submit">Submit</button>
     </div>
   </form>`;
 
@@ -79,7 +89,6 @@ export default class TooltipPlugin {
     const { val } = Jodit.modules.Helpers;
     const form = jodit.create.fromHTML(TOOLTIP_POPUP_FORM);
     const deleteButton = form.querySelector('button[name=delete]');
-
     current = Jodit.modules.Dom.up(current, isTooltipNode, jodit.editor);
     if (current) {
       const tooltipValue = current.getAttribute(TOOLTIP_ATTR) || '';
@@ -92,7 +101,6 @@ export default class TooltipPlugin {
     }
 
     this.selectionInfo = selection.save();
-
     events.on(form, 'submit', event => this.attachTooltip(event, current, close));
     events.on(deleteButton, 'click', event => this.detachTooltip(event, current, close));
 
