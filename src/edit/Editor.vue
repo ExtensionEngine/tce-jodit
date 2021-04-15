@@ -76,7 +76,7 @@ export default {
     config: vm => ({
       ...joditConfig,
       minHeight: vm.minHeight,
-      placeholder: vm.placeholder,
+      placeholder: !vm.value ? vm.placeholder : '',
       plugins
     })
   },

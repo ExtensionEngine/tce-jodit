@@ -4419,7 +4419,7 @@
     computed: {
       config: vm => ({ ...joditConfig,
         minHeight: vm.minHeight,
-        placeholder: vm.placeholder,
+        placeholder: !vm.value ? vm.placeholder : '',
         plugins
       })
     },
@@ -4476,7 +4476,7 @@
   const __vue_inject_styles__$1 = undefined;
   /* scoped */
 
-  const __vue_scope_id__$1 = "data-v-355d3e93";
+  const __vue_scope_id__$1 = "data-v-311d5b85";
   /* module identifier */
 
   const __vue_module_identifier__$1 = undefined;
