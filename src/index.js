@@ -5,7 +5,7 @@ import Toolbar from './edit/Toolbar.vue';
 export { Edit, Toolbar };
 
 export default {
-  initState: () => ({}),
+  initState: () => ({ content: '' }),
   components: {
     Edit,
     Toolbar

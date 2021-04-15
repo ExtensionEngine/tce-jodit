@@ -1757,7 +1757,9 @@ const __vue_component__ = /*#__PURE__*/normalizeComponent({
 }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
 
 var plugin__default = {
-  initState: () => ({}),
+  initState: () => ({
+    content: ''
+  }),
   components: {
     Edit: __vue_component__,
     Toolbar: __vue_component__$2
