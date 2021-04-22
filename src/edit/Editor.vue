@@ -123,9 +123,13 @@ $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", m
     font-style: italic;
   }
 
-  .jodit-source .ace-editor {
-    font-size: 13px;
-    font-family: $font-family-monospace;
+  .jodit-source {
+    background: transparent;
+
+    .ace-editor {
+      font-size: 13px;
+      font-family: $font-family-monospace;
+    }
   }
 
   .jodit-status-bar {
