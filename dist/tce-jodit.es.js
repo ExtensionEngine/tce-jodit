@@ -296,7 +296,7 @@ const textColor = `
     <svg width="0" height="0" style="display: none;"></svg>
   </span>`;
 function getMdiIcon(name) {
-  if (!name) return;
+  if (!name || !mdiIcons[name]) return;
   if (name === 'brush') return textColor;
   const code = mdiIcons[name];
   return `<span class="mdi mdi-${code}"></span>`;
