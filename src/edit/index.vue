@@ -166,6 +166,24 @@ $tooltipColor: #37474f;
   min-height: $min-height;
   font-size: 1rem;
   background: transparent !important;
+
+  .jodit_wysiwyg {
+    h1 {
+      margin: 1rem 0 2rem !important;
+    }
+
+    h2 {
+      margin: 0.75rem 0 !important;
+    }
+
+    h3 {
+      margin: 0.5rem 0 1rem !important;
+    }
+
+    h4 {
+      margin: 0.375rem 0 !important;
+    }
+  }
 }
 
 .jodit-html-placeholder {
