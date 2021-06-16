@@ -17,8 +17,9 @@
       <jodit-editor
         v-if="isFocused"
         v-model="content"
-        :min-height="$el.clientHeight"
-        :readonly="readonly" />
+        :min-height="clientHeight"
+        :readonly="readonly"
+        :storage-responses="storageResponses" />
       <div v-else class="jodit-container">
         <!-- eslint-disable-next-line vue/no-v-html -->
         <div class="jodit-wysiwyg" v-html="content"></div>
@@ -29,10 +30,16 @@
 
 <script>
 import debounce from 'lodash/debounce';
+import isEmpty from 'lodash/isEmpty';
 import JoditEditor from './Editor.vue';
+import Vue from 'vue';
 
 export default {
   name: 'tce-jodit-html',
+  inject: {
+    $elementBus: { default: null },
+    $storageService: { default: null }
+  },
   props: {
     element: { type: Object, required: true },
     isFocused: { type: Boolean, default: false },
@@ -43,19 +50,30 @@ export default {
   },
   data: vm => ({
     content: vm.element?.data?.content ?? '',
-    readonly: false
+    readonly: false,
+    storageResponses: {}
   }),
   computed: {
+    clientHeight() {
+      return this.$el?.clientHeight ?? 300;
+    },
+    repositoryId() {
+      return this.element?.repositoryId;
+    },
+    uploads() {
+      return this.element?.data?.uploads ?? [];
+    },
     hasChanges() {
       const previousValue = this.element?.data?.content ?? '';
       return previousValue !== this.content;
     }
   },
   methods: {
-    save() {
-      if (!this.hasChanges) return;
+    save(files = []) {
+      if (!this.hasChanges && isEmpty(files)) return;
       const { element, content } = this;
-      this.$emit('save', { ...element.data, content });
+      const newUploads = files.map(({ key, url }) => ({ key, url }));
+      this.$emit('save', { ...element.data, content, uploads: [...this.uploads, ...newUploads] });
     }
   },
   watch: {
@@ -80,6 +98,24 @@ export default {
     content: debounce(function () {
       this.save();
     }, 4000)
+  },
+  mounted() {
+    this.$elementBus?.on('upload', ({ id, fileForms }) => {
+      const response = {};
+      Promise.all(fileForms.map(form => this.$storageService.upload(this.repositoryId, form)))
+        .then(files => {
+          response.files = files;
+          this.save(files);
+        })
+        .catch(err => {
+          response.err = err;
+        })
+        .finally(() => Vue.set(this.storageResponses, id, response));
+    });
+    this.$elementBus?.on('responseConsumed', id => {
+      // Avoid reactivity as response is consumed and no longer needed
+      delete this.storageResponses[id];
+    });
   },
   components: {
     JoditEditor

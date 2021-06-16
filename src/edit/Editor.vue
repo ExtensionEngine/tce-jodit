@@ -9,6 +9,7 @@ import { Jodit, JoditVue } from 'jodit-vue';
 import AutofocusPlugin from './plugins/autofocus';
 import ExternalToolbarPlugin from './plugins/external-toolbar';
 import FontControlsPlugin from './plugins/font-controls';
+import ImageUploaderPlugin from './plugins/image-uploader';
 import MdiIconsPlugin from './plugins/mdi-icons';
 import pluginsAdapter from './plugins-adapter';
 import SourceEditorPlugin from './plugins/source-editor';
@@ -19,6 +20,8 @@ import ToolbarPopupsPlugin from './plugins/toolbar-popups';
 import TooltipPlugin from './plugins/tooltip';
 
 const JODIT_READY_EVENT = 'joditReady';
+const JODIT_UPLOAD_FILES_EVENT = 'joditUploadFiles';
+const JODIT_FILES_UPLOAD_ENDED_EVENT = 'joditFilesUploadEnded';
 
 /** @type {import('jodit/src/Config').Config & import('jodit/src/plugins')} */
 const joditConfig = {
@@ -55,6 +58,13 @@ const plugins = [{
 }, {
   use: ToolbarPopupsPlugin
 }, {
+  use: ImageUploaderPlugin,
+  options: {
+    uploadFilesEvent: JODIT_UPLOAD_FILES_EVENT,
+    filesUploadEndedEvent: JODIT_FILES_UPLOAD_ENDED_EVENT,
+    imagesAsBase64: false
+  }
+}, {
   use: SourceEditorPlugin
 }, {
   use: TablePopupsPlugin
@@ -66,32 +76,78 @@ const plugins = [{
 }];
 
 export default {
+  inject: {
+    $elementBus: { default: null }
+  },
   props: {
     value: { type: String, required: true },
     minHeight: { type: Number, required: true },
     placeholder: { type: String, default: 'Insert text here...' },
-    readonly: { type: Boolean, default: false }
+    readonly: { type: Boolean, default: false },
+    storageResponses: { type: Object, default: () => ({}) }
   },
+  data: () => ({
+    uploadCallbacks: {}
+  }),
   computed: {
     config: vm => ({
       ...joditConfig,
       minHeight: vm.minHeight,
       placeholder: !vm.value ? vm.placeholder : '',
-      plugins
-    })
+      plugins: vm.getPlugins()
+    }),
+    editor() {
+      return this.$refs.jodit.editor;
+    }
   },
   methods: {
     input(value) {
       return this.$emit('input', value);
+    },
+    getPlugins() {
+      return plugins.map(plugin => {
+        if (plugin.use === ImageUploaderPlugin) plugin.options.imagesAsBase64 = !this.$elementBus;
+        return plugin;
+      });
+    },
+    uploadFiles({ id, formData }) {
+      const fileForms = Array.from(formData.values())
+        .filter(value => value instanceof File)
+        .map(file => {
+          const singleFileForm = new FormData();
+          singleFileForm.append('file', file, file.name);
+          return singleFileForm;
+        });
+      this.uploadCallbacks[id] = response => {
+        delete this.uploadCallbacks[id];
+        this.editor.events.fire(JODIT_FILES_UPLOAD_ENDED_EVENT, { id, response });
+      };
+      this.$elementBus.emit('upload', { id, fileForms });
     }
   },
   watch: {
     readonly(state) {
-      const { editor } = this.$refs.jodit;
-      if (!editor) return;
-      editor.setReadOnly(state);
-      if (!state) editor.selection.focus();
+      if (!this.editor) return;
+      this.editor.setReadOnly(state);
+      if (!state) this.editor.selection.focus();
+    },
+    storageResponses: {
+      deep: true,
+      handler(value) {
+        Object.entries(value).forEach(([id, response]) => {
+          const callback = this.uploadCallbacks[id];
+          if (typeof callback !== 'function') return;
+          callback(response);
+          this.$elementBus.emit('responseConsumed', id);
+        });
+      }
     }
+  },
+  mounted() {
+    this.editor.events.on(JODIT_UPLOAD_FILES_EVENT, this.uploadFiles);
+  },
+  beforeDestroy() {
+    this.editor.events.off(JODIT_UPLOAD_FILES_EVENT, this.uploadFiles);
   },
   components: {
     JoditVue
@@ -158,6 +214,53 @@ $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", m
         color: $icon-color;
         font-size: $icon-size;
         line-height: $icon-size;
+      }
+    }
+  }
+
+  .jodit_error_box_for_messages {
+    &>.load {
+      box-sizing: border-box;
+      color: #fff;
+
+      @keyframes dots {
+        0% {
+          opacity: 0;
+        }
+
+        30% {
+          opacity: 1;
+        }
+
+        100% {
+          opacity: 0;
+        }
+      }
+
+      &>.dot {
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        margin-right: 6px;
+        border-radius: 50%;
+        background-color: currentColor;
+        animation-name: dots;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        animation-fill-mode: both;
+      }
+
+      &>.dot:nth-child(1) {
+        margin-left: 6px;
+      }
+
+      &>.dot:nth-child(2) {
+        animation-delay: .3s;
+      }
+
+      &>.dot:nth-child(3) {
+        margin-right: 0;
+        animation-delay: .5s;
       }
     }
   }
