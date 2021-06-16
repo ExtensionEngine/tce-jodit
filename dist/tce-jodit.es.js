@@ -1,7 +1,9 @@
 import 'jodit/build/jodit.min.css';
 import debounce from 'lodash/debounce';
+import isEmpty$1 from 'lodash/isEmpty';
 import { Jodit, JoditVue } from 'jodit-vue';
 import autoBind from 'auto-bind';
+import cuid from 'cuid';
 import cloneDeep from 'lodash/cloneDeep';
 import keysIn from 'lodash/keysIn';
 import uniqueId from 'lodash/uniqueId';
@@ -11,6 +13,7 @@ import 'brace/mode/html';
 import 'brace/theme/chrome';
 import scrollparent from 'scrollparent';
 import isFunction$2 from 'lodash/isFunction';
+import Vue from 'vue';
 
 var name = "@extensionengine/tce-jodit";
 var version = "0.0.1";
@@ -231,6 +234,107 @@ const normalize = (() => {
 
   };
 })();
+
+class Loader {
+  constructor(jodit) {
+    this.jodit = jodit;
+    autoBind(this);
+  }
+
+  show() {
+    this.element = this.jodit.create.div('jodit_error_box_for_messages');
+    this.jodit.workplace.appendChild(this.element);
+    const dots = Array(3).fill().map(() => this.jodit.create.span('dot'));
+    const text = this.jodit.create.text('Uploading');
+    const content = this.jodit.create.div('active info load', [text, ...dots]);
+    this.element.appendChild(content);
+    return this;
+  }
+
+  hide() {
+    const {
+      Dom
+    } = this.jodit.constructor.modules;
+    Dom.safeRemove(this.element);
+  }
+
+}
+/** @typedef {import('jodit').IJodit} Jodit */
+
+
+class ImageUploaderPlugin {
+  static get pluginName() {
+    return 'image-uploader';
+  }
+
+  constructor(options) {
+    options.uploadFilesEvent = options.uploadFilesEvent || 'joditUploadFiles';
+    options.filesUploadEndedEvent = options.filesUploadEndedEvent || 'joditFilesUploadEnded';
+    options.imagesAsBase64 = options.imagesAsBase64 || false;
+    autoBind(this);
+  }
+  /**
+   * @param {Jodit} jodit
+   */
+
+
+  init(jodit) {
+    jodit.options.uploader.insertImageAsBase64URI = this.options.imagesAsBase64;
+    if (this.options.imagesAsBase64) return; // Jodit shows upload tab if the url option for the Uploader module is defined, only checks if truthy
+
+    jodit.options.uploader.url = Symbol('NONE'); // Monkey patch the send method to provide uploading logic, original implementation utilizes the url option
+
+    jodit.uploader.send = this.send;
+  }
+  /**
+   * @param {FormData} data
+   * @param {function} success
+   */
+
+
+  send(data, success) {
+    const loader = new Loader(this.jodit).show();
+    const opId = cuid();
+    const deferred = {};
+    const promise = new Promise(resolve => Object.assign(deferred, {
+      resolve
+    }));
+
+    const finalize = ({
+      id: evtId,
+      response
+    }) => {
+      if (evtId !== opId) return;
+      this.jodit.events.off(this.options.filesUploadEndedEvent, finalize);
+      if (response.err) console.error(response.err);
+      const result = { ...(response.err ? {
+          success: false,
+          data: {
+            messages: ['Failed to upload']
+          }
+        } : {
+          success: true,
+          data: {
+            files: response.files.map(file => file.publicUrl),
+            isImages: Array.of(response.files.length).fill(true),
+            baseurl: ''
+          }
+        })
+      };
+      success.call(this.jodit.uploader, result);
+      loader.hide();
+      deferred.resolve();
+    };
+
+    this.jodit.events.on(this.options.filesUploadEndedEvent, finalize);
+    this.jodit.events.fire(this.options.uploadFilesEvent, {
+      id: opId,
+      formData: data
+    });
+    return promise;
+  }
+
+}
 
 const mdiIcons = {
   source: 'code-tags',
@@ -1447,6 +1551,8 @@ class TooltipPlugin {
 
 //
 const JODIT_READY_EVENT = 'joditReady';
+const JODIT_UPLOAD_FILES_EVENT = 'joditUploadFiles';
+const JODIT_FILES_UPLOAD_ENDED_EVENT = 'joditFilesUploadEnded';
 /** @type {import('jodit/src/Config').Config & import('jodit/src/plugins')} */
 
 const joditConfig = {
@@ -1481,6 +1587,13 @@ const plugins = [{
 }, {
   use: ToolbarPopupsPlugin
 }, {
+  use: ImageUploaderPlugin,
+  options: {
+    uploadFilesEvent: JODIT_UPLOAD_FILES_EVENT,
+    filesUploadEndedEvent: JODIT_FILES_UPLOAD_ENDED_EVENT,
+    imagesAsBase64: false
+  }
+}, {
   use: SourceEditorPlugin
 }, {
   use: TablePopupsPlugin
@@ -1491,6 +1604,11 @@ const plugins = [{
   }
 }];
 var script$1 = {
+  inject: {
+    $elementBus: {
+      default: null
+    }
+  },
   props: {
     value: {
       type: String,
@@ -1507,32 +1625,94 @@ var script$1 = {
     readonly: {
       type: Boolean,
       default: false
+    },
+    storageResponses: {
+      type: Object,
+      default: () => ({})
     }
   },
+  data: () => ({
+    uploadCallbacks: {}
+  }),
   computed: {
     config: vm => ({ ...joditConfig,
       minHeight: vm.minHeight,
       placeholder: !vm.value ? vm.placeholder : '',
-      plugins
-    })
+      plugins: vm.getPlugins()
+    }),
+
+    editor() {
+      return this.$refs.jodit.editor;
+    }
+
   },
   methods: {
     input(value) {
       return this.$emit('input', value);
+    },
+
+    getPlugins() {
+      return plugins.map(plugin => {
+        if (plugin.use === ImageUploaderPlugin) plugin.options.imagesAsBase64 = !this.$elementBus;
+        return plugin;
+      });
+    },
+
+    uploadFiles({
+      id,
+      formData
+    }) {
+      const fileForms = Array.from(formData.values()).filter(value => value instanceof File).map(file => {
+        const singleFileForm = new FormData();
+        singleFileForm.append('file', file, file.name);
+        return singleFileForm;
+      });
+
+      this.uploadCallbacks[id] = response => {
+        delete this.uploadCallbacks[id];
+        this.editor.events.fire(JODIT_FILES_UPLOAD_ENDED_EVENT, {
+          id,
+          response
+        });
+      };
+
+      this.$elementBus.emit('upload', {
+        id,
+        fileForms
+      });
     }
 
   },
   watch: {
     readonly(state) {
-      const {
-        editor
-      } = this.$refs.jodit;
-      if (!editor) return;
-      editor.setReadOnly(state);
-      if (!state) editor.selection.focus();
-    }
+      if (!this.editor) return;
+      this.editor.setReadOnly(state);
+      if (!state) this.editor.selection.focus();
+    },
 
+    storageResponses: {
+      deep: true,
+
+      handler(value) {
+        Object.entries(value).forEach(([id, response]) => {
+          const callback = this.uploadCallbacks[id];
+          if (typeof callback !== 'function') return;
+          callback(response);
+          this.$elementBus.emit('responseConsumed', id);
+        });
+      }
+
+    }
   },
+
+  mounted() {
+    this.editor.events.on(JODIT_UPLOAD_FILES_EVENT, this.uploadFiles);
+  },
+
+  beforeDestroy() {
+    this.editor.events.off(JODIT_UPLOAD_FILES_EVENT, this.uploadFiles);
+  },
+
   components: {
     JoditVue
   }
@@ -1569,7 +1749,7 @@ var __vue_staticRenderFns__$1 = [];
 const __vue_inject_styles__$1 = undefined;
 /* scoped */
 
-const __vue_scope_id__$1 = "data-v-28543044";
+const __vue_scope_id__$1 = "data-v-a1556a42";
 /* module identifier */
 
 const __vue_module_identifier__$1 = undefined;
@@ -1590,6 +1770,14 @@ const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
 //
 var script = {
   name: 'tce-jodit-html',
+  inject: {
+    $elementBus: {
+      default: null
+    },
+    $storageService: {
+      default: null
+    }
+  },
   props: {
     element: {
       type: Object,
@@ -1621,23 +1809,50 @@ var script = {
 
     return {
       content: (_vm$element$data$cont = (_vm$element = vm.element) === null || _vm$element === void 0 ? void 0 : (_vm$element$data = _vm$element.data) === null || _vm$element$data === void 0 ? void 0 : _vm$element$data.content) !== null && _vm$element$data$cont !== void 0 ? _vm$element$data$cont : '',
-      readonly: false
+      readonly: false,
+      storageResponses: {}
     };
   },
   computed: {
-    hasChanges() {
-      var _this$element$data$co, _this$element, _this$element$data;
+    clientHeight() {
+      var _this$$el$clientHeigh, _this$$el;
 
-      const previousValue = (_this$element$data$co = (_this$element = this.element) === null || _this$element === void 0 ? void 0 : (_this$element$data = _this$element.data) === null || _this$element$data === void 0 ? void 0 : _this$element$data.content) !== null && _this$element$data$co !== void 0 ? _this$element$data$co : '';
+      return (_this$$el$clientHeigh = (_this$$el = this.$el) === null || _this$$el === void 0 ? void 0 : _this$$el.clientHeight) !== null && _this$$el$clientHeigh !== void 0 ? _this$$el$clientHeigh : 300;
+    },
+
+    repositoryId() {
+      var _this$element;
+
+      return (_this$element = this.element) === null || _this$element === void 0 ? void 0 : _this$element.repositoryId;
+    },
+
+    uploads() {
+      var _this$element$data$up, _this$element2, _this$element2$data;
+
+      return (_this$element$data$up = (_this$element2 = this.element) === null || _this$element2 === void 0 ? void 0 : (_this$element2$data = _this$element2.data) === null || _this$element2$data === void 0 ? void 0 : _this$element2$data.uploads) !== null && _this$element$data$up !== void 0 ? _this$element$data$up : [];
+    },
+
+    hasChanges() {
+      var _this$element$data$co, _this$element3, _this$element3$data;
+
+      const previousValue = (_this$element$data$co = (_this$element3 = this.element) === null || _this$element3 === void 0 ? void 0 : (_this$element3$data = _this$element3.data) === null || _this$element3$data === void 0 ? void 0 : _this$element3$data.content) !== null && _this$element$data$co !== void 0 ? _this$element$data$co : '';
       return previousValue !== this.content;
     }
 
   },
   methods: {
-    save() {
-      if (!this.hasChanges) return;
+    save(files = []) {
+      if (!this.hasChanges && isEmpty$1(files)) return;
+      const newUploads = files.map(({
+        key,
+        url
+      }) => ({
+        key,
+        url
+      }));
       this.$emit('save', {
-        content: this.content
+        content: this.content,
+        uploads: [...this.uploads, ...newUploads]
       });
     }
 
@@ -1670,6 +1885,28 @@ var script = {
       this.save();
     }, 4000)
   },
+
+  mounted() {
+    var _this$$elementBus, _this$$elementBus2;
+
+    (_this$$elementBus = this.$elementBus) === null || _this$$elementBus === void 0 ? void 0 : _this$$elementBus.on('upload', ({
+      id,
+      fileForms
+    }) => {
+      const response = {};
+      Promise.all(fileForms.map(form => this.$storageService.upload(this.repositoryId, form))).then(files => {
+        response.files = files;
+        this.save(files);
+      }).catch(err => {
+        response.err = err;
+      }).finally(() => Vue.set(this.storageResponses, id, response));
+    });
+    (_this$$elementBus2 = this.$elementBus) === null || _this$$elementBus2 === void 0 ? void 0 : _this$$elementBus2.on('responseConsumed', id => {
+      // Avoid reactivity as response is consumed and no longer needed
+      delete this.storageResponses[id];
+    });
+  },
+
   components: {
     JoditEditor: __vue_component__$1
   }
@@ -1700,8 +1937,9 @@ var __vue_render__ = function () {
     staticClass: "heading"
   }, [_vm._v("HTML component")]), _vm._v(" "), !_vm.dense ? _c('span', [_vm._v("Select to edit")]) : _vm._e()])]) : [_vm.isFocused ? _c('jodit-editor', {
     attrs: {
-      "min-height": _vm.$el.clientHeight,
-      "readonly": _vm.readonly
+      "min-height": _vm.clientHeight,
+      "readonly": _vm.readonly,
+      "storage-responses": _vm.storageResponses
     },
     model: {
       value: _vm.content,
@@ -1738,7 +1976,7 @@ var __vue_staticRenderFns__ = [function () {
 const __vue_inject_styles__ = undefined;
 /* scoped */
 
-const __vue_scope_id__ = "data-v-79fbadeb";
+const __vue_scope_id__ = "data-v-4531d686";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;
