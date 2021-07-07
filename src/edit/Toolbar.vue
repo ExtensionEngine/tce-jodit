@@ -71,7 +71,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 
 .jodit-toolbar-editor-collection {
   margin: 0 !important;
-  padding: 20px 12px 0 !important;
+  padding: 0 !important;
   font-family: $font-family-secondary;
   font-size: $text-size;
   line-height: $text-size;
@@ -79,6 +79,10 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
   background: none !important;
   border: none;
   box-shadow: none;
+
+  &_mode_horizontal {
+    padding: 20px 12px 0 !important;
+  }
 
   .jodit-ui-group {
     .jodit-toolbar-button {
@@ -117,36 +121,64 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* stylelint-disable-next-line  */
-.jodit-toolbar-editor-collection > .jodit-toolbar-button:not(.jodit-toolbar-editor-collection-input) {
+.jodit-toolbar-editor-collection .jodit-toolbar-button {
   @mixin colorize($color, $background: none) {
     color: $color;
     background: $background;
 
-    & > a {
+    & > button {
       color: inherit;
       background: inherit;
+    }
 
-      .jodit-icon {
-        color: inherit;
-      }
+    .jodit-icon {
+      color: inherit;
+    }
 
-      // dropdown chevrons
-      .jodit-with_dropdownlist-trigger svg {
+    // dropdown chevrons
+    .jodit-toolbar-button__trigger svg {
+      fill: currentColor;
+    }
+  }
+
+  transition: all 0.2s linear, opacity 0.1s linear;
+
+  &_with-trigger_true {
+    padding: 0 5px;
+    border: none;
+
+    .jodit-toolbar-button__trigger {
+      opacity: 1;
+      background: none;
+
+      svg {
         fill: currentColor;
       }
     }
   }
-
-  &:not(.jodit-disabled):not(.popup_open) {
-    &.jodit-active {
+  /* stylelint-disable-next-line  */
+  &:active {
+    &:not([disabled]) {
       @include colorize(
         $color: $icon-accent-color,
         $background: lighten($icon-accent-color, 25%)
       );
     }
-
-    &:not(.jodit-active):hover {
+  }
+  /* stylelint-disable-next-line  */
+  &:hover {
+    &:not([disabled]) {
+      background-color: transparent;
       @include colorize($color: $icon-accent-color);
+    }
+  }
+
+  &[aria-pressed=true] {
+    &:not([disabled]) {
+      @include colorize(
+        $color: $icon-accent-color,
+        $background: lighten($icon-accent-color, 25%)
+      );
     }
   }
 
@@ -230,7 +262,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
   &::before {
     display: none;
   }
-
+  /* stylelint-disable-next-line  */
   svg {
     display: none;
   }
@@ -247,16 +279,6 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
     width: 20px;
     height: 20px;
     font-size: 20px;
-
-    &::before {
-      content: "\F0528";
-      display: inline-block;
-      font: normal normal normal 24px/1 "Material Design Icons";
-      font-size: inherit;
-      text-rendering: auto;
-      line-height: inherit;
-      -webkit-font-smoothing: antialiased;
-    }
   }
 
   .jodit-toolbar-button__text {

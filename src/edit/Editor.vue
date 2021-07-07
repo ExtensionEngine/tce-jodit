@@ -13,7 +13,7 @@ import MdiIconsPlugin from './plugins/mdi-icons';
 import pluginsAdapter from './plugins-adapter';
 import SourceEditorPlugin from './plugins/source-editor';
 import TablePopupsPlugin from './plugins/table-popups';
-import Toolbar from '@/edit/Toolbar.vue';
+import Toolbar from './Toolbar.vue';
 import ToolbarBuilderPlugin from './plugins/toolbar-builder';
 import ToolbarPopupsPlugin from './plugins/toolbar-popups';
 import TooltipPlugin from './plugins/tooltip';
@@ -27,7 +27,10 @@ const joditConfig = {
   showTooltipDelay: 350,
   colorPickerDefaultTab: 'color',
   disablePlugins: ['fullsize'],
-  language: 'en'
+  language: 'en',
+  extraIcons: {
+    tooltip: '<span class="mdi mdi-tooltip-text"></span>'
+  }
 };
 
 pluginsAdapter(Jodit);
@@ -73,7 +76,7 @@ export default {
     config: vm => ({
       ...joditConfig,
       minHeight: vm.minHeight,
-      placeholder: vm.placeholder,
+      placeholder: !vm.value ? vm.placeholder : '',
       plugins
     })
   },
@@ -109,6 +112,7 @@ $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", m
     display: flex;
     min-height: $min-height;
     flex-direction: column;
+    border: none;
 
     .jodit-workplace {
       border: none;
@@ -119,9 +123,13 @@ $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", m
     font-style: italic;
   }
 
-  .jodit-source .ace-editor {
-    font-size: 13px;
-    font-family: $font-family-monospace;
+  .jodit-source {
+    background: transparent;
+
+    .ace-editor {
+      font-size: 13px;
+      font-family: $font-family-monospace;
+    }
   }
 
   .jodit-status-bar {

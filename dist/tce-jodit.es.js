@@ -296,7 +296,7 @@ const textColor = `
     <svg width="0" height="0" style="display: none;"></svg>
   </span>`;
 function getMdiIcon(name) {
-  if (!name) return;
+  if (!name || !mdiIcons[name]) return;
   if (name === 'brush') return textColor;
   const code = mdiIcons[name];
   return `<span class="mdi mdi-${code}"></span>`;
@@ -1036,9 +1036,6 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
     return script;
 }
 
-typeof navigator !== 'undefined' &&
-    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
 /* script */
 const __vue_script__$2 = script$2;
 /* template */
@@ -1077,7 +1074,7 @@ const __vue_is_functional_template__$2 = false;
 
 /* style inject shadow dom */
 
-var Toolbar = normalizeComponent({
+const __vue_component__$2 = /*#__PURE__*/normalizeComponent({
   render: __vue_render__$2,
   staticRenderFns: __vue_staticRenderFns__$2
 }, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
@@ -1460,7 +1457,10 @@ const joditConfig = {
   showTooltipDelay: 350,
   colorPickerDefaultTab: 'color',
   disablePlugins: ['fullsize'],
-  language: 'en'
+  language: 'en',
+  extraIcons: {
+    tooltip: '<span class="mdi mdi-tooltip-text"></span>'
+  }
 };
 extend(Jodit);
 const plugins = [{
@@ -1470,13 +1470,13 @@ const plugins = [{
 }, {
   use: ToolbarBuilderPlugin,
   options: {
-    buttons: Toolbar.$buttons
+    buttons: __vue_component__$2.$buttons
   }
 }, {
   use: ExternalToolbarPlugin,
   options: {
     readyEvent: JODIT_READY_EVENT,
-    toolbarContainer: Toolbar.$containerId
+    toolbarContainer: __vue_component__$2.$containerId
   }
 }, {
   use: FontControlsPlugin
@@ -1514,7 +1514,7 @@ var script$1 = {
   computed: {
     config: vm => ({ ...joditConfig,
       minHeight: vm.minHeight,
-      placeholder: vm.placeholder,
+      placeholder: !vm.value ? vm.placeholder : '',
       plugins
     })
   },
@@ -1571,7 +1571,7 @@ var __vue_staticRenderFns__$1 = [];
 const __vue_inject_styles__$1 = undefined;
 /* scoped */
 
-const __vue_scope_id__$1 = "data-v-b67d92f0";
+const __vue_scope_id__$1 = "data-v-28543044";
 /* module identifier */
 
 const __vue_module_identifier__$1 = undefined;
@@ -1584,7 +1584,7 @@ const __vue_is_functional_template__$1 = false;
 
 /* style inject shadow dom */
 
-var JoditEditor = normalizeComponent({
+const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
   render: __vue_render__$1,
   staticRenderFns: __vue_staticRenderFns__$1
 }, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
@@ -1677,7 +1677,7 @@ var script = {
     }, 4000)
   },
   components: {
-    JoditEditor
+    JoditEditor: __vue_component__$1
   }
 };
 
@@ -1706,7 +1706,7 @@ var __vue_render__ = function () {
     staticClass: "heading"
   }, [_vm._v("HTML component")]), _vm._v(" "), !_vm.dense ? _c('span', [_vm._v("Select to edit")]) : _vm._e()])]) : [_vm.isFocused ? _c('jodit-editor', {
     attrs: {
-      "min-height": _vm.$el ? _vm.$el.clientHeight : 500,
+      "min-height": _vm.$el.clientHeight,
       "readonly": _vm.readonly
     },
     model: {
@@ -1744,7 +1744,7 @@ var __vue_staticRenderFns__ = [function () {
 const __vue_inject_styles__ = undefined;
 /* scoped */
 
-const __vue_scope_id__ = "data-v-9febd27a";
+const __vue_scope_id__ = "data-v-147d3590";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;
@@ -1757,25 +1757,26 @@ const __vue_is_functional_template__ = false;
 
 /* style inject shadow dom */
 
-var Edit = normalizeComponent({
+const __vue_component__ = /*#__PURE__*/normalizeComponent({
   render: __vue_render__,
   staticRenderFns: __vue_staticRenderFns__
 }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
 
 var plugin__default = {
-  initState: () => ({}),
+  initState: () => ({
+    content: ''
+  }),
   components: {
-    Edit,
-    Toolbar
+    Edit: __vue_component__,
+    Toolbar: __vue_component__$2
   }
 };
 
 var plugin = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  Edit: Edit,
-  Toolbar: Toolbar,
-  'default': plugin__default,
-  install: _missingExportShim
+  Edit: __vue_component__,
+  Toolbar: __vue_component__$2,
+  'default': plugin__default
 });
 
 function _slicedToArray(arr, i) {
@@ -1962,4 +1963,4 @@ var install = function install(Vue) {
 };
 
 export default install;
-export { Edit, Toolbar, install, options };
+export { __vue_component__ as Edit, __vue_component__$2 as Toolbar, install, options };

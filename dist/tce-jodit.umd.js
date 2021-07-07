@@ -105,44 +105,6 @@
 
   var now_1 = now;
 
-  /** Used to match a single whitespace character. */
-  var reWhitespace = /\s/;
-
-  /**
-   * Used by `_.trim` and `_.trimEnd` to get the index of the last non-whitespace
-   * character of `string`.
-   *
-   * @private
-   * @param {string} string The string to inspect.
-   * @returns {number} Returns the index of the last non-whitespace character.
-   */
-  function trimmedEndIndex(string) {
-    var index = string.length;
-
-    while (index-- && reWhitespace.test(string.charAt(index))) {}
-    return index;
-  }
-
-  var _trimmedEndIndex = trimmedEndIndex;
-
-  /** Used to match leading whitespace. */
-  var reTrimStart = /^\s+/;
-
-  /**
-   * The base implementation of `_.trim`.
-   *
-   * @private
-   * @param {string} string The string to trim.
-   * @returns {string} Returns the trimmed string.
-   */
-  function baseTrim(string) {
-    return string
-      ? string.slice(0, _trimmedEndIndex(string) + 1).replace(reTrimStart, '')
-      : string;
-  }
-
-  var _baseTrim = baseTrim;
-
   /** Built-in value references. */
   var Symbol$1 = _root.Symbol;
 
@@ -301,6 +263,9 @@
   /** Used as references for various `Number` constants. */
   var NAN = 0 / 0;
 
+  /** Used to match leading and trailing whitespace. */
+  var reTrim = /^\s+|\s+$/g;
+
   /** Used to detect bad signed hexadecimal string values. */
   var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
 
@@ -350,7 +315,7 @@
     if (typeof value != 'string') {
       return value === 0 ? value : +value;
     }
-    value = _baseTrim(value);
+    value = value.replace(reTrim, '');
     var isBinary = reIsBinary.test(value);
     return (isBinary || reIsOctal.test(value))
       ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
@@ -820,7 +785,7 @@
     <svg width="0" height="0" style="display: none;"></svg>
   </span>`;
   function getMdiIcon(name) {
-    if (!name) return;
+    if (!name || !mdiIcons[name]) return;
     if (name === 'brush') return textColor;
     const code = mdiIcons[name];
     return `<span class="mdi mdi-${code}"></span>`;
@@ -2678,11 +2643,11 @@
    * _.keysIn(new Foo);
    * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
    */
-  function keysIn(object) {
+  function keysIn$1(object) {
     return isArrayLike_1(object) ? _arrayLikeKeys(object, true) : _baseKeysIn(object);
   }
 
-  var keysIn_1 = keysIn;
+  var keysIn_1 = keysIn$1;
 
   /**
    * The base implementation of `_.assignIn` without support for multiple sources
@@ -3461,7 +3426,7 @@
 
     var keysFunc = isFull
       ? (isFlat ? _getAllKeysIn : _getAllKeys)
-      : (isFlat ? keysIn_1 : keys_1);
+      : (isFlat ? keysIn : keys_1);
 
     var props = isArr ? undefined : keysFunc(value);
     _arrayEach(props || value, function(subValue, key) {
@@ -3978,9 +3943,6 @@
       return script;
   }
 
-  typeof navigator !== 'undefined' &&
-      /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
   /* script */
   const __vue_script__$2 = script$2;
   /* template */
@@ -4019,7 +3981,7 @@
 
   /* style inject shadow dom */
 
-  var Toolbar = normalizeComponent({
+  const __vue_component__$2 = /*#__PURE__*/normalizeComponent({
     render: __vue_render__$2,
     staticRenderFns: __vue_staticRenderFns__$2
   }, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
@@ -4402,7 +4364,10 @@
     showTooltipDelay: 350,
     colorPickerDefaultTab: 'color',
     disablePlugins: ['fullsize'],
-    language: 'en'
+    language: 'en',
+    extraIcons: {
+      tooltip: '<span class="mdi mdi-tooltip-text"></span>'
+    }
   };
   extend(joditVue.Jodit);
   const plugins = [{
@@ -4412,13 +4377,13 @@
   }, {
     use: ToolbarBuilderPlugin,
     options: {
-      buttons: Toolbar.$buttons
+      buttons: __vue_component__$2.$buttons
     }
   }, {
     use: ExternalToolbarPlugin,
     options: {
       readyEvent: JODIT_READY_EVENT,
-      toolbarContainer: Toolbar.$containerId
+      toolbarContainer: __vue_component__$2.$containerId
     }
   }, {
     use: FontControlsPlugin
@@ -4456,7 +4421,7 @@
     computed: {
       config: vm => ({ ...joditConfig,
         minHeight: vm.minHeight,
-        placeholder: vm.placeholder,
+        placeholder: !vm.value ? vm.placeholder : '',
         plugins
       })
     },
@@ -4513,7 +4478,7 @@
   const __vue_inject_styles__$1 = undefined;
   /* scoped */
 
-  const __vue_scope_id__$1 = "data-v-b67d92f0";
+  const __vue_scope_id__$1 = "data-v-28543044";
   /* module identifier */
 
   const __vue_module_identifier__$1 = undefined;
@@ -4526,7 +4491,7 @@
 
   /* style inject shadow dom */
 
-  var JoditEditor = normalizeComponent({
+  const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
     render: __vue_render__$1,
     staticRenderFns: __vue_staticRenderFns__$1
   }, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
@@ -4619,7 +4584,7 @@
       }, 4000)
     },
     components: {
-      JoditEditor
+      JoditEditor: __vue_component__$1
     }
   };
 
@@ -4648,7 +4613,7 @@
       staticClass: "heading"
     }, [_vm._v("HTML component")]), _vm._v(" "), !_vm.dense ? _c('span', [_vm._v("Select to edit")]) : _vm._e()])]) : [_vm.isFocused ? _c('jodit-editor', {
       attrs: {
-        "min-height": _vm.$el ? _vm.$el.clientHeight : 500,
+        "min-height": _vm.$el.clientHeight,
         "readonly": _vm.readonly
       },
       model: {
@@ -4686,7 +4651,7 @@
   const __vue_inject_styles__ = undefined;
   /* scoped */
 
-  const __vue_scope_id__ = "data-v-9febd27a";
+  const __vue_scope_id__ = "data-v-147d3590";
   /* module identifier */
 
   const __vue_module_identifier__ = undefined;
@@ -4699,25 +4664,26 @@
 
   /* style inject shadow dom */
 
-  var Edit = normalizeComponent({
+  const __vue_component__ = /*#__PURE__*/normalizeComponent({
     render: __vue_render__,
     staticRenderFns: __vue_staticRenderFns__
   }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
 
   var plugin__default = {
-    initState: () => ({}),
+    initState: () => ({
+      content: ''
+    }),
     components: {
-      Edit,
-      Toolbar
+      Edit: __vue_component__,
+      Toolbar: __vue_component__$2
     }
   };
 
   var plugin = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    Edit: Edit,
-    Toolbar: Toolbar,
-    'default': plugin__default,
-    install: _missingExportShim
+    Edit: __vue_component__,
+    Toolbar: __vue_component__$2,
+    'default': plugin__default
   });
 
   function _slicedToArray(arr, i) {
@@ -4903,8 +4869,8 @@
     });
   };
 
-  exports.Edit = Edit;
-  exports.Toolbar = Toolbar;
+  exports.Edit = __vue_component__;
+  exports.Toolbar = __vue_component__$2;
   exports.default = install;
   exports.install = install;
   exports.options = options;
