@@ -1308,6 +1308,8 @@ const isTooltipNode = node => {
   if (!node || !isFunction__default['default'](node.hasAttribute)) return false;
   return node.hasAttribute(TOOLTIP_ATTR);
 };
+
+const isHtmlElement = el => el && el instanceof HTMLElement;
 /** @typedef {import('jodit').IJodit} Jodit */
 
 /** @typedef {import('jodit').IToolbarButton} Button */
@@ -1354,7 +1356,7 @@ class TooltipPlugin {
     const {
       Dom
     } = Jodit.modules;
-    return Dom.up(start, el => el.matches('table'), editor);
+    return Dom.up(start, el => isHtmlElement(el) && el.matches('table'), editor);
   }
   /**
    * @param {Jodit} jodit
@@ -1373,7 +1375,7 @@ class TooltipPlugin {
     const {
       Dom
     } = Jodit.modules;
-    return Dom.up(start, el => el.matches(`.${TOOLTIP_CLASS}`), editor);
+    return Dom.up(start, el => isHtmlElement(el) && el.matches(`.${TOOLTIP_CLASS}`), editor);
   }
   /**
    * @param {Jodit} jodit
@@ -1652,8 +1654,12 @@ var script = {
   methods: {
     save() {
       if (!this.hasChanges) return;
-      this.$emit('save', {
-        content: this.content
+      const {
+        element,
+        content
+      } = this;
+      this.$emit('save', { ...element.data,
+        content
       });
     }
 
@@ -1754,7 +1760,7 @@ var __vue_staticRenderFns__ = [function () {
 const __vue_inject_styles__ = undefined;
 /* scoped */
 
-const __vue_scope_id__ = "data-v-79fbadeb";
+const __vue_scope_id__ = "data-v-147d3590";
 /* module identifier */
 
 const __vue_module_identifier__ = undefined;
