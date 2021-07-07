@@ -19,9 +19,10 @@ class PluginProxy {
     this._plugin = plugin;
     this.jodit = jodit;
     autoBind(this);
-    jodit.events
-      .on('afterInit', this.afterInit)
-      .on('beforeDestruct', this.beforeDestruct);
+    jodit.attachEvents({
+      afterInit: this.afterInit,
+      beforeDestruct: this.beforeDestruct
+    });
   }
 
   afterInit() {
@@ -70,7 +71,7 @@ export default function extend(Jodit) {
       return this.$options;
     },
     set(options = {}) {
-      if (this.jodit) {
+      if (this.isJodit) {
         options = cloneOptions(options);
         this.$applyPlugins(options);
       }
@@ -78,13 +79,13 @@ export default function extend(Jodit) {
     }
   });
 
-  const { __initPlugines } = Jodit.prototype;
-  Jodit.prototype.__initPlugines = function () {
+  const { afterInitHook } = Jodit.prototype;
+  Jodit.prototype.afterInitHook = function () {
     this.$plugins.forEach(plugin => {
       if (isFunction(plugin.init)) plugin.init(this, plugin.options);
       plugin.jodit = this;
     });
-    return __initPlugines.apply(this, arguments);
+    return afterInitHook.apply(this, arguments);
   };
 }
 

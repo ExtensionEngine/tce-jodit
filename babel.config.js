@@ -1,11 +1,18 @@
 'use strict';
 
-const config = require('bili/babel')();
-
-config.plugins = config.plugins || [];
-config.plugins = config.plugins.concat([
-  '@babel/plugin-proposal-optional-chaining',
-  '@babel/plugin-proposal-nullish-coalescing-operator'
-]);
-
-module.exports = config;
+module.exports = {
+  plugins: [
+    '@babel/plugin-proposal-optional-chaining',
+    '@babel/plugin-proposal-nullish-coalescing-operator',
+    '@babel/plugin-transform-runtime'
+  ],
+  presets: [
+    [
+      '@babel/preset-env', {
+        targets: {
+          node: 'current'
+        }
+      }
+    ]
+  ]
+};
