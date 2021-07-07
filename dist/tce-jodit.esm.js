@@ -1294,6 +1294,7 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
 
 const isOldIE = typeof navigator !== 'undefined' &&
     /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+//# sourceMappingURL=index.mjs.map
 
 /* script */
 var __vue_script__ = script;
@@ -1566,6 +1567,10 @@ var isTooltipNode = function isTooltipNode(node) {
   if (!node || !isFunction$3(node.hasAttribute)) return false;
   return node.hasAttribute(TOOLTIP_ATTR);
 };
+
+var isHtmlElement = function isHtmlElement(el) {
+  return el && el instanceof HTMLElement;
+};
 /** @typedef {import('jodit').IJodit} Jodit */
 
 /** @typedef {import('jodit').IToolbarButton} Button */
@@ -1618,7 +1623,7 @@ function () {
       if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
       var Dom = Jodit.modules.Dom;
       return Dom.up(start, function (el) {
-        return el.matches('table');
+        return isHtmlElement(el) && el.matches('table');
       }, editor);
     }
     /**
@@ -1636,7 +1641,7 @@ function () {
       if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
       var Dom = Jodit.modules.Dom;
       return Dom.up(start, function (el) {
-        return el.matches(".".concat(TOOLTIP_CLASS));
+        return isHtmlElement(el) && el.matches(".".concat(TOOLTIP_CLASS));
       }, editor);
     }
     /**
@@ -1917,9 +1922,11 @@ var script$2 = {
   methods: {
     save: function save() {
       if (!this.hasChanges) return;
-      this.$emit('save', {
-        content: this.content
-      });
+      var element = this.element,
+          content = this.content;
+      this.$emit('save', Object.assign({}, element.data, {
+        content: content
+      }));
     }
   },
   watch: {
@@ -2017,7 +2024,7 @@ var __vue_staticRenderFns__$2 = [function () {
 var __vue_inject_styles__$2 = undefined;
 /* scoped */
 
-var __vue_scope_id__$2 = "data-v-b17edcb2";
+var __vue_scope_id__$2 = "data-v-e0ab2368";
 /* module identifier */
 
 var __vue_module_identifier__$2 = undefined;
