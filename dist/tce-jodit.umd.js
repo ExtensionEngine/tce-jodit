@@ -12,7 +12,7 @@
   var scrollparent__default = /*#__PURE__*/_interopDefaultLegacy(scrollparent);
 
   var name = "@extensionengine/tce-jodit";
-  var version = "0.0.1";
+  var version = "1.0.0";
   var tailor = {
   	label: "Html",
   	type: "JODIT_HTML",
@@ -3943,6 +3943,9 @@
       return script;
   }
 
+  typeof navigator !== 'undefined' &&
+      /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+
   /* script */
   const __vue_script__$2 = script$2;
   /* template */
@@ -3981,7 +3984,7 @@
 
   /* style inject shadow dom */
 
-  const __vue_component__$2 = /*#__PURE__*/normalizeComponent({
+  var Toolbar = normalizeComponent({
     render: __vue_render__$2,
     staticRenderFns: __vue_staticRenderFns__$2
   }, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
@@ -4377,13 +4380,13 @@
   }, {
     use: ToolbarBuilderPlugin,
     options: {
-      buttons: __vue_component__$2.$buttons
+      buttons: Toolbar.$buttons
     }
   }, {
     use: ExternalToolbarPlugin,
     options: {
       readyEvent: JODIT_READY_EVENT,
-      toolbarContainer: __vue_component__$2.$containerId
+      toolbarContainer: Toolbar.$containerId
     }
   }, {
     use: FontControlsPlugin
@@ -4491,7 +4494,7 @@
 
   /* style inject shadow dom */
 
-  const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
+  var JoditEditor = normalizeComponent({
     render: __vue_render__$1,
     staticRenderFns: __vue_staticRenderFns__$1
   }, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
@@ -4584,7 +4587,7 @@
       }, 4000)
     },
     components: {
-      JoditEditor: __vue_component__$1
+      JoditEditor
     }
   };
 
@@ -4664,7 +4667,7 @@
 
   /* style inject shadow dom */
 
-  const __vue_component__ = /*#__PURE__*/normalizeComponent({
+  var Edit = normalizeComponent({
     render: __vue_render__,
     staticRenderFns: __vue_staticRenderFns__
   }, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
@@ -4674,16 +4677,17 @@
       content: ''
     }),
     components: {
-      Edit: __vue_component__,
-      Toolbar: __vue_component__$2
+      Edit,
+      Toolbar
     }
   };
 
   var plugin = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    Edit: __vue_component__,
-    Toolbar: __vue_component__$2,
-    'default': plugin__default
+    Edit: Edit,
+    Toolbar: Toolbar,
+    'default': plugin__default,
+    install: _missingExportShim
   });
 
   function _slicedToArray(arr, i) {
@@ -4869,8 +4873,8 @@
     });
   };
 
-  exports.Edit = __vue_component__;
-  exports.Toolbar = __vue_component__$2;
+  exports.Edit = Edit;
+  exports.Toolbar = Toolbar;
   exports.default = install;
   exports.install = install;
   exports.options = options;
