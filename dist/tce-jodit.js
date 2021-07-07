@@ -2,20 +2,31 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var debounce = _interopDefault(require('lodash/debounce'));
+require('jodit/build/jodit.min.css');
+var debounce = require('lodash/debounce');
 var joditVue = require('jodit-vue');
-var autoBind = _interopDefault(require('auto-bind'));
-var cloneDeep = _interopDefault(require('lodash/cloneDeep'));
-var keysIn = _interopDefault(require('lodash/keysIn'));
-var uniqueId = _interopDefault(require('lodash/uniqueId'));
-var ace = _interopDefault(require('brace'));
-var beautify = _interopDefault(require('js-beautify/js/src/html'));
+var autoBind = require('auto-bind');
+var cloneDeep = require('lodash/cloneDeep');
+var keysIn = require('lodash/keysIn');
+var uniqueId = require('lodash/uniqueId');
+var ace = require('brace');
+var beautify = require('js-beautify/js/src/html');
 require('brace/mode/html');
 require('brace/theme/chrome');
-var scrollparent = _interopDefault(require('scrollparent'));
-var isFunction$3 = _interopDefault(require('lodash/isFunction'));
+var scrollparent = require('scrollparent');
+var isFunction$2 = require('lodash/isFunction');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var debounce__default = /*#__PURE__*/_interopDefaultLegacy(debounce);
+var autoBind__default = /*#__PURE__*/_interopDefaultLegacy(autoBind);
+var cloneDeep__default = /*#__PURE__*/_interopDefaultLegacy(cloneDeep);
+var keysIn__default = /*#__PURE__*/_interopDefaultLegacy(keysIn);
+var uniqueId__default = /*#__PURE__*/_interopDefaultLegacy(uniqueId);
+var ace__default = /*#__PURE__*/_interopDefaultLegacy(ace);
+var beautify__default = /*#__PURE__*/_interopDefaultLegacy(beautify);
+var scrollparent__default = /*#__PURE__*/_interopDefaultLegacy(scrollparent);
+var isFunction__default = /*#__PURE__*/_interopDefaultLegacy(isFunction$2);
 
 var name = "@extensionengine/tce-jodit";
 var version = "0.0.1";
@@ -28,253 +39,84 @@ var tailor = {
 	}
 };
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-    return;
-  }
-
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
-
 /** @typedef {import('jodit').IJodit} Jodit */
 
-var AutofocusPlugin =
-/*#__PURE__*/
-function () {
-  _createClass(AutofocusPlugin, null, [{
-    key: "pluginName",
-    get: function get() {
-      return 'autofocus';
-    }
-  }]);
+class AutofocusPlugin {
+  static get pluginName() {
+    return 'autofocus';
+  }
 
-  function AutofocusPlugin(options) {
-    _classCallCheck(this, AutofocusPlugin);
-
+  constructor(options) {
     options.readyEvent = options.readyEvent || 'joditReady';
     options.cursorStyle = options.cursorStyle || 'auto';
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {Jodit} jodit
    */
 
 
-  _createClass(AutofocusPlugin, [{
-    key: "init",
-    value: function init(jodit) {
-      jodit.editor.style.cursor = this.options.cursorStyle;
-    }
-    /**
-     * @param {Jodit} jodit
-     */
+  init(jodit) {
+    jodit.editor.style.cursor = this.options.cursorStyle;
+  }
+  /**
+   * @param {Jodit} jodit
+   */
 
-  }, {
-    key: "afterInit",
-    value: function afterInit(jodit) {
-      var _this = this;
 
-      setTimeout(function () {
-        jodit.selection.focus();
-        jodit.events.fire(_this.options.readyEvent);
-      }, 0);
-    }
-  }]);
+  afterInit(jodit) {
+    setTimeout(() => {
+      jodit.selection.focus();
+      jodit.events.fire(this.options.readyEvent);
+    }, 0);
+  }
 
-  return AutofocusPlugin;
-}();
+}
 
-var isFunction = function isFunction(arg) {
-  return typeof arg === 'function';
-};
+const isString$1 = arg => typeof arg === 'string';
 
-var isString = function isString(arg) {
-  return typeof arg === 'string';
-};
-
-var hide = function hide(el) {
-  return el.style.display = 'none';
-};
-
-var show = function show(el) {
-  return el.style.display = 'block';
-};
-
-var splitArray = function splitArray(arg) {
-  return isString(arg) ? arg.split(/[,\s]+/) : arg;
-};
+const splitArray$1 = arg => isString$1(arg) ? arg.split(/[,\s]+/) : arg;
 /** @typedef {import('jodit/src/Config').Config & import('jodit/src/plugins')} Config */
 
 /** @typedef {import('jodit').IJodit} Jodit */
 
 
-var ExternalToolbarPlugin =
-/*#__PURE__*/
-function () {
-  _createClass(ExternalToolbarPlugin, null, [{
-    key: "pluginName",
-    get: function get() {
-      return 'external-toolbar';
-    }
-  }]);
+class ExternalToolbarPlugin {
+  static get pluginName() {
+    return 'external-toolbar';
+  }
 
-  function ExternalToolbarPlugin(options) {
-    _classCallCheck(this, ExternalToolbarPlugin);
-
-    options.readyEvent = options.readyEvent || 'joditReady';
-    autoBind(this);
+  constructor(options) {
+    options.readyEvent = options.readyEvent || 'ready';
+    autoBind__default['default'](this);
   }
   /**
    * @param {Config} config
    */
 
 
-  _createClass(ExternalToolbarPlugin, [{
-    key: "apply",
-    value: function apply(config) {
-      config.toolbar = false;
-      this.options.buttons = splitArray(config.buttons).concat(config.extraButtons);
-    }
-    /**
-     * @param {Jodit} jodit
-     */
+  apply(config) {
+    config.toolbar = false;
+    this.options.buttons = splitArray$1(config.buttons).concat(config.extraButtons);
+  }
+  /**
+   * @param {Jodit} jodit
+   */
 
-  }, {
-    key: "init",
-    value: function init(jodit) {
-      var self = this;
-      var __initEditor = jodit.__initEditor;
 
-      jodit.__initEditor = function () {
-        __initEditor.apply(this, arguments);
-
-        self.renderToolbar();
-      };
-
-      jodit.events.on(this.options.readyEvent, this.showToolbar);
-    }
-  }, {
-    key: "renderToolbar",
-    value: function renderToolbar() {
-      var _this$jodit = this.jodit,
-          statusbar = _this$jodit.statusbar,
-          toolbar = _this$jodit.toolbar;
-      var container = document.querySelector(this.options.toolbarContainer);
-      hide(toolbar.container);
-      toolbar.build(this.options.buttons, container);
-      if (statusbar) statusbar.show();
-    }
-  }, {
-    key: "showToolbar",
-    value: function showToolbar() {
-      var toolbar = this.jodit.toolbar;
-      immediateCheckActiveButtons(toolbar);
-      show(toolbar.container);
-    }
-    /**
-     * @param {Jodit} jodit
-     */
-
-  }, {
-    key: "beforeDestruct",
-    value: function beforeDestruct(jodit) {
-      jodit.events.off(this.options.readyEvent, this.showToolbar);
-    }
-  }]);
-
-  return ExternalToolbarPlugin;
-}(); // TODO: Remove this proxy function after typo inside Jodit source gets fixed!
-
-function immediateCheckActiveButtons(toolbar) {
-  if (isFunction(toolbar.immediateCheckActiveButtons)) {
-    return toolbar.immediateCheckActiveButtons();
+  init(jodit) {
+    jodit.setPanel(this.options.toolbarContainer);
   }
 
-  return toolbar.immedateCheckActiveButtons();
 }
 
-var JODIT_CONTROL_FONT = 'font';
-var JODIT_CONTROL_FONTSIZE = 'fontsize';
-var JODIT_CONTROL_PARAGRAPH_STYLE = 'paragraph';
+const JODIT_CONTROL_FONT = 'font';
+const JODIT_CONTROL_FONTSIZE = 'fontsize';
+const JODIT_CONTROL_PARAGRAPH_STYLE = 'paragraph';
 
-var isEmpty = function isEmpty(el) {
-  return !el.innerHTML;
-};
+const isEmpty = el => !el.innerHTML;
 
-var find = function find(arr, cb, defVal) {
-  return arr.find(cb) || defVal;
-};
+const find = (arr, cb, defVal) => arr.find(cb) || defVal;
 /** @typedef {import('jodit/src/Config').Config & import('jodit/src/plugins')} Config */
 
 /** @typedef {import('jodit').IJodit} Jodit */
@@ -284,155 +126,129 @@ var find = function find(arr, cb, defVal) {
 /** @typedef {import('jodit').IControlType<Jodit,Button} Control */
 
 
-var FontControlsPlugin =
-/*#__PURE__*/
-function () {
-  _createClass(FontControlsPlugin, null, [{
-    key: "pluginName",
-    get: function get() {
-      return 'font-controls';
-    }
-  }]);
+class FontControlsPlugin {
+  static get pluginName() {
+    return 'font-controls';
+  }
 
-  function FontControlsPlugin(options) {
-    _classCallCheck(this, FontControlsPlugin);
-
+  constructor(options) {
     options.defaultFontFamily = options.defaultFontFamily || 'Sans Serif';
     options.defaultFontSize = options.defaultFontSize || 16;
     /* px */
 
     options.defaultParagraphStyle = options.defaultParagraphStyle || 'Normal';
     options.pickerLabelClass = options.pickerLabelClass || 'picker_label';
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {Config} config
    */
 
 
-  _createClass(FontControlsPlugin, [{
-    key: "apply",
-    value: function apply(_ref) {
-      var controls = _ref.controls;
-      var control;
+  apply({
+    controls
+  }) {
+    let control;
 
-      if (control = controls[JODIT_CONTROL_FONT]) {
-        Object.assign(control, {
-          defaultValue: this.options.defaultFontFamily,
-          getLabel: this.getLabel
-        });
-      }
-
-      if (control = controls[JODIT_CONTROL_FONTSIZE]) {
-        Object.assign(control, {
-          defaultValue: this.options.defaultFontSize,
-          getLabel: this.getLabel
-        });
-      }
-
-      if (control = controls[JODIT_CONTROL_PARAGRAPH_STYLE]) {
-        Object.assign(control, {
-          defaultValue: this.options.defaultParagraphStyle,
-          getLabel: this.getLabel
-        });
-      }
-    }
-    /**
-     * @param {Jodit} jodit
-     * @param {Control} control
-     * @param {Button} button
-     */
-
-  }, {
-    key: "getLabel",
-    value: function getLabel(jodit, control, button) {
-      var entry = this.getActiveEntry(jodit, control, control.defaultValue);
-
-      var _entry = _slicedToArray(entry, 2),
-          key = _entry[1];
-
-      var icon = button.createIcon(control.icon, control);
-      var label = document.createElement('span');
-      label.classList.add(this.options.pickerLabelClass);
-      label.appendChild(icon);
-      label.innerHTML += key;
-      button.textBox.innerHTML = '';
-      button.textBox.appendChild(label);
-      return false;
-    }
-    /**
-     * @param {Jodit} jodit
-     * @param {Control} control
-     * @returns {[*, String]}
-     */
-
-  }, {
-    key: "getActiveEntry",
-    value: function getActiveEntry(jodit, control, defaultValue) {
-      if (!jodit.isInited) return [null, defaultValue];
-      var entries = Object.entries(control.list);
-      var entry = entries.find(function (args) {
-        return control.isActiveChild(jodit, {
-          args: args
-        });
+    if (control = controls[JODIT_CONTROL_FONT]) {
+      Object.assign(control, {
+        defaultValue: this.options.defaultFontFamily,
+        getLabel: this.getLabel
       });
-      if (entry) return entry;
-      if (isEmpty(jodit.editor)) return [null, defaultValue];
-
-      if (control.name === JODIT_CONTROL_FONT) {
-        var _getComputedStyle = getComputedStyle(jodit.editor),
-            currentFontFamily = _getComputedStyle.fontFamily;
-
-        return find(entries, function (_ref2) {
-          var _ref3 = _slicedToArray(_ref2, 1),
-              fontFamily = _ref3[0];
-
-          return normalize.fontFamily(fontFamily) === currentFontFamily;
-        }, [null, defaultValue]);
-      }
-
-      if (control.name === JODIT_CONTROL_FONTSIZE) {
-        var _getComputedStyle2 = getComputedStyle(jodit.editor),
-            currentFontSize = _getComputedStyle2.fontSize;
-
-        return find(entries, function (_ref4) {
-          var _ref5 = _slicedToArray(_ref4, 2),
-              _ = _ref5[0],
-              fontSize = _ref5[1];
-
-          return fontSize === normalize.fontSize(currentFontSize);
-        }, [null, defaultValue]);
-      }
-
-      if (control.name === JODIT_CONTROL_PARAGRAPH_STYLE) {
-        return find(entries, function (_ref6) {
-          var _ref7 = _slicedToArray(_ref6, 2),
-              _ = _ref7[0],
-              style = _ref7[1];
-
-          return style.toLowerCase() === 'normal';
-        }, [null, defaultValue]);
-      }
     }
-  }]);
 
-  return FontControlsPlugin;
-}();
+    if (control = controls[JODIT_CONTROL_FONTSIZE]) {
+      Object.assign(control, {
+        defaultValue: this.options.defaultFontSize,
+        getLabel: this.getLabel
+      });
+    }
 
-var normalize = function () {
-  var span = document.createElement('span');
+    if (control = controls[JODIT_CONTROL_PARAGRAPH_STYLE]) {
+      Object.assign(control, {
+        defaultValue: this.options.defaultParagraphStyle,
+        getLabel: this.getLabel
+      });
+    }
+  }
+  /**
+   * @param {Jodit} jodit
+   * @param {Control} control
+   * @param {Button} button
+   */
+
+
+  getLabel(jodit, control, button) {
+    const entry = this.getActiveEntry(jodit, control, control.defaultValue);
+    const [, key] = entry;
+    const icon = button.createIcon(control.icon, control);
+    const label = document.createElement('span');
+    label.classList.add(this.options.pickerLabelClass);
+    label.appendChild(icon);
+    label.innerHTML += key;
+    button.textBox.innerHTML = '';
+    button.textBox.appendChild(label);
+    return false;
+  }
+  /**
+   * @param {Jodit} jodit
+   * @param {Control} control
+   * @returns {[*, String]}
+   */
+
+
+  getActiveEntry(jodit, control, defaultValue) {
+    if (!jodit.isInited) return [null, defaultValue];
+    const entries = Object.entries(control.list);
+    const entry = entries.find(args => control.isActiveChild(jodit, {
+      args
+    }));
+    if (entry) return entry;
+    if (isEmpty(jodit.editor)) return [null, defaultValue];
+
+    if (control.name === JODIT_CONTROL_FONT) {
+      const {
+        fontFamily: currentFontFamily
+      } = getComputedStyle(jodit.editor);
+      return find(entries, ([fontFamily]) => {
+        return normalize.fontFamily(fontFamily) === currentFontFamily;
+      }, [null, defaultValue]);
+    }
+
+    if (control.name === JODIT_CONTROL_FONTSIZE) {
+      const {
+        fontSize: currentFontSize
+      } = getComputedStyle(jodit.editor);
+      return find(entries, ([_, fontSize]) => {
+        return fontSize === normalize.fontSize(currentFontSize);
+      }, [null, defaultValue]);
+    }
+
+    if (control.name === JODIT_CONTROL_PARAGRAPH_STYLE) {
+      return find(entries, ([_, style]) => {
+        return style.toLowerCase() === 'normal';
+      }, [null, defaultValue]);
+    }
+  }
+
+}
+
+const normalize = (() => {
+  const span = document.createElement('span');
   return {
-    fontFamily: function fontFamily(str) {
+    fontFamily(str) {
       span.style.fontFamily = str;
       return span.style.fontFamily;
     },
-    fontSize: function fontSize(str) {
+
+    fontSize(str) {
       return String(parseFloat(str));
     }
-  };
-}();
 
-var mdiIcons = Object.assign({
+  };
+})();
+
+const mdiIcons = {
   source: 'code-tags',
   bold: 'format-bold',
   strikethrough: 'format-strikethrough',
@@ -452,13 +268,15 @@ var mdiIcons = Object.assign({
   file: 'file-plus',
   video: 'video-plus',
   table: 'table-plus',
-  link: 'link'
-}, {
-  left: 'format-align-left',
-  center: 'format-align-center',
-  right: 'format-align-right',
-  justify: 'format-align-justify'
-}, {
+  link: 'link',
+
+  /* align */
+  ...{
+    left: 'format-align-left',
+    center: 'format-align-center',
+    right: 'format-align-right',
+    justify: 'format-align-justify'
+  },
   undo: 'undo',
   redo: 'redo',
   cut: 'content-cut',
@@ -486,24 +304,30 @@ var mdiIcons = Object.assign({
   eye: 'eye',
   unlink: 'link-off',
   pencil: 'pencil'
-});
-var textColor = "\n  <span class=\"icon stack\">\n    <span class=\"icon stacked mdi mdi-format-color-text\"></span>\n    <span class=\"icon stacked mdi mdi-color-helper\"></span>\n    <svg width=\"0\" height=\"0\" style=\"display: none;\"></svg>\n  </span>";
+};
+const textColor = `
+  <span class="icon stack">
+    <span class="icon stacked mdi mdi-format-color-text"></span>
+    <span class="icon stacked mdi mdi-color-helper"></span>
+    <svg width="0" height="0" style="display: none;"></svg>
+  </span>`;
 function getMdiIcon(name) {
+  if (!name || !mdiIcons[name]) return;
   if (name === 'brush') return textColor;
-  var code = mdiIcons[name];
-  return "<span class=\"mdi mdi-".concat(code, "\"></span>");
+  const code = mdiIcons[name];
+  return `<span class="mdi mdi-${code}"></span>`;
 }
 
-var CSS_NO_COLOR = '';
-var JODIT_COLORPICKER = '.jodit_colorpicker';
-var JODIT_COMMAND_BACKGROUND_COLOR = 'background';
-var JODIT_COMMAND_TEXT_COLOR = 'forecolor';
-var JODIT_CONTROL_ALIGN = 'align';
-var JODIT_CONTROL_COLOR = 'brush';
-var JODIT_DEFAULT_EVENT_NAMESPACE = 'JoditEventDefaultNamespace';
-var JODIT_PICKER_SELECTION_EVENTS = ['mousedown', 'touchend'];
+const CSS_NO_COLOR = '';
+const JODIT_COLORPICKER = '.jodit_colorpicker';
+const JODIT_COMMAND_BACKGROUND_COLOR = 'background';
+const JODIT_COMMAND_TEXT_COLOR = 'forecolor';
+const JODIT_CONTROL_ALIGN = 'align';
+const JODIT_CONTROL_COLOR = 'brush';
+const JODIT_DEFAULT_EVENT_NAMESPACE$2 = 'JoditEventDefaultNamespace';
+const JODIT_PICKER_SELECTION_EVENTS = ['mousedown', 'touchend'];
 
-var noop = function noop() {};
+const noop = () => {};
 /** @typedef {import('jodit/src/Config').Config & import('jodit/src/plugins')} Config */
 
 /** @typedef {import('jodit').IJodit} Jodit */
@@ -522,22 +346,15 @@ var noop = function noop() {};
  */
 
 
-var MdiIconsPlugin =
-/*#__PURE__*/
-function () {
-  _createClass(MdiIconsPlugin, null, [{
-    key: "pluginName",
-    get: function get() {
-      return 'mdi-icons';
-    }
-  }]);
+class MdiIconsPlugin {
+  static get pluginName() {
+    return 'mdi-icons';
+  }
 
-  function MdiIconsPlugin(options) {
-    _classCallCheck(this, MdiIconsPlugin);
-
+  constructor(options) {
     options.btnResetColorClass = options.btnResetColorClass || 'btn_reset_color';
     options.selectedMarkerClass = options.selectedMarkerClass || 'selected_color_marker';
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {HTMLElement} el
@@ -545,304 +362,276 @@ function () {
    */
 
 
-  _createClass(MdiIconsPlugin, [{
-    key: "isResetButton",
-    value: function isResetButton(el) {
-      return el.classList.contains(this.options.btnResetColorClass);
+  isResetButton(el) {
+    return el.classList.contains(this.options.btnResetColorClass);
+  }
+  /**
+  * @param {Config} config
+  */
+
+
+  apply({
+    controls,
+    popup
+  }) {
+    const self = this;
+    let control;
+
+    if (control = controls[JODIT_CONTROL_ALIGN]) {
+      const {
+        getLabel = noop
+      } = control;
+
+      control.getLabel = function () {
+        const result = getLabel.apply(this, arguments);
+        self.getAlignmentLabel(...arguments);
+        return result;
+      };
     }
-    /**
-    * @param {Config} config
-    */
 
-  }, {
-    key: "apply",
-    value: function apply(_ref) {
-      var controls = _ref.controls,
-          popup = _ref.popup;
-      var self = this;
-      var control;
+    if (control = controls[JODIT_CONTROL_COLOR]) {
+      const {
+        getLabel = noop
+      } = control;
 
-      if (control = controls[JODIT_CONTROL_ALIGN]) {
-        var _control = control,
-            _control$getLabel = _control.getLabel,
-            getLabel = _control$getLabel === void 0 ? noop : _control$getLabel;
+      control.getLabel = function () {
+        const result = getLabel.apply(this, arguments);
+        self.getColorLabel(...arguments);
+        return result;
+      };
 
-        control.getLabel = function () {
-          var result = getLabel.apply(this, arguments);
-          self.getAlignmentLabel.apply(self, arguments);
-          return result;
-        };
-      }
+      const {
+        popup: createPopup = noop
+      } = control;
 
-      if (control = controls[JODIT_CONTROL_COLOR]) {
-        var _control2 = control,
-            _control2$getLabel = _control2.getLabel,
-            _getLabel = _control2$getLabel === void 0 ? noop : _control2$getLabel;
+      control.popup = function () {
+        const popup = createPopup.apply(this, arguments);
+        if (!popup) return popup;
+        return self.colorPopup(popup, ...arguments);
+      };
+    }
 
-        control.getLabel = function () {
-          var result = _getLabel.apply(this, arguments);
+    if (Array.isArray(popup.table)) {
+      control = popup.table.find(it => it.name === JODIT_CONTROL_COLOR);
 
-          self.getColorLabel.apply(self, arguments);
-          return result;
-        };
-
-        var _control3 = control,
-            _control3$popup = _control3.popup,
-            createPopup = _control3$popup === void 0 ? noop : _control3$popup;
+      if (control) {
+        const {
+          popup: createPopup = noop
+        } = control;
 
         control.popup = function () {
-          var popup = createPopup.apply(this, arguments);
+          const popup = createPopup.apply(this, arguments);
           if (!popup) return popup;
-          return self.colorPopup.apply(self, [popup].concat(Array.prototype.slice.call(arguments)));
+          return self.inlineColorPopup(popup, ...arguments);
         };
       }
+    }
+  }
+  /**
+  * @param {Jodit} jodit
+  * @param {Control} control
+  * @param {Button} button
+  */
 
-      if (Array.isArray(popup.table)) {
-        control = popup.table.find(function (it) {
-          return it.name === JODIT_CONTROL_COLOR;
-        });
 
-        if (control) {
-          var _control4 = control,
-              _control4$popup = _control4.popup,
-              _createPopup = _control4$popup === void 0 ? noop : _control4$popup;
+  getAlignmentLabel(jodit, control, button) {
+    // Show current alignment inside button label.
+    const currentValue = control.data && control.data.currentValue;
+    if (!currentValue) return;
+    button.textBox.innerHTML = '';
+    button.textBox.appendChild(button.createIcon(currentValue, control));
+  }
+  /**
+  * @param {Jodit} jodit
+  * @param {Control} control
+  * @param {Button} button
+  */
 
-          control.popup = function () {
-            var popup = _createPopup.apply(this, arguments);
 
-            if (!popup) return popup;
-            return self.inlineColorPopup.apply(self, [popup].concat(Array.prototype.slice.call(arguments)));
-          };
-        }
+  getColorLabel(jodit, control, button) {
+    // Colorize material design `color-helper` icon.
+    const colorHelper = button.textBox.querySelector('.mdi-color-helper');
+    const svg = button.textBox.querySelector('svg');
+    if (!colorHelper || !svg) return;
+    colorHelper.style.color = svg.style.fill;
+  }
+  /**
+   * @param {HTMLElement} popup
+   * @param {Jodit} jodit
+   * @param {Node} current
+   * @param {Control} control
+   * @param {Function} close
+   */
+
+
+  colorPopup(popup, jodit, current, control, close = noop) {
+    const {
+      events,
+      options
+    } = jodit;
+    const pickers = getColorPickers(popup, {
+      defaultTab: options.colorPickerDefaultTab
+    }); // Add reset color buttons to main toolbar's colorpicker/s.
+
+    onSelect(events, this.addResetButton(pickers.textColor), () => {
+      jodit.execCommand(JODIT_COMMAND_TEXT_COLOR, false, CSS_NO_COLOR);
+      close();
+    });
+    onSelect(events, this.addResetButton(pickers.backgroundColor), () => {
+      jodit.execCommand(JODIT_COMMAND_BACKGROUND_COLOR, false, CSS_NO_COLOR);
+      close();
+    });
+    return popup;
+  }
+  /**
+  * @param {HTMLElement} popup
+  * @param {Jodit} jodit
+  * @param {HTMLTableElement} table
+  */
+
+
+  inlineColorPopup(popup, jodit, table) {
+    const self = this;
+    const {
+      constructor: Jodit,
+      events
+    } = jodit;
+    const pickers = getColorPickers(popup, {
+      defaultTab: 'background'
+    });
+    pickers.forEach(picker => {
+      const selected = picker.querySelector('.active');
+      if (selected) this.changeSelectedMarker(selected);
+      const [eventDesc] = events.getStore(picker).get(JODIT_PICKER_SELECTION_EVENTS[0], JODIT_DEFAULT_EVENT_NAMESPACE$2);
+      const oldListener = eventDesc && eventDesc.originalCallback;
+      if (!oldListener) return;
+      replaceListener$1(jodit, picker, JODIT_PICKER_SELECTION_EVENTS.join(' '), newListener, oldListener);
+
+      function newListener(e) {
+        oldListener.apply(this, arguments);
+        self.onColorChange(e, picker);
       }
+    }); // Add reset color buttons to inline toolbar's colorpicker/s.
+
+    onSelect(events, this.addResetButton(pickers.textColor), () => {
+      const selectedCells = Jodit.modules.Table.getAllSelectedCells(table);
+      selectedCells.forEach(cell => cell.style.color = CSS_NO_COLOR);
+      jodit.setEditorValue();
+    });
+    onSelect(events, this.addResetButton(pickers.backgroundColor), () => {
+      const selectedCells = Jodit.modules.Table.getAllSelectedCells(table);
+      selectedCells.forEach(cell => cell.style.backgroundColor = CSS_NO_COLOR);
+      jodit.setEditorValue();
+    });
+    onSelect(events, this.addResetButton(pickers.borderColor), () => {
+      const selectedCells = Jodit.modules.Table.getAllSelectedCells(table);
+      selectedCells.forEach(cell => cell.style.borderColor = CSS_NO_COLOR);
+      jodit.setEditorValue();
+    });
+    return popup;
+  }
+  /**
+   * @param {Event} e
+   * @param {HTMLElement} picker
+   */
+
+
+  onColorChange(e, picker) {
+    const {
+      constructor: Jodit
+    } = this.jodit;
+    const button = Jodit.modules.Dom.up(e.target, el => el.matches('[data-color]'), picker);
+    if (!button) return;
+    const selected = picker.querySelector('.active');
+    if (!selected) return;
+
+    if (this.isResetButton(button)) {
+      selected.classList.remove('active');
+      selected.innerHTML = '';
+      return;
     }
-    /**
-    * @param {Jodit} jodit
-    * @param {Control} control
-    * @param {Button} button
-    */
 
-  }, {
-    key: "getAlignmentLabel",
-    value: function getAlignmentLabel(jodit, control, button) {
-      // Show current alignment inside button label.
-      var currentValue = control.data && control.data.currentValue;
-      if (!currentValue) return;
-      button.textBox.innerHTML = '';
-      button.textBox.appendChild(button.createIcon(currentValue, control));
-    }
-    /**
-    * @param {Jodit} jodit
-    * @param {Control} control
-    * @param {Button} button
-    */
+    this.changeSelectedMarker(selected);
+  }
+  /**
+   * @param {HTMLElement} picker
+   * @return {HTMLSpanElement}
+   */
 
-  }, {
-    key: "getColorLabel",
-    value: function getColorLabel(jodit, control, button) {
-      // Colorize material design `color-helper` icon.
-      var colorHelper = button.textBox.querySelector('.mdi-color-helper');
-      var svg = button.textBox.querySelector('svg');
-      if (!colorHelper || !svg) return;
-      colorHelper.style.color = svg.style.fill;
-    }
-    /**
-     * @param {HTMLElement} popup
-     * @param {Jodit} jodit
-     * @param {Node} current
-     * @param {Control} control
-     * @param {Function} close
-     */
 
-  }, {
-    key: "colorPopup",
-    value: function colorPopup(popup, jodit, current, control) {
-      var close = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : noop;
-      var events = jodit.events,
-          options = jodit.options;
-      var pickers = getColorPickers(popup, {
-        defaultTab: options.colorPickerDefaultTab
-      }); // Add reset color buttons to main toolbar's colorpicker/s.
+  addResetButton(picker) {
+    const btnResetColor = picker && Array.from(picker.children).filter(el => el.matches('a')).pop();
+    if (!btnResetColor) return document.createElement('span');
+    btnResetColor.classList.add(this.options.btnResetColorClass);
+    btnResetColor.innerHTML = '';
+    const tabIndex = this.jodit.options.allowTabNavigation ? 0 : -1;
+    btnResetColor.appendChild(createButton({
+      icon: 'mdi-water-off',
+      text: 'None',
+      tabIndex
+    }));
+    return btnResetColor;
+  }
+  /**
+   * @param {HTMLAnchorElement} selected
+   */
 
-      onSelect(events, this.addResetButton(pickers.textColor), function () {
-        jodit.execCommand(JODIT_COMMAND_TEXT_COLOR, false, CSS_NO_COLOR);
-        close();
-      });
-      onSelect(events, this.addResetButton(pickers.backgroundColor), function () {
-        jodit.execCommand(JODIT_COMMAND_BACKGROUND_COLOR, false, CSS_NO_COLOR);
-        close();
-      });
-      return popup;
-    }
-    /**
-    * @param {HTMLElement} popup
-    * @param {Jodit} jodit
-    * @param {HTMLTableElement} table
-    */
 
-  }, {
-    key: "inlineColorPopup",
-    value: function inlineColorPopup(popup, jodit, table) {
-      var _this = this;
+  changeSelectedMarker(selected) {
+    // Swap eye icon marking selected color with colorized bullet.
+    selected.classList.add(this.options.selectedMarkerClass);
+    const svg = selected.querySelector('svg');
+    const circle = createIcon('mdi-circle');
+    Object.assign(circle.style, {
+      color: svg.style.fill,
+      fontSize: '8px'
+    });
+    selected.appendChild(circle);
+  }
+  /**
+   * @param {Jodit} jodit
+   */
 
-      var self = this;
-      var Jodit = jodit.constructor,
-          events = jodit.events;
-      var pickers = getColorPickers(popup, {
-        defaultTab: 'background'
-      });
-      pickers.forEach(function (picker) {
-        var selected = picker.querySelector('.active');
-        if (selected) _this.changeSelectedMarker(selected);
 
-        var _events$getStore$get = events.getStore(picker).get(JODIT_PICKER_SELECTION_EVENTS[0], JODIT_DEFAULT_EVENT_NAMESPACE),
-            _events$getStore$get2 = _slicedToArray(_events$getStore$get, 1),
-            eventDesc = _events$getStore$get2[0];
+  init({
+    events
+  }) {
+    events.on('getIcon', getMdiIcon);
+  }
+  /**
+   * @param {Jodit} jodit
+   */
 
-        var oldListener = eventDesc && eventDesc.originalCallback;
-        if (!oldListener) return;
-        replaceListener(jodit, picker, JODIT_PICKER_SELECTION_EVENTS.join(' '), newListener, oldListener);
 
-        function newListener(e) {
-          oldListener.apply(this, arguments);
-          self.onColorChange(e, picker);
-        }
-      }); // Add reset color buttons to inline toolbar's colorpicker/s.
+  beforeDestruct(jodit) {
+    jodit.events.off('getIcon', getMdiIcon);
+  }
 
-      onSelect(events, this.addResetButton(pickers.textColor), function () {
-        var selectedCells = Jodit.modules.Table.getAllSelectedCells(table);
-        selectedCells.forEach(function (cell) {
-          return cell.style.color = CSS_NO_COLOR;
-        });
-        jodit.setEditorValue();
-      });
-      onSelect(events, this.addResetButton(pickers.backgroundColor), function () {
-        var selectedCells = Jodit.modules.Table.getAllSelectedCells(table);
-        selectedCells.forEach(function (cell) {
-          return cell.style.backgroundColor = CSS_NO_COLOR;
-        });
-        jodit.setEditorValue();
-      });
-      onSelect(events, this.addResetButton(pickers.borderColor), function () {
-        var selectedCells = Jodit.modules.Table.getAllSelectedCells(table);
-        selectedCells.forEach(function (cell) {
-          return cell.style.borderColor = CSS_NO_COLOR;
-        });
-        jodit.setEditorValue();
-      });
-      return popup;
-    }
-    /**
-     * @param {Event} e
-     * @param {HTMLElement} picker
-     */
+}
+/**
+ * @param {HTMLElement} popup
+ * @param {Object} options
+ * @param {String} options.defaultTab
+ * @returns {ColorPickers}
+ */
 
-  }, {
-    key: "onColorChange",
-    value: function onColorChange(e, picker) {
-      var Jodit = this.jodit.constructor;
-      var button = Jodit.modules.Dom.up(e.target, function (el) {
-        return el.matches('[data-color]');
-      }, picker);
-      if (!button) return;
-      var selected = picker.querySelector('.active');
-      if (!selected) return;
-
-      if (this.isResetButton(button)) {
-        selected.classList.remove('active');
-        selected.innerHTML = '';
-        return;
-      }
-
-      this.changeSelectedMarker(selected);
-    }
-    /**
-     * @param {HTMLElement} picker
-     * @return {HTMLSpanElement}
-     */
-
-  }, {
-    key: "addResetButton",
-    value: function addResetButton(picker) {
-      var btnResetColor = picker && Array.from(picker.children).filter(function (el) {
-        return el.matches('a');
-      }).pop();
-      if (!btnResetColor) return document.createElement('span');
-      btnResetColor.classList.add(this.options.btnResetColorClass);
-      btnResetColor.innerHTML = '';
-      var tabIndex = this.jodit.options.allowTabNavigation ? 0 : -1;
-      btnResetColor.appendChild(createButton({
-        icon: 'mdi-water-off',
-        text: 'None',
-        tabIndex: tabIndex
-      }));
-      return btnResetColor;
-    }
-    /**
-     * @param {HTMLAnchorElement} selected
-     */
-
-  }, {
-    key: "changeSelectedMarker",
-    value: function changeSelectedMarker(selected) {
-      // Swap eye icon marking selected color with colorized bullet.
-      selected.classList.add(this.options.selectedMarkerClass);
-      var svg = selected.querySelector('svg');
-      var circle = createIcon('mdi-circle');
-      Object.assign(circle.style, {
-        color: svg.style.fill,
-        fontSize: '8px'
-      });
-      selected.appendChild(circle);
-    }
-    /**
-     * @param {Jodit} jodit
-     */
-
-  }, {
-    key: "init",
-    value: function init(_ref2) {
-      var events = _ref2.events;
-      events.on('getIcon', getMdiIcon);
-    }
-    /**
-     * @param {Jodit} jodit
-     */
-
-  }, {
-    key: "beforeDestruct",
-    value: function beforeDestruct(jodit) {
-      jodit.events.off('getIcon', getMdiIcon);
-    }
-  }]);
-
-  return MdiIconsPlugin;
-}();
-
-function getColorPickers(popup, _ref3) {
-  var defaultTab = _ref3.defaultTab;
-  var pickers = Array.from(popup.querySelectorAll(JODIT_COLORPICKER));
+function getColorPickers(popup, {
+  defaultTab
+}) {
+  const pickers = Array.from(popup.querySelectorAll(JODIT_COLORPICKER));
   if (pickers.length <= 0) return pickers;
-  var textColor, backgroundColor, borderColor;
+  let textColor, backgroundColor, borderColor;
 
   if (defaultTab === 'background') {
-    var _pickers = _slicedToArray(pickers, 3);
-
-    backgroundColor = _pickers[0];
-    textColor = _pickers[1];
-    borderColor = _pickers[2];
+    [backgroundColor, textColor, borderColor] = pickers;
   } else if (defaultTab === 'color') {
-    var _pickers2 = _slicedToArray(pickers, 3);
-
-    textColor = _pickers2[0];
-    backgroundColor = _pickers2[1];
-    borderColor = _pickers2[2];
+    [textColor, backgroundColor, borderColor] = pickers;
   }
 
   return Object.assign(pickers, {
-    textColor: textColor,
-    backgroundColor: backgroundColor,
-    borderColor: borderColor
+    textColor,
+    backgroundColor,
+    borderColor
   });
 }
 /**
@@ -864,7 +653,7 @@ function onSelect(events, target, listener) {
  */
 
 
-function replaceListener(jodit, target, events, listener, oldListener) {
+function replaceListener$1(jodit, target, events, listener, oldListener) {
   jodit.events.off(target, events, oldListener).on(target, events, listener);
 }
 /**
@@ -876,12 +665,12 @@ function replaceListener(jodit, target, events, listener, oldListener) {
  */
 
 
-function createButton(_ref4) {
-  var icon = _ref4.icon,
-      text = _ref4.text,
-      _ref4$tabIndex = _ref4.tabIndex,
-      tabIndex = _ref4$tabIndex === void 0 ? 0 : _ref4$tabIndex;
-  var btn = document.createElement('span');
+function createButton({
+  icon,
+  text,
+  tabIndex = 0
+}) {
+  const btn = document.createElement('span');
   btn.tabIndex = tabIndex;
   btn.setAttribute('role', 'button');
   btn.appendChild(createIcon(icon));
@@ -894,95 +683,81 @@ function createButton(_ref4) {
  */
 
 function createIcon(name) {
-  var icon = document.createElement('span');
+  const icon = document.createElement('span');
   icon.classList.add('jodit_icon', 'mdi', name);
   return icon;
 }
 
-var isFunction$1 = function isFunction(arg) {
-  return typeof arg === 'function';
-};
+const isFunction$1 = arg => typeof arg === 'function';
 
-var isString$1 = function isString(arg) {
-  return typeof arg === 'string';
-};
+const isString = arg => typeof arg === 'string';
 
-var splitArray$1 = function splitArray(arg) {
-  return isString$1(arg) ? arg.split(/[,\s]+/) : arg;
-};
+const splitArray = arg => isString(arg) ? arg.split(/[,\s]+/) : arg;
 /** @typedef {import('jodit/src/Config').Config & import('jodit/src/plugins')} Config */
 
 /** @typedef {import('jodit').IJodit} Jodit */
 
 
-var PluginProxy =
-/*#__PURE__*/
-function () {
+class PluginProxy {
   /**
    * @param {Object} plugin
    * @param {Jodit} jodit
    */
-  function PluginProxy(plugin, jodit) {
-    _classCallCheck(this, PluginProxy);
-
+  constructor(plugin, jodit) {
     this._plugin = plugin;
     this.jodit = jodit;
-    autoBind(this);
-    jodit.events.on('afterInit', this.afterInit).on('beforeDestruct', this.beforeDestruct);
+    autoBind__default['default'](this);
+    jodit.attachEvents({
+      afterInit: this.afterInit,
+      beforeDestruct: this.beforeDestruct
+    });
   }
 
-  _createClass(PluginProxy, [{
-    key: "afterInit",
-    value: function afterInit() {
-      if (!isFunction$1(this._plugin.afterInit)) return;
+  afterInit() {
+    if (!isFunction$1(this._plugin.afterInit)) return;
 
-      this._plugin.afterInit(this.jodit);
-    }
-  }, {
-    key: "beforeDestruct",
-    value: function beforeDestruct() {
-      this.jodit.events.off('beforeDestruct', this.beforeDestruct);
-      if (!isFunction$1(this._plugin.beforeDestruct)) return;
+    this._plugin.afterInit(this.jodit);
+  }
 
-      this._plugin.beforeDestruct(this.jodit);
-    }
-  }, {
-    key: "destruct",
-    value: function destruct() {
-      if (!isFunction$1(this._plugin.destruct)) return;
+  beforeDestruct() {
+    this.jodit.events.off('beforeDestruct', this.beforeDestruct);
+    if (!isFunction$1(this._plugin.beforeDestruct)) return;
 
-      this._plugin.destruct();
-    }
-  }]);
+    this._plugin.beforeDestruct(this.jodit);
+  }
 
-  return PluginProxy;
-}();
+  destruct() {
+    if (!isFunction$1(this._plugin.destruct)) return;
+
+    this._plugin.destruct();
+  }
+
+}
 
 function extend(Jodit) {
   /**
    * @param {Config} config
    */
   Jodit.prototype.$applyPlugins = function (config) {
-    var _this = this;
-
-    var _config$plugins = config.plugins,
-        plugins = _config$plugins === void 0 ? [] : _config$plugins;
-    var disablePlugins = splitArray$1(config.disablePlugins);
+    const {
+      plugins = []
+    } = config;
+    const disablePlugins = splitArray(config.disablePlugins);
     this.__plugins = this.__plugins = {};
     this.$plugins = new Map();
-    plugins.forEach(function (_ref) {
-      var Plugin = _ref.use,
-          _ref$options = _ref.options,
-          options = _ref$options === void 0 ? {} : _ref$options;
-      var pluginName = Plugin.pluginName;
+    plugins.forEach(({
+      use: Plugin,
+      options = {}
+    }) => {
+      const {
+        pluginName
+      } = Plugin;
       if (disablePlugins.includes(pluginName)) return; // Create plugin instance with provided options.
 
-      var plugin = new Plugin(options);
+      const plugin = new Plugin(options);
       plugin.options = options;
-
-      _this.$plugins.set(pluginName, plugin);
-
-      _this.__plugins[uniqueId('plugin_proxy__')] = new PluginProxy(plugin, _this); // Apply plugin on jodit options.
+      this.$plugins.set(pluginName, plugin);
+      this.__plugins[uniqueId__default['default']('plugin_proxy__')] = new PluginProxy(plugin, this); // Apply plugin on jodit options.
 
       if (isFunction$1(plugin.apply)) plugin.apply(config, Jodit);
     });
@@ -991,235 +766,214 @@ function extend(Jodit) {
   Object.defineProperty(Jodit.prototype, 'options', {
     enumerable: true,
     configurable: false,
-    get: function get() {
+
+    get() {
       return this.$options;
     },
-    set: function set() {
-      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-      if (this.jodit) {
+    set(options = {}) {
+      if (this.isJodit) {
         options = cloneOptions(options);
         this.$applyPlugins(options);
       }
 
       this.$options = options;
     }
+
   });
-  var __initPlugines = Jodit.prototype.__initPlugines;
+  const {
+    afterInitHook
+  } = Jodit.prototype;
 
-  Jodit.prototype.__initPlugines = function () {
-    var _this2 = this;
-
-    this.$plugins.forEach(function (plugin) {
-      if (isFunction$1(plugin.init)) plugin.init(_this2, plugin.options);
-      plugin.jodit = _this2;
+  Jodit.prototype.afterInitHook = function () {
+    this.$plugins.forEach(plugin => {
+      if (isFunction$1(plugin.init)) plugin.init(this, plugin.options);
+      plugin.jodit = this;
     });
-    return __initPlugines.apply(this, arguments);
+    return afterInitHook.apply(this, arguments);
   };
 }
 
 function cloneOptions(options) {
-  var shared = ['ownerDocument', 'ownerWindow'];
-  return Object.fromEntries(keysIn(options).map(function (key) {
-    var value = options[key];
+  const shared = ['ownerDocument', 'ownerWindow'];
+  return Object.fromEntries(keysIn__default['default'](options).map(key => {
+    const value = options[key];
     if (shared.includes(key)) return [key, value];
-    return [key, cloneDeep(value)];
+    return [key, cloneDeep__default['default'](value)];
   }));
 }
 
-window.ace = ace;
+// NOTE: `brace` is browserify compatible ACE wrapper.
+
+window.ace = ace__default['default'];
 /** @typedef {import('jodit/src/Config').Config & import('jodit/src/plugins')} Config */
 
 /** @typedef {import('jodit').IJodit} Jodit */
 
-var SourceEditorPlugin =
-/*#__PURE__*/
-function () {
-  _createClass(SourceEditorPlugin, null, [{
-    key: "pluginName",
-    get: function get() {
-      return 'source-editor';
-    }
-  }]);
+class SourceEditorPlugin {
+  static get pluginName() {
+    return 'source-editor';
+  }
 
-  function SourceEditorPlugin(options) {
-    _classCallCheck(this, SourceEditorPlugin);
-
+  constructor(options) {
     options.theme = options.theme || 'ace/theme/chrome';
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {Config} config
    */
 
 
-  _createClass(SourceEditorPlugin, [{
-    key: "apply",
-    value: function apply(config) {
-      config.sourceEditorNativeOptions = config.sourceEditorNativeOptions || {};
-      Object.assign(config.sourceEditorNativeOptions, {
-        mode: 'ace/mode/html',
-        theme: this.options.theme
-      });
-    }
-    /**
-     * @param {Jodit} jodit
-     */
-
-  }, {
-    key: "init",
-    value: function init(jodit) {
-      if (jodit.options.beautifyHTML) {
-        // NOTE: Unfortunately jodit gets beautify function from window global. :(
-        window.html_beautify = beautify;
-      }
-
-      jodit.events.on('aceInited', this.onAceEditorReady);
-    }
-  }, {
-    key: "onAceEditorReady",
-    value: function onAceEditorReady() {
-      var source = this.jodit.__plugins.source;
-      /** @type {import('brace').Editor} */
-
-      var aceEditor = source.aceEditor;
-      aceEditor.setShowPrintMargin(false);
-    }
-    /**
-     * @param {Jodit} jodit
-     */
-
-  }, {
-    key: "beforeDestruct",
-    value: function beforeDestruct(jodit) {
-      jodit.events.off('aceInited', this.onAceEditorReady);
-    }
-  }]);
-
-  return SourceEditorPlugin;
-}();
-
-var JODIT_RECALC_POPUP_POSITION_EVENT = 'recalcPositionPopup';
-var JODIT_DEFAULT_EVENT_NAMESPACE$1 = 'JoditEventDefaultNamespace';
-/** @typedef {import('jodit').IJodit} Jodit */
-
-var TablePopupsPlugin =
-/*#__PURE__*/
-function () {
-  _createClass(TablePopupsPlugin, null, [{
-    key: "pluginName",
-    get: function get() {
-      return 'table-popups';
-    }
-  }]);
-
-  function TablePopupsPlugin() {
-    _classCallCheck(this, TablePopupsPlugin);
-
-    autoBind(this);
+  apply(config) {
+    config.sourceEditorNativeOptions = config.sourceEditorNativeOptions || {};
+    Object.assign(config.sourceEditorNativeOptions, {
+      mode: 'ace/mode/html',
+      theme: this.options.theme
+    });
   }
   /**
    * @param {Jodit} jodit
    */
 
 
-  _createClass(TablePopupsPlugin, [{
-    key: "init",
-    value: function init(jodit) {
-      var self = this;
-      var afterInitHook = jodit.afterInitHook;
-
-      jodit.afterInitHook = function () {
-        afterInitHook.apply(this, arguments);
-        self.observeTables(jodit);
-        self.scrollContainer = scrollparent(jodit.container);
-        if (self.scrollContainer) self.addScrollHandler(jodit);
-      };
+  init(jodit) {
+    if (jodit.options.beautifyHTML) {
+      // NOTE: Unfortunately jodit gets beautify function from window global. :(
+      window.html_beautify = beautify__default['default'];
     }
-    /**
-     * @param {Jodit} jodit
-     */
 
-  }, {
-    key: "observeTables",
-    value: function observeTables(jodit) {
-      var Jodit = jodit.constructor;
-      var table = jodit.__plugins.table;
-      var query = Jodit.modules.Helpers.$$;
-      query('table', jodit.editor).forEach(function (tableEl) {
-        if (table[table.__key]) return;
-        table.observe(tableEl);
-      });
+    jodit.events.on('aceInited', this.onAceEditorReady);
+  }
+
+  onAceEditorReady() {
+    const {
+      source
+    } = this.jodit.__plugins;
+    /** @type {import('brace').Editor} */
+
+    const aceEditor = source.aceEditor;
+    aceEditor.setShowPrintMargin(false);
+  }
+  /**
+   * @param {Jodit} jodit
+   */
+
+
+  beforeDestruct(jodit) {
+    jodit.events.off('aceInited', this.onAceEditorReady);
+  }
+
+}
+
+const JODIT_RECALC_POPUP_POSITION_EVENT = 'recalcPositionPopup';
+const JODIT_DEFAULT_EVENT_NAMESPACE$1 = 'JoditEventDefaultNamespace';
+/** @typedef {import('jodit').IJodit} Jodit */
+
+class TablePopupsPlugin {
+  static get pluginName() {
+    return 'table-popups';
+  }
+
+  constructor() {
+    autoBind__default['default'](this);
+  }
+  /**
+   * @param {Jodit} jodit
+   */
+
+
+  init(jodit) {
+    const self = this;
+    const {
+      afterInitHook
+    } = jodit;
+
+    jodit.afterInitHook = function () {
+      afterInitHook.apply(this, arguments);
+      self.observeTables(jodit);
+      self.scrollContainer = scrollparent__default['default'](jodit.container);
+      if (self.scrollContainer) self.addScrollHandler(jodit);
+    };
+  }
+  /**
+   * @param {Jodit} jodit
+   */
+
+
+  observeTables(jodit) {
+    const {
+      constructor: Jodit
+    } = jodit;
+    const {
+      table
+    } = jodit.__plugins;
+    const {
+      $$: query
+    } = Jodit.modules.Helpers;
+    query('table', jodit.editor).forEach(tableEl => {
+      if (table[table.__key]) return;
+      table.observe(tableEl);
+    });
+  }
+  /**
+   * @param {Jodit} jodit
+   */
+
+
+  addScrollHandler(jodit) {
+    const [eventDesc] = jodit.events.getStore(jodit.events).get(JODIT_RECALC_POPUP_POSITION_EVENT, JODIT_DEFAULT_EVENT_NAMESPACE$1);
+    const recalcPopupPosition = eventDesc && eventDesc.originalCallback;
+    if (!recalcPopupPosition) return;
+    this.scrollHandler = this.createScrollHandler(recalcPopupPosition);
+    jodit.events.on(this.scrollContainer, 'scroll', this.scrollHandler);
+  }
+  /**
+   * @param {Function} recalcPopupPosition
+   */
+
+
+  createScrollHandler(recalcPopupPosition) {
+    return scrollHandler.bind(this);
+
+    function scrollHandler() {
+      const {
+        inlinePopup
+      } = this.jodit.__plugins;
+      if (!inlinePopup || !inlinePopup.isShown) return;
+      return recalcPopupPosition.call(inlinePopup);
     }
-    /**
-     * @param {Jodit} jodit
-     */
+  }
+  /**
+   * @param {Jodit} jodit
+   */
 
-  }, {
-    key: "addScrollHandler",
-    value: function addScrollHandler(jodit) {
-      var _jodit$events$getStor = jodit.events.getStore(jodit.events).get(JODIT_RECALC_POPUP_POSITION_EVENT, JODIT_DEFAULT_EVENT_NAMESPACE$1),
-          _jodit$events$getStor2 = _slicedToArray(_jodit$events$getStor, 1),
-          eventDesc = _jodit$events$getStor2[0];
 
-      var recalcPopupPosition = eventDesc && eventDesc.originalCallback;
-      if (!recalcPopupPosition) return;
-      this.scrollHandler = this.createScrollHandler(recalcPopupPosition);
-      jodit.events.on(this.scrollContainer, 'scroll', this.scrollHandler);
+  beforeDestruct(jodit) {
+    if (this.scrollContainer && this.scrollHandler) {
+      jodit.events.off(this.scrollContainer, 'scroll', this.scrollHandler);
     }
-    /**
-     * @param {Function} recalcPopupPosition
-     */
+  }
 
-  }, {
-    key: "createScrollHandler",
-    value: function createScrollHandler(recalcPopupPosition) {
-      return scrollHandler.bind(this);
-
-      function scrollHandler() {
-        var inlinePopup = this.jodit.__plugins.inlinePopup;
-        if (!inlinePopup || !inlinePopup.isShown) return;
-        return recalcPopupPosition.call(inlinePopup);
-      }
-    }
-    /**
-     * @param {Jodit} jodit
-     */
-
-  }, {
-    key: "beforeDestruct",
-    value: function beforeDestruct(jodit) {
-      if (this.scrollContainer && this.scrollHandler) {
-        jodit.events.off(this.scrollContainer, 'scroll', this.scrollHandler);
-      }
-    }
-  }]);
-
-  return TablePopupsPlugin;
-}();
+}
 
 //
 //
 //
 //
-var _id = 'joditToolbar';
-var _buttons = [[['source', 'Source']], [['undo', 'Undo'], ['redo', 'Redo'], ['cut', 'Cut selection'], ['copyformat', 'Paint format']], [['paragraph', 'Style'], ['font', 'Font'], ['fontsize', 'Font size']], [['bold', 'Bold'], ['italic', 'Italic'], ['underline', 'Underline'], ['strikethrough', 'Strikethrough']], [['brush', 'Text color']], [['link', 'Insert link...'], ['table', 'Insert table'], ['image', 'Image'], ['tooltip', 'Tooltip'], ['symbol', 'Insert special character'], ['hr', 'Horizontal line']], [['ol', 'Numbered list'], ['ul', 'Bulleted list'], ['outdent', 'Decrease indent'], ['indent', 'Increase indent']], [['align', 'Alignment']], [['subscript', 'Subscript'], ['superscript', 'Superscript']], [['eraser', 'Clear formatting']]];
-var script = {
+const id = 'joditToolbar';
+const buttons = [[['source', 'Source']], [['undo', 'Undo'], ['redo', 'Redo'], ['cut', 'Cut selection'], ['copyformat', 'Paint format']], [['paragraph', 'Style'], ['font', 'Font'], ['fontsize', 'Font size']], [['bold', 'Bold'], ['italic', 'Italic'], ['underline', 'Underline'], ['strikethrough', 'Strikethrough']], [['brush', 'Text color']], [['link', 'Insert link...'], ['table', 'Insert table'], ['image', 'Image'], ['tooltip', 'Tooltip'], ['symbol', 'Insert special character'], ['hr', 'Horizontal line']], [['ol', 'Numbered list'], ['ul', 'Bulleted list'], ['outdent', 'Decrease indent'], ['indent', 'Increase indent']], [['align', 'Alignment']], [['subscript', 'Subscript'], ['superscript', 'Superscript']], [['eraser', 'Clear formatting']]];
+var script$2 = {
   get $containerId() {
-    return "#".concat(_id);
+    return `#${id}`;
   },
 
   get $buttons() {
-    return _buttons;
+    return buttons;
   },
 
   computed: {
-    id: function id() {
-      return _id;
-    },
-    buttons: function buttons() {
-      return _buttons;
-    }
+    id: () => id,
+    buttons: () => buttons
   }
 };
 
@@ -1298,14 +1052,11 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
     return script;
 }
 
-const isOldIE = typeof navigator !== 'undefined' &&
-    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
-
 /* script */
-var __vue_script__ = script;
+const __vue_script__$2 = script$2;
 /* template */
 
-var __vue_render__ = function __vue_render__() {
+var __vue_render__$2 = function () {
   var _vm = this;
 
   var _h = _vm.$createElement;
@@ -1313,55 +1064,48 @@ var __vue_render__ = function __vue_render__() {
   var _c = _vm._self._c || _h;
 
   return _c('div', {
-    staticClass: "jodit_toolbar_container",
+    staticClass: "jodit-toolbar-editor-collection_container",
     attrs: {
       "id": _vm.id
     }
   });
 };
 
-var __vue_staticRenderFns__ = [];
+var __vue_staticRenderFns__$2 = [];
 /* style */
 
-var __vue_inject_styles__ = undefined;
+const __vue_inject_styles__$2 = undefined;
 /* scoped */
 
-var __vue_scope_id__ = undefined;
+const __vue_scope_id__$2 = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = undefined;
+const __vue_module_identifier__$2 = undefined;
 /* functional template */
 
-var __vue_is_functional_template__ = false;
+const __vue_is_functional_template__$2 = false;
 /* style inject */
 
 /* style inject SSR */
 
 /* style inject shadow dom */
 
-var Toolbar = normalizeComponent({
-  render: __vue_render__,
-  staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
+const __vue_component__$2 = /*#__PURE__*/normalizeComponent({
+  render: __vue_render__$2,
+  staticRenderFns: __vue_staticRenderFns__$2
+}, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
 
 /** @typedef {import('jodit').IJodit} Jodit */
 
-var ToolbarBuilderPlugin =
-/*#__PURE__*/
-function () {
-  _createClass(ToolbarBuilderPlugin, null, [{
-    key: "pluginName",
-    get: function get() {
-      return 'toolbar-builder';
-    }
-  }]);
+class ToolbarBuilderPlugin {
+  static get pluginName() {
+    return 'toolbar-builder';
+  }
 
-  function ToolbarBuilderPlugin(options) {
-    _classCallCheck(this, ToolbarBuilderPlugin);
-
+  constructor(options) {
     options.buttons = options.buttons || [];
     options.separator = options.separator || '|';
-    autoBind(this);
+    autoBind__default['default'](this);
   }
   /**
    * @param {Config} config
@@ -1369,67 +1113,49 @@ function () {
    */
 
 
-  _createClass(ToolbarBuilderPlugin, [{
-    key: "apply",
-    value: function apply(config, Jodit) {
-      var _this = this;
+  apply(config, Jodit) {
+    const language = config.language || 'en';
+    config.language = uniqueId__default['default'](`${language}_`);
+    Jodit.lang[config.language] = cloneDeep__default['default'](Jodit.lang[language]);
+    this.options.language = config.language;
+    config.buttons = [];
+    this.options.buttons.forEach(it => this.addGroup(config, Jodit, it));
+  }
 
-      var language = config.language || 'en';
-      config.language = uniqueId("".concat(language, "_"));
-      Jodit.lang[config.language] = cloneDeep(Jodit.lang[language]);
-      this.options.language = config.language;
-      config.buttons = [];
-      this.options.buttons.forEach(function (it) {
-        return _this.addGroup(config, Jodit, it);
+  addGroup(config, Jodit, controls = []) {
+    const buttons = controls.reduce((acc, [name, tooltip]) => {
+      const control = config.controls[name];
+      const lang = Jodit.lang[this.options.language];
+      if (!control) return acc;
+      control.tooltip = control.tooltip || tooltip;
+      Object.assign(lang, {
+        [control.tooltip]: tooltip
       });
+      Object.assign(control, {
+        hotkeys: []
+      });
+      acc.push(name);
+      return acc;
+    }, []);
+
+    if (config.buttons.length > 0 && buttons.length > 0) {
+      config.buttons.push(this.options.separator);
     }
-  }, {
-    key: "addGroup",
-    value: function addGroup(config, Jodit) {
-      var _this2 = this;
 
-      var controls = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-      var buttons = controls.reduce(function (acc, _ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            name = _ref2[0],
-            tooltip = _ref2[1];
+    config.buttons = config.buttons.concat(buttons);
+  }
 
-        var control = config.controls[name];
-        var lang = Jodit.lang[_this2.options.language];
-        if (!control) return acc;
-        control.tooltip = control.tooltip || tooltip;
-        Object.assign(lang, _defineProperty({}, control.tooltip, tooltip));
-        Object.assign(control, {
-          hotkeys: []
-        });
-        acc.push(name);
-        return acc;
-      }, []);
+}
 
-      if (config.buttons.length > 0 && buttons.length > 0) {
-        config.buttons.push(this.options.separator);
-      }
+const JODIT_DEFAULT_EVENT_NAMESPACE = 'JoditEventDefaultNamespace';
+const JODIT_POPUP_ARROW = '.jodit_popup_triangle';
+const JODIT_POPUP_TRIGGER_EVENTS = ['mousedown', 'touchend'];
+const JODIT_TOOLBAR_BUTTON = '.jodit_toolbar_btn';
+const toggle = Symbol('toggle');
 
-      config.buttons = config.buttons.concat(buttons);
-    }
-  }]);
+const hide = el => el.style.display = 'none';
 
-  return ToolbarBuilderPlugin;
-}();
-
-var JODIT_DEFAULT_EVENT_NAMESPACE$2 = 'JoditEventDefaultNamespace';
-var JODIT_POPUP_ARROW = '.jodit_popup_triangle';
-var JODIT_POPUP_TRIGGER_EVENTS = ['mousedown', 'touchend'];
-var JODIT_TOOLBAR_BUTTON = '.jodit_toolbar_btn';
-var toggle = Symbol('toggle');
-
-var hide$1 = function hide(el) {
-  return el.style.display = 'none';
-};
-
-var isToolbarButton = function isToolbarButton(el) {
-  return el.matches(JODIT_TOOLBAR_BUTTON);
-};
+const isToolbarButton = el => el.matches(JODIT_TOOLBAR_BUTTON);
 /** @typedef {import('jodit/src/Config').Config & import('jodit/src/plugins')} Config */
 
 /** @typedef {import('jodit').IJodit} Jodit */
@@ -1437,21 +1163,14 @@ var isToolbarButton = function isToolbarButton(el) {
 /** @typedef {import('jodit').IComponent} Component */
 
 
-var ToolbarPopupsPlugin =
-/*#__PURE__*/
-function () {
-  _createClass(ToolbarPopupsPlugin, null, [{
-    key: "pluginName",
-    get: function get() {
-      return 'toolbar-popups';
-    }
-  }]);
+class ToolbarPopupsPlugin {
+  static get pluginName() {
+    return 'toolbar-popups';
+  }
 
-  function ToolbarPopupsPlugin(options) {
-    _classCallCheck(this, ToolbarPopupsPlugin);
-
+  constructor(options) {
     options.popupOpenClass = options.popupOpenClass || 'popup_open';
-    autoBind(this);
+    autoBind__default['default'](this);
     this.popups = new Map();
   }
   /**
@@ -1459,119 +1178,138 @@ function () {
    */
 
 
-  _createClass(ToolbarPopupsPlugin, [{
-    key: "init",
-    value: function init(jodit) {
-      jodit.events.on('beforeOpenPopup', this.beforeOpenPopup);
-    }
-    /**
-     * @param {Component} popup
-     */
+  init(jodit) {
+    jodit.events.on('beforeOpenPopup', this.beforeOpenPopup);
+  }
+  /**
+   * @param {Component} popup
+   */
 
-  }, {
-    key: "beforeOpenPopup",
-    value: function beforeOpenPopup(popup) {
-      var self = this;
-      if (!isToolbarButton(popup.target)) return;
-      hide$1(popup.container);
-      this.popups.set(popup.target, popup);
-      var calcPosition = popup.calcPosition,
-          doClose = popup.doClose;
 
-      popup.calcPosition = function () {
-        calcPosition.apply(this, arguments);
-        self.onOpenPopup(popup);
-      };
+  beforeOpenPopup(popup) {
+    const self = this;
+    if (!isToolbarButton(popup.target)) return;
+    hide(popup.container);
+    this.popups.set(popup.target, popup);
+    const {
+      calcPosition,
+      doClose
+    } = popup;
 
-      popup.doClose = function () {
-        doClose.apply(this, arguments);
-        self.onClosePopup(popup);
-      };
+    popup.calcPosition = function () {
+      calcPosition.apply(this, arguments);
+      self.onOpenPopup(popup);
+    };
 
-      var _this$jodit$events$ge = this.jodit.events.getStore(popup.target).get(JODIT_POPUP_TRIGGER_EVENTS[0], JODIT_DEFAULT_EVENT_NAMESPACE$2),
-          _this$jodit$events$ge2 = _slicedToArray(_this$jodit$events$ge, 1),
-          eventDesc = _this$jodit$events$ge2[0];
+    popup.doClose = function () {
+      doClose.apply(this, arguments);
+      self.onClosePopup(popup);
+    };
 
-      var oldListener = eventDesc && eventDesc.originalCallback;
-      if (!oldListener || oldListener[toggle]) return;
-      replaceListener$1(this.jodit, popup.target, JODIT_POPUP_TRIGGER_EVENTS.join(' '), this.createToggleAction(popup.target, oldListener), oldListener);
-    }
-    /**
-     * @param {Component} popup
-     */
+    const [eventDesc] = this.jodit.events.getStore(popup.target).get(JODIT_POPUP_TRIGGER_EVENTS[0], JODIT_DEFAULT_EVENT_NAMESPACE);
+    const oldListener = eventDesc && eventDesc.originalCallback;
+    if (!oldListener || oldListener[toggle]) return;
+    replaceListener(this.jodit, popup.target, JODIT_POPUP_TRIGGER_EVENTS.join(' '), this.createToggleAction(popup.target, oldListener), oldListener);
+  }
+  /**
+   * @param {Component} popup
+   */
 
-  }, {
-    key: "onOpenPopup",
-    value: function onOpenPopup(popup) {
-      popup.target.classList.add(this.options.popupOpenClass);
-      var arrow = popup.container.querySelector(JODIT_POPUP_ARROW);
-      if (arrow) arrow.style.marginLeft = 0;
-      Object.assign(popup.container.style, {
-        marginLeft: 0,
-        display: 'initial'
-      });
-    }
-    /**
-     * @param {Component} popup
-     */
 
-  }, {
-    key: "onClosePopup",
-    value: function onClosePopup(popup) {
-      this.popups["delete"](popup.target, popup);
-      popup.target.classList.remove(this.options.popupOpenClass);
-    }
-    /**
-     * @param {Object} target
-     * @param {EventListener} listener
-     * @returns {EventListener}
-     */
+  onOpenPopup(popup) {
+    popup.target.classList.add(this.options.popupOpenClass);
+    const arrow = popup.container.querySelector(JODIT_POPUP_ARROW);
+    if (arrow) arrow.style.marginLeft = 0;
+    Object.assign(popup.container.style, {
+      marginLeft: 0,
+      display: 'initial'
+    });
+  }
+  /**
+   * @param {Component} popup
+   */
 
-  }, {
-    key: "createToggleAction",
-    value: function createToggleAction(target, listener) {
-      var self = this;
-      return Object.assign(togglePopup, _defineProperty({}, toggle, true));
 
-      function togglePopup() {
-        var popup = self.popups.get(target);
+  onClosePopup(popup) {
+    this.popups.delete(popup.target, popup);
+    popup.target.classList.remove(this.options.popupOpenClass);
+  }
+  /**
+   * @param {Object} target
+   * @param {EventListener} listener
+   * @returns {EventListener}
+   */
 
-        if (popup && popup.isOpened) {
-          popup.close();
-          return;
-        }
 
-        return listener.apply(this, arguments);
+  createToggleAction(target, listener) {
+    const self = this;
+    return Object.assign(togglePopup, {
+      [toggle]: true
+    });
+
+    function togglePopup() {
+      const popup = self.popups.get(target);
+
+      if (popup && popup.isOpened) {
+        popup.close();
+        return;
       }
+
+      return listener.apply(this, arguments);
     }
-    /**
-     * @param {Jodit} jodit
-     */
+  }
+  /**
+   * @param {Jodit} jodit
+   */
 
-  }, {
-    key: "beforeDestruct",
-    value: function beforeDestruct(jodit) {
-      jodit.events.off('beforeOpenPopup', this.beforeOpenPopup);
-    }
-  }]);
 
-  return ToolbarPopupsPlugin;
-}();
+  beforeDestruct(jodit) {
+    jodit.events.off('beforeOpenPopup', this.beforeOpenPopup);
+  }
 
-function replaceListener$1(jodit, target, events, listener, oldListener) {
+}
+/**
+ * @param {Jodit} jodit
+ * @param {Object} target
+ * @param {String} events
+ * @param {EventListener} listener
+ * @param {EventListener} oldListener
+ */
+
+function replaceListener(jodit, target, events, listener, oldListener) {
   jodit.events.off(target, events, oldListener).on(target, events, listener);
 }
 
-var TOOLTIP_CONTROL = 'tooltip';
-var TOOLTIP_TAG = 'span';
-var TOOLTIP_ATTR = 'data-tooltip';
-var TOOLTIP_CLASS = 'tce-jodit-tooltip';
-var TOOLTIP_POPUP_FORM = "\n  <form class=\"jodit_form\">\n    <textarea name=\"tooltip\" placeholder=\"Tooltip\"></textarea>\n    <input name=\"text\" type=\"text\" placeholder=\"Text\">\n    <div style=\"text-align: right\">\n      <button name=\"delete\" type=\"button\">Delete</button>\n      <button name=\"submit\" type=\"submit\">Submit</button>\n    </div>\n  </form>";
+const TOOLTIP_CONTROL = 'tooltip';
+const TOOLTIP_TAG = 'span';
+const TOOLTIP_ATTR = 'data-tooltip';
+const TOOLTIP_CLASS = 'tce-jodit-tooltip';
+const TOOLTIP_POPUP_FORM = `
+  <form class="jodit-ui-form">
+    <div class="jodit-ui-block jodit-ui-block_align_left jodit-ui-block_size_middle">
+      <div class="jodit-ui-input">
+        <span class="jodit-ui-input__label">Tooltip</span>
+        <textarea name="tooltip" class="jodit-ui-input__input" rows="5" style="height: auto;"></textarea>
+      </div>
+    </div>
+  <div class="jodit-ui-block jodit-ui-block_align_left jodit-ui-block_size_middle">
+    <div class="jodit-ui-input">
+      <span class="jodit-ui-input__label">Text</span>
+      <input name="text" type="text" class="jodit-ui-input__input">
+    </div>
+  </div>
+    <div class="jodit-ui-block jodit-ui-block_align_left jodit-ui-block_size_middle">
+      <button class="jodit-ui-button jodit-ui-button_size_middle jodit-ui-button_unlink jodit-ui-button_status_default jodit-ui-button_text-icons_true" name="delete" type="button">Delete</button>
+      <button class="jodit-ui-button jodit-ui-button_size_middle jodit-ui-button_insert jodit-ui-button_status_primary jodit-ui-button_text-icons_true" name="submit" type="submit">Submit</button>
+    </div>
+  </form>`;
 
-var isTooltipNode = function isTooltipNode(node) {
-  if (!node || !isFunction$3(node.hasAttribute)) return false;
+const isTooltipNode = node => {
+  if (!node || !isFunction__default['default'](node.hasAttribute)) return false;
   return node.hasAttribute(TOOLTIP_ATTR);
 };
+
+const isHtmlElement = el => el && el instanceof HTMLElement;
 /** @typedef {import('jodit').IJodit} Jodit */
 
 /** @typedef {import('jodit').IToolbarButton} Button */
@@ -1579,194 +1317,185 @@ var isTooltipNode = function isTooltipNode(node) {
 /** @typedef {import('jodit').IControlType<Jodit,Button} Control */
 
 
-var TooltipPlugin =
-/*#__PURE__*/
-function () {
-  _createClass(TooltipPlugin, null, [{
-    key: "pluginName",
-    get: function get() {
-      return 'tooltip';
-    }
-  }]);
+class TooltipPlugin {
+  static get pluginName() {
+    return 'tooltip';
+  }
 
-  function TooltipPlugin() {
-    _classCallCheck(this, TooltipPlugin);
-
-    autoBind(this);
+  constructor() {
+    autoBind__default['default'](this);
   }
   /**
    * @param {Config} config
    */
 
 
-  _createClass(TooltipPlugin, [{
-    key: "apply",
-    value: function apply(_ref) {
-      var controls = _ref.controls;
-      controls[TOOLTIP_CONTROL] = {
-        popup: this.createTooltipPopup,
-        isDisable: this.isDisabled,
-        isActive: this.isActive
-      };
+  apply({
+    controls
+  }) {
+    controls[TOOLTIP_CONTROL] = {
+      popup: this.createTooltipPopup,
+      isDisable: this.isDisabled,
+      isActive: this.isActive
+    };
+  }
+  /**
+   * @param {Jodit} jodit
+   */
+
+
+  isDisabled(jodit) {
+    const {
+      constructor: Jodit,
+      editor,
+      selection
+    } = jodit;
+    if (!jodit.isInited || !selection.isFocused()) return;
+    let start = selection.sel.anchorNode;
+    if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
+    const {
+      Dom
+    } = Jodit.modules;
+    return Dom.up(start, el => isHtmlElement(el) && el.matches('table'), editor);
+  }
+  /**
+   * @param {Jodit} jodit
+   */
+
+
+  isActive(jodit) {
+    const {
+      constructor: Jodit,
+      editor,
+      selection
+    } = jodit;
+    if (!jodit.isInited || !selection.isFocused()) return;
+    let start = selection.sel.anchorNode;
+    if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
+    const {
+      Dom
+    } = Jodit.modules;
+    return Dom.up(start, el => isHtmlElement(el) && el.matches(`.${TOOLTIP_CLASS}`), editor);
+  }
+  /**
+   * @param {Jodit} jodit
+   * @param {Node} current
+   * @param {Control} self
+   * @param {Function} close
+   */
+
+
+  createTooltipPopup(jodit, current, self, close) {
+    const {
+      constructor: Jodit,
+      events,
+      selection
+    } = jodit;
+    const {
+      val
+    } = Jodit.modules.Helpers;
+    const form = jodit.create.fromHTML(TOOLTIP_POPUP_FORM);
+    const deleteButton = form.querySelector('button[name=delete]');
+    current = Jodit.modules.Dom.up(current, isTooltipNode, jodit.editor);
+
+    if (current) {
+      const tooltipValue = current.getAttribute(TOOLTIP_ATTR) || '';
+      val(form, 'textarea[name=tooltip]', tooltipValue);
+      val(form, 'input[name=text]', current.innerText);
+    } else {
+      const {
+        sel
+      } = selection;
+      val(form, 'input[name=text]', sel ? sel.toString() : '');
+      deleteButton.style.display = 'none';
     }
-    /**
-     * @param {Jodit} jodit
-     */
 
-  }, {
-    key: "isDisabled",
-    value: function isDisabled(jodit) {
-      var Jodit = jodit.constructor,
-          editor = jodit.editor,
-          selection = jodit.selection;
-      if (!jodit.isInited || !selection.isFocused()) return;
-      var start = selection.sel.anchorNode;
-      if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
-      var Dom = Jodit.modules.Dom;
-      return Dom.up(start, function (el) {
-        return el.matches('table');
-      }, editor);
-    }
-    /**
-     * @param {Jodit} jodit
-     */
+    this.selectionInfo = selection.save();
+    events.on(form, 'submit', event => this.attachTooltip(event, current, close));
+    events.on(deleteButton, 'click', event => this.detachTooltip(event, current, close));
+    return form;
+  }
+  /**
+   * @param {Event} event
+   * @param {Node} current
+   * @param {Function} close
+   */
 
-  }, {
-    key: "isActive",
-    value: function isActive(jodit) {
-      var Jodit = jodit.constructor,
-          editor = jodit.editor,
-          selection = jodit.selection;
-      if (!jodit.isInited || !selection.isFocused()) return;
-      var start = selection.sel.anchorNode;
-      if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
-      var Dom = Jodit.modules.Dom;
-      return Dom.up(start, function (el) {
-        return el.matches(".".concat(TOOLTIP_CLASS));
-      }, editor);
-    }
-    /**
-     * @param {Jodit} jodit
-     * @param {Node} current
-     * @param {Control} self
-     * @param {Function} close
-     */
 
-  }, {
-    key: "createTooltipPopup",
-    value: function createTooltipPopup(jodit, current, self, close) {
-      var _this = this;
+  attachTooltip(event, current, close) {
+    const {
+      constructor: Jodit,
+      selection
+    } = this.jodit;
+    const {
+      val
+    } = Jodit.modules.Helpers;
+    event.preventDefault();
+    selection.restore(this.selectionInfo);
+    this.selectionInfo = null;
+    const tooltipElement = current || document.createElement(TOOLTIP_TAG);
+    const tooltipValue = val(event.target, 'textarea[name=tooltip]');
+    const innerText = val(event.target, 'input[name=text]');
+    tooltipElement.setAttribute(TOOLTIP_ATTR, tooltipValue);
+    tooltipElement.classList.add(TOOLTIP_CLASS);
+    tooltipElement.innerText = innerText;
+    if (!current && innerText) selection.insertNode(tooltipElement);
+    close();
+  }
+  /**
+   * @param {Event} event
+   * @param {Node} current
+   * @param {Function} close
+   */
 
-      var Jodit = jodit.constructor,
-          events = jodit.events,
-          selection = jodit.selection;
-      var val = Jodit.modules.Helpers.val;
-      var form = jodit.create.fromHTML(TOOLTIP_POPUP_FORM);
-      var deleteButton = form.querySelector('button[name=delete]');
-      current = Jodit.modules.Dom.up(current, isTooltipNode, jodit.editor);
 
-      if (current) {
-        var tooltipValue = current.getAttribute(TOOLTIP_ATTR) || '';
-        val(form, 'textarea[name=tooltip]', tooltipValue);
-        val(form, 'input[name=text]', current.innerText);
-      } else {
-        var sel = selection.sel;
-        val(form, 'input[name=text]', sel ? sel.toString() : '');
-        deleteButton.style.display = 'none';
-      }
+  detachTooltip(event, current, close) {
+    const {
+      constructor: Jodit,
+      selection
+    } = this.jodit;
+    event.preventDefault();
+    if (current) Jodit.modules.Dom.unwrap(current);
+    selection.restore(this.selectionInfo);
+    this.selectionInfo = null;
+    close();
+  }
 
-      this.selectionInfo = selection.save();
-      events.on(form, 'submit', function (event) {
-        return _this.attachTooltip(event, current, close);
-      });
-      events.on(deleteButton, 'click', function (event) {
-        return _this.detachTooltip(event, current, close);
-      });
-      return form;
-    }
-    /**
-     * @param {Event} event
-     * @param {Node} current
-     * @param {Function} close
-     */
-
-  }, {
-    key: "attachTooltip",
-    value: function attachTooltip(event, current, close) {
-      var _this$jodit = this.jodit,
-          Jodit = _this$jodit.constructor,
-          selection = _this$jodit.selection;
-      var val = Jodit.modules.Helpers.val;
-      event.preventDefault();
-      selection.restore(this.selectionInfo);
-      this.selectionInfo = null;
-      var tooltipElement = current || document.createElement(TOOLTIP_TAG);
-      var tooltipValue = val(event.target, 'textarea[name=tooltip]');
-      var innerText = val(event.target, 'input[name=text]');
-      tooltipElement.setAttribute(TOOLTIP_ATTR, tooltipValue);
-      tooltipElement.classList.add(TOOLTIP_CLASS);
-      tooltipElement.innerText = innerText;
-      if (!current && innerText) selection.insertNode(tooltipElement);
-      close();
-    }
-    /**
-     * @param {Event} event
-     * @param {Node} current
-     * @param {Function} close
-     */
-
-  }, {
-    key: "detachTooltip",
-    value: function detachTooltip(event, current, close) {
-      var _this$jodit2 = this.jodit,
-          Jodit = _this$jodit2.constructor,
-          selection = _this$jodit2.selection;
-      event.preventDefault();
-      if (current) Jodit.modules.Dom.unwrap(current);
-      selection.restore(this.selectionInfo);
-      this.selectionInfo = null;
-      close();
-    }
-  }]);
-
-  return TooltipPlugin;
-}();
+}
 
 //
-//       caused by: https://github.com/xdan/jodit/blob/3.2.55/src/modules/helpers/checker/isJoditObject.ts#L18
-
-Object.defineProperty(joditVue.Jodit, 'name', {
-  value: 'Jodit'
-});
-var JODIT_READY_EVENT = 'joditReady';
+const JODIT_READY_EVENT = 'joditReady';
 /** @type {import('jodit/src/Config').Config & import('jodit/src/plugins')} */
 
-var joditConfig = {
+const joditConfig = {
   autofocus: true,
   addNewLineOnDBLClick: false,
   showTooltipDelay: 350,
   colorPickerDefaultTab: 'color',
   disablePlugins: ['fullsize'],
-  language: 'en'
+  language: 'en',
+  extraIcons: {
+    tooltip: '<span class="mdi mdi-tooltip-text"></span>'
+  }
 };
 extend(joditVue.Jodit);
-var plugins = [{
+const plugins = [{
+  use: MdiIconsPlugin
+}, {
   use: TooltipPlugin
 }, {
   use: ToolbarBuilderPlugin,
   options: {
-    buttons: Toolbar.$buttons
+    buttons: __vue_component__$2.$buttons
   }
 }, {
   use: ExternalToolbarPlugin,
   options: {
     readyEvent: JODIT_READY_EVENT,
-    toolbarContainer: Toolbar.$containerId
+    toolbarContainer: __vue_component__$2.$containerId
   }
 }, {
   use: FontControlsPlugin
-}, {
-  use: MdiIconsPlugin
 }, {
   use: ToolbarPopupsPlugin
 }, {
@@ -1791,35 +1520,36 @@ var script$1 = {
     },
     placeholder: {
       type: String,
-      "default": 'Insert text here...'
+      default: 'Insert text here...'
     },
     readonly: {
       type: Boolean,
-      "default": false
+      default: false
     }
   },
   computed: {
-    config: function config(vm) {
-      return Object.assign({}, joditConfig, {
-        minHeight: vm.minHeight,
-        placeholder: vm.placeholder,
-        plugins: plugins
-      });
-    }
+    config: vm => ({ ...joditConfig,
+      minHeight: vm.minHeight,
+      placeholder: !vm.value ? vm.placeholder : '',
+      plugins
+    })
   },
   methods: {
-    input: function input(value) {
-      var innerText = this.$refs.jodit.$el.innerText;
-      return this.$emit('input', innerText ? value : '');
+    input(value) {
+      return this.$emit('input', value);
     }
+
   },
   watch: {
-    readonly: function readonly(state) {
-      var editor = this.$refs.jodit.editor;
+    readonly(state) {
+      const {
+        editor
+      } = this.$refs.jodit;
       if (!editor) return;
       editor.setReadOnly(state);
       if (!state) editor.selection.focus();
     }
+
   },
   components: {
     JoditVue: joditVue.JoditVue
@@ -1827,10 +1557,10 @@ var script$1 = {
 };
 
 /* script */
-var __vue_script__$1 = script$1;
+const __vue_script__$1 = script$1;
 /* template */
 
-var __vue_render__$1 = function __vue_render__() {
+var __vue_render__$1 = function () {
   var _vm = this;
 
   var _h = _vm.$createElement;
@@ -1838,7 +1568,7 @@ var __vue_render__$1 = function __vue_render__() {
   var _c = _vm._self._c || _h;
 
   return _c('div', {
-    staticClass: "jodit_wrapper"
+    staticClass: "jodit-wrapper"
   }, [_c('jodit-vue', {
     ref: "jodit",
     attrs: {
@@ -1854,29 +1584,29 @@ var __vue_render__$1 = function __vue_render__() {
 var __vue_staticRenderFns__$1 = [];
 /* style */
 
-var __vue_inject_styles__$1 = undefined;
+const __vue_inject_styles__$1 = undefined;
 /* scoped */
 
-var __vue_scope_id__$1 = "data-v-13b42c81";
+const __vue_scope_id__$1 = "data-v-28543044";
 /* module identifier */
 
-var __vue_module_identifier__$1 = undefined;
+const __vue_module_identifier__$1 = undefined;
 /* functional template */
 
-var __vue_is_functional_template__$1 = false;
+const __vue_is_functional_template__$1 = false;
 /* style inject */
 
 /* style inject SSR */
 
 /* style inject shadow dom */
 
-var JoditEditor = normalizeComponent({
+const __vue_component__$1 = /*#__PURE__*/normalizeComponent({
   render: __vue_render__$1,
   staticRenderFns: __vue_staticRenderFns__$1
 }, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
 
 //
-var script$2 = {
+var script = {
   name: 'tce-jodit-html',
   props: {
     element: {
@@ -1885,86 +1615,93 @@ var script$2 = {
     },
     isFocused: {
       type: Boolean,
-      "default": false
+      default: false
     },
     isDragged: {
       type: Boolean,
-      "default": false
+      default: false
     },
     isDisabled: {
       type: Boolean,
-      "default": false
+      default: false
     },
     dense: {
       type: Boolean,
-      "default": false
+      default: false
     },
     showPlaceholder: {
       type: Boolean,
-      "default": true
+      default: true
     }
   },
-  data: function data(vm) {
-    var _ref, _vm$element, _vm$element$data;
+  data: vm => {
+    var _vm$element$data$cont, _vm$element, _vm$element$data;
 
     return {
-      content: (_ref = (_vm$element = vm.element) === null || _vm$element === void 0 ? void 0 : (_vm$element$data = _vm$element.data) === null || _vm$element$data === void 0 ? void 0 : _vm$element$data.content) !== null && _ref !== void 0 ? _ref : '',
+      content: (_vm$element$data$cont = (_vm$element = vm.element) === null || _vm$element === void 0 ? void 0 : (_vm$element$data = _vm$element.data) === null || _vm$element$data === void 0 ? void 0 : _vm$element$data.content) !== null && _vm$element$data$cont !== void 0 ? _vm$element$data$cont : '',
       readonly: false
     };
   },
   computed: {
-    hasChanges: function hasChanges() {
-      var _ref2, _this$element, _this$element$data;
+    hasChanges() {
+      var _this$element$data$co, _this$element, _this$element$data;
 
-      var previousValue = (_ref2 = (_this$element = this.element) === null || _this$element === void 0 ? void 0 : (_this$element$data = _this$element.data) === null || _this$element$data === void 0 ? void 0 : _this$element$data.content) !== null && _ref2 !== void 0 ? _ref2 : '';
+      const previousValue = (_this$element$data$co = (_this$element = this.element) === null || _this$element === void 0 ? void 0 : (_this$element$data = _this$element.data) === null || _this$element$data === void 0 ? void 0 : _this$element$data.content) !== null && _this$element$data$co !== void 0 ? _this$element$data$co : '';
       return previousValue !== this.content;
     }
+
   },
   methods: {
-    save: function save() {
+    save() {
       if (!this.hasChanges) return;
-      this.$emit('save', {
-        content: this.content
+      const {
+        element,
+        content
+      } = this;
+      this.$emit('save', { ...element.data,
+        content
       });
     }
+
   },
   watch: {
-    element: function element(val) {
-      var _this = this;
-
+    element(val) {
       // Make sure that component state is kept
       // until events (i.e. focusout => save) are triggered
-      setTimeout(function () {
-        var _ref3, _val$data;
+      setTimeout(() => {
+        var _val$data$content, _val$data;
 
-        if (_this.isFocused) return;
-        _this.content = (_ref3 = val === null || val === void 0 ? void 0 : (_val$data = val.data) === null || _val$data === void 0 ? void 0 : _val$data.content) !== null && _ref3 !== void 0 ? _ref3 : '';
+        if (this.isFocused) return;
+        this.content = (_val$data$content = val === null || val === void 0 ? void 0 : (_val$data = val.data) === null || _val$data === void 0 ? void 0 : _val$data.content) !== null && _val$data$content !== void 0 ? _val$data$content : '';
       }, 0);
     },
-    isFocused: function isFocused(val, oldVal) {
+
+    isFocused(val, oldVal) {
       if (oldVal && !val) this.save();
     },
-    isDragged: function isDragged(state, oldState) {
+
+    isDragged(state, oldState) {
       if (state) {
         this.readonly = true;
       } else if (!state && oldState) {
         this.readonly = false;
       }
     },
-    content: debounce(function () {
+
+    content: debounce__default['default'](function () {
       this.save();
     }, 4000)
   },
   components: {
-    JoditEditor: JoditEditor
+    JoditEditor: __vue_component__$1
   }
 };
 
 /* script */
-var __vue_script__$2 = script$2;
+const __vue_script__ = script;
 /* template */
 
-var __vue_render__$2 = function __vue_render__() {
+var __vue_render__ = function () {
   var _vm = this;
 
   var _h = _vm.$createElement;
@@ -1973,7 +1710,7 @@ var __vue_render__$2 = function __vue_render__() {
 
   return _c('div', {
     staticClass: "tce-jodit-html",
-    "class": {
+    class: {
       sm: _vm.dense,
       disabled: _vm.isDisabled
     }
@@ -1990,22 +1727,22 @@ var __vue_render__$2 = function __vue_render__() {
     },
     model: {
       value: _vm.content,
-      callback: function callback($$v) {
+      callback: function ($$v) {
         _vm.content = $$v;
       },
       expression: "content"
     }
   }) : _c('div', {
-    staticClass: "jodit_container"
+    staticClass: "jodit-container"
   }, [_c('div', {
-    staticClass: "jodit_wysiwyg",
+    staticClass: "jodit-wysiwyg",
     domProps: {
       "innerHTML": _vm._s(_vm.content)
     }
   })])]], 2);
 };
 
-var __vue_staticRenderFns__$2 = [function () {
+var __vue_staticRenderFns__ = [function () {
   var _vm = this;
 
   var _h = _vm.$createElement;
@@ -2020,53 +1757,53 @@ var __vue_staticRenderFns__$2 = [function () {
 }];
 /* style */
 
-var __vue_inject_styles__$2 = undefined;
+const __vue_inject_styles__ = undefined;
 /* scoped */
 
-var __vue_scope_id__$2 = "data-v-b17edcb2";
+const __vue_scope_id__ = "data-v-147d3590";
 /* module identifier */
 
-var __vue_module_identifier__$2 = undefined;
+const __vue_module_identifier__ = undefined;
 /* functional template */
 
-var __vue_is_functional_template__$2 = false;
+const __vue_is_functional_template__ = false;
 /* style inject */
 
 /* style inject SSR */
 
 /* style inject shadow dom */
 
-var Edit = normalizeComponent({
-  render: __vue_render__$2,
-  staticRenderFns: __vue_staticRenderFns__$2
-}, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
+const __vue_component__ = /*#__PURE__*/normalizeComponent({
+  render: __vue_render__,
+  staticRenderFns: __vue_staticRenderFns__
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
 
 var plugin__default = {
-  initState: function initState() {
-    return {};
-  },
+  initState: () => ({
+    content: ''
+  }),
   components: {
-    Edit: Edit,
-    Toolbar: Toolbar
+    Edit: __vue_component__,
+    Toolbar: __vue_component__$2
   }
 };
 
 var plugin = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  Edit: Edit,
-  Toolbar: Toolbar,
+  Edit: __vue_component__,
+  Toolbar: __vue_component__$2,
   'default': plugin__default
 });
 
-function _slicedToArray$1(arr, i) {
-  return _arrayWithHoles$1(arr) || _iterableToArrayLimit$1(arr, i) || _nonIterableRest$1();
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
 }
 
-function _arrayWithHoles$1(arr) {
+function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
 
-function _iterableToArrayLimit$1(arr, i) {
+function _iterableToArrayLimit(arr, i) {
   if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
     return;
   }
@@ -2096,7 +1833,7 @@ function _iterableToArrayLimit$1(arr, i) {
   return _arr;
 }
 
-function _nonIterableRest$1() {
+function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance");
 }
 
@@ -2211,7 +1948,7 @@ var hasProp = function hasProp(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 };
 
-var isFunction$2 = function isFunction(arg) {
+var isFunction = function isFunction(arg) {
   return typeof arg === 'function';
 };
 var _pluginOptions$initSt = plugin__default.initState,
@@ -2227,11 +1964,11 @@ var options = Object.assign({
 }, tailor);
 var install = function install(Vue) {
   if (hasProp(plugin, 'install')) {
-    isFunction$2(_missingExportShim) && _missingExportShim(Vue);
+    isFunction(_missingExportShim) && _missingExportShim(Vue);
   }
 
   Object.entries(components).forEach(function (_ref) {
-    var _ref2 = _slicedToArray$1(_ref, 2),
+    var _ref2 = _slicedToArray(_ref, 2),
         name$1 = _ref2[0],
         component = _ref2[1];
 
@@ -2241,8 +1978,8 @@ var install = function install(Vue) {
   });
 };
 
-exports.Edit = Edit;
-exports.Toolbar = Toolbar;
+exports.Edit = __vue_component__;
+exports.Toolbar = __vue_component__$2;
 exports.default = install;
 exports.install = install;
 exports.options = options;

@@ -11,15 +11,18 @@ module.exports = {
     format: ['cjs', 'es', 'umd', 'umd-min'],
     moduleName: 'TceJodit'
   },
+  externals: [
+    /@babel\/runtime/
+  ],
   bundleNodeModules: ['rollup-plugin-vue', 'vue-runtime-helpers'],
   plugins: {
     vue: true,
     'tailor-ce': true,
     postcss: {
-      extract: 'dist/tce-jodit.css'
+      extract: 'tce-jodit.css'
     },
     babel: {
-      runtimeHelpers: true,
+      babelHelpers: 'runtime',
       sourceMap: true,
       extensions: ['.js', '.vue']
     },
@@ -32,6 +35,9 @@ module.exports = {
     visualizer: {
       sourceMap: true,
       open: false
+    },
+    replace: {
+      preventAssignment: true
     }
   },
   resolvePlugins: {

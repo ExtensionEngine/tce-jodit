@@ -60,6 +60,7 @@ const textColor = `
 export default mdiIcons;
 
 export function getMdiIcon(name) {
+  if (!name || !mdiIcons[name]) return;
   if (name === 'brush') return textColor;
   const code = mdiIcons[name];
   return `<span class="mdi mdi-${code}"></span>`;
