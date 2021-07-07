@@ -1,5 +1,5 @@
 <template>
-  <div class="jodit_wrapper">
+  <div class="jodit-wrapper">
     <jodit-vue ref="jodit" @input="input" :config="config" :value="value" />
   </div>
 </template>
@@ -13,14 +13,10 @@ import MdiIconsPlugin from './plugins/mdi-icons';
 import pluginsAdapter from './plugins-adapter';
 import SourceEditorPlugin from './plugins/source-editor';
 import TablePopupsPlugin from './plugins/table-popups';
-import Toolbar from '@/edit/Toolbar';
+import Toolbar from './Toolbar.vue';
 import ToolbarBuilderPlugin from './plugins/toolbar-builder';
 import ToolbarPopupsPlugin from './plugins/toolbar-popups';
 import TooltipPlugin from './plugins/tooltip';
-
-// NOTE: Fixes production build issues: https://github.com/xdan/jodit/issues/225
-//       caused by: https://github.com/xdan/jodit/blob/3.2.55/src/modules/helpers/checker/isJoditObject.ts#L18
-Object.defineProperty(Jodit, 'name', { value: 'Jodit' });
 
 const JODIT_READY_EVENT = 'joditReady';
 
@@ -31,12 +27,17 @@ const joditConfig = {
   showTooltipDelay: 350,
   colorPickerDefaultTab: 'color',
   disablePlugins: ['fullsize'],
-  language: 'en'
+  language: 'en',
+  extraIcons: {
+    tooltip: '<span class="mdi mdi-tooltip-text"></span>'
+  }
 };
 
 pluginsAdapter(Jodit);
 
 const plugins = [{
+  use: MdiIconsPlugin
+}, {
   use: TooltipPlugin
 }, {
   use: ToolbarBuilderPlugin,
@@ -51,8 +52,6 @@ const plugins = [{
   }
 }, {
   use: FontControlsPlugin
-}, {
-  use: MdiIconsPlugin
 }, {
   use: ToolbarPopupsPlugin
 }, {
@@ -77,14 +76,13 @@ export default {
     config: vm => ({
       ...joditConfig,
       minHeight: vm.minHeight,
-      placeholder: vm.placeholder,
+      placeholder: !vm.value ? vm.placeholder : '',
       plugins
     })
   },
   methods: {
     input(value) {
-      const innerText = this.$refs.jodit.$el.innerText;
-      return this.$emit('input', innerText ? value : '');
+      return this.$emit('input', value);
     }
   },
   watch: {
@@ -109,35 +107,43 @@ $statusbar-border-size: 1px;
 $min-height: 140px;
 $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", monospace;
 
-.jodit_wrapper ::v-deep {
-  .jodit_container:not(.jodit_inline) {
+.jodit-wrapper ::v-deep {
+  .jodit-container:not(.jodit_inline) {
+    display: flex;
     min-height: $min-height;
+    flex-direction: column;
+    border: none;
 
-    .jodit_workplace {
+    .jodit-workplace {
       border: none;
     }
   }
 
-  .jodit_placeholder {
+  .jodit-placeholder {
     font-style: italic;
   }
 
-  .jodit_source .ace_editor {
-    font-size: 13px;
-    font-family: $font-family-monospace;
+  .jodit-source {
+    background: transparent;
+
+    .ace-editor {
+      font-size: 13px;
+      font-family: $font-family-monospace;
+    }
   }
 
-  .jodit_statusbar {
+  .jodit-status-bar {
     height: $statusbar-height;
+    margin-top: auto;
     line-height: $statusbar-height - $statusbar-border-size;
     background-color: transparent;
     border: none;
 
-    .jodit_statusbar_item {
+    .jodit-status-bar__item {
       line-height: inherit;
     }
 
-    .jodit_toolbar_btn {
+    .jodit-toolbar-button {
       line-height: inherit;
       vertical-align: top;
 
@@ -145,7 +151,7 @@ $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", m
         vertical-align: middle;
       }
 
-      .jodit_icon {
+      .jodit-icon {
         display: inline-block;
         width: $icon-size;
         height: $icon-size;

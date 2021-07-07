@@ -19,9 +19,9 @@
         v-model="content"
         :min-height="$el.clientHeight"
         :readonly="readonly" />
-      <div v-else class="jodit_container">
+      <div v-else class="jodit-container">
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <div class="jodit_wysiwyg" v-html="content"></div>
+        <div class="jodit-wysiwyg" v-html="content"></div>
       </div>
     </template>
   </div>
@@ -29,7 +29,7 @@
 
 <script>
 import debounce from 'lodash/debounce';
-import JoditEditor from '@/edit/Editor';
+import JoditEditor from './Editor.vue';
 
 export default {
   name: 'tce-jodit-html',
@@ -54,7 +54,8 @@ export default {
   methods: {
     save() {
       if (!this.hasChanges) return;
-      this.$emit('save', { content: this.content });
+      const { element, content } = this;
+      this.$emit('save', { ...element.data, content });
     }
   },
   watch: {
@@ -93,14 +94,23 @@ $min-height-sm: 5.5rem;
 $borderSize: 6px;
 $tooltipColor: #37474f;
 
+.jodit-container {
+  min-width: $min-width;
+  min-height: $min-height;
+}
+
 .tce-jodit-html ::v-deep {
   text-align: initial;
 
-  .jodit_workplace, .jodit_wysiwyg {
+  .jodit-container {
+    border: none;
+  }
+
+  .jodit-workplace, .jodit-wysiwyg {
     overflow: visible;
   }
 
-  .jodit_wysiwyg {
+  .jodit-wysiwyg {
     overflow-wrap: break-word;
   }
 
@@ -151,12 +161,7 @@ $tooltipColor: #37474f;
   }
 }
 
-.jodit_container {
-  min-width: $min-width;
-  min-height: $min-height;
-}
-
-::v-deep .jodit_container:not(.jodit_inline) {
+::v-deep .jodit-container:not(.jodit-inline) {
   min-height: $min-height;
   font-size: 1rem;
   background: transparent !important;
@@ -219,11 +224,11 @@ $tooltipColor: #37474f;
 }
 
 .tce-jodit-html.sm {
-  .jodit_container {
+  .jodit-container {
     min-height: $min-height-sm;
   }
 
-  ::v-deep .jodit_container:not(.jodit_inline) {
+  ::v-deep .jodit-container:not(.jodit-inline) {
     min-height: $min-height-sm;
   }
 
