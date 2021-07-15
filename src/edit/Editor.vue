@@ -13,6 +13,7 @@ import { Jodit, JoditVue } from 'jodit-vue';
 import AutofocusPlugin from './plugins/autofocus';
 import ExternalToolbarPlugin from './plugins/external-toolbar';
 import FontControlsPlugin from './plugins/font-controls';
+import LinkPlugin from './plugins/link';
 import MdiIconsPlugin from './plugins/mdi-icons';
 import pluginsAdapter from './plugins-adapter';
 import SourceEditorPlugin from './plugins/source-editor';
@@ -68,6 +69,8 @@ const plugins = [{
   options: {
     readyEvent: JODIT_READY_EVENT
   }
+}, {
+  use: LinkPlugin
 }];
 
 export default {

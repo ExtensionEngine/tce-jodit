@@ -465,6 +465,38 @@ var normalize = function () {
   };
 }();
 
+/** @typedef {import('jodit').IJodit} Jodit */
+var LinkPlugin =
+/*#__PURE__*/
+function () {
+  function LinkPlugin() {
+    _classCallCheck(this, LinkPlugin);
+  }
+
+  _createClass(LinkPlugin, [{
+    key: "init",
+
+    /**
+     * @param {Jodit} jodit
+     */
+    value: function init(jodit) {
+      jodit.registerCommand('link', {
+        exec: function exec() {
+          return jodit.events.fire('click-link-btn', new Event('link'));
+        },
+        hotkeys: ['ctrl+k', 'cmd+k']
+      });
+    }
+  }], [{
+    key: "pluginName",
+    get: function get() {
+      return 'links';
+    }
+  }]);
+
+  return LinkPlugin;
+}();
+
 var mdiIcons = Object.assign({
   source: 'code-tags',
   bold: 'format-bold',
@@ -1191,9 +1223,9 @@ function () {
   }, {
     key: "addScrollHandler",
     value: function addScrollHandler(jodit) {
-      var _jodit$events$getStor = jodit.events.getStore(jodit.events).get(JODIT_RECALC_POPUP_POSITION_EVENT, JODIT_DEFAULT_EVENT_NAMESPACE$1),
-          _jodit$events$getStor2 = _slicedToArray(_jodit$events$getStor, 1),
-          eventDesc = _jodit$events$getStor2[0];
+      var _ref = jodit.events.getStore(jodit.events).get(JODIT_RECALC_POPUP_POSITION_EVENT, JODIT_DEFAULT_EVENT_NAMESPACE$1) || [],
+          _ref2 = _slicedToArray(_ref, 1),
+          eventDesc = _ref2[0];
 
       var recalcPopupPosition = eventDesc && eventDesc.originalCallback;
       if (!recalcPopupPosition) return;
@@ -1811,6 +1843,8 @@ var plugins = [{
   options: {
     readyEvent: JODIT_READY_EVENT
   }
+}, {
+  use: LinkPlugin
 }];
 var script$1 = {
   props: {
@@ -1886,7 +1920,7 @@ var __vue_staticRenderFns__$1 = [];
 var __vue_inject_styles__$1 = undefined;
 /* scoped */
 
-var __vue_scope_id__$1 = "data-v-322c0166";
+var __vue_scope_id__$1 = "data-v-ffbf0fa4";
 /* module identifier */
 
 var __vue_module_identifier__$1 = undefined;

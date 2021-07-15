@@ -47,8 +47,8 @@ export default class TablePopupsPlugin {
    */
   addScrollHandler(jodit) {
     const [eventDesc] = jodit.events.getStore(jodit.events)
-      .get(JODIT_RECALC_POPUP_POSITION_EVENT, JODIT_DEFAULT_EVENT_NAMESPACE);
-
+      .get(JODIT_RECALC_POPUP_POSITION_EVENT, JODIT_DEFAULT_EVENT_NAMESPACE) ||
+      [];
     const recalcPopupPosition = eventDesc && eventDesc.originalCallback;
     if (!recalcPopupPosition) return;
 
