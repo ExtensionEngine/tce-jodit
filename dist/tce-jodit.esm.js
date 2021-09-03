@@ -460,6 +460,8 @@ var normalize = function () {
 }();
 
 /** @typedef {import('jodit').IJodit} Jodit */
+var LINK_INPUT_SELECTOR = 'div.jodit_toolbar_popup-open input[name="url"]';
+
 var LinkPlugin =
 /*#__PURE__*/
 function () {
@@ -476,7 +478,11 @@ function () {
     value: function init(jodit) {
       jodit.registerCommand('link', {
         exec: function exec() {
-          return jodit.events.fire('click-link-btn', new Event('link'));
+          jodit.events.fire('click-link-btn', new Event('link'));
+          setTimeout(function () {
+            var input = jodit.toolbar.container.querySelector(LINK_INPUT_SELECTOR);
+            if (input) input.focus();
+          });
         },
         hotkeys: ['ctrl+k', 'cmd+k']
       });
