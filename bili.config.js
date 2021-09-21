@@ -32,6 +32,9 @@ module.exports = {
         { find: '@', replacement: path.resolve(__dirname, './src') }
       ]
     },
+    copy: {
+      targets: [{ src: 'src/server', dest: 'dist' }]
+    },
     visualizer: {
       sourceMap: true,
       open: false
