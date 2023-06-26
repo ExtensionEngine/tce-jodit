@@ -65,7 +65,11 @@ export default class TooltipPlugin {
     let start = selection.sel.anchorNode;
     if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
     const { Dom } = Jodit.modules;
-    return Dom.up(start, el => isHtmlElement(el) && el.matches('table'), editor);
+    return Dom.up(
+      start,
+      el => isHtmlElement(el) && el.matches('table'),
+      editor
+    );
   }
 
   /**
@@ -77,7 +81,11 @@ export default class TooltipPlugin {
     let start = selection.sel.anchorNode;
     if (start.nodeType !== Node.ELEMENT_NODE) start = start.parentElement;
     const { Dom } = Jodit.modules;
-    return Dom.up(start, el => isHtmlElement(el) && el.matches(`.${TOOLTIP_CLASS}`), editor);
+    return Dom.up(
+      start,
+      el => isHtmlElement(el) && el.matches(`.${TOOLTIP_CLASS}`),
+      editor
+    );
   }
 
   /**
@@ -103,8 +111,12 @@ export default class TooltipPlugin {
     }
 
     this.selectionInfo = selection.save();
-    events.on(form, 'submit', event => this.attachTooltip(event, current, close));
-    events.on(deleteButton, 'click', event => this.detachTooltip(event, current, close));
+    events.on(form, 'submit', event =>
+      this.attachTooltip(event, current, close)
+    );
+    events.on(deleteButton, 'click', event =>
+      this.detachTooltip(event, current, close)
+    );
 
     return form;
   }

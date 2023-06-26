@@ -2,7 +2,8 @@
   <div :class="{ sm: dense, disabled: isDisabled }" class="tce-jodit-html">
     <div
       v-if="!isFocused && !content && showPlaceholder"
-      class="jodit-html-placeholder">
+      class="jodit-html-placeholder"
+    >
       <div class="placeholder-avatar">
         <span>&lt;</span>
         <span class="divider">/</span>
@@ -18,7 +19,8 @@
         v-if="isFocused"
         v-model="content"
         :min-height="$el.clientHeight"
-        :readonly="readonly" />
+        :readonly="readonly"
+      />
       <div v-else class="jodit-container">
         <!-- eslint-disable-next-line vue/no-v-html -->
         <div class="jodit-wysiwyg" v-html="content"></div>
@@ -27,64 +29,88 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed, defineEmits, defineProps, ref, watch } from 'vue';
 import debounce from 'lodash/debounce';
 import JoditEditor from './Editor.vue';
 
-export default {
-  name: 'tce-jodit-html',
-  props: {
-    element: { type: Object, required: true },
-    isFocused: { type: Boolean, default: false },
-    isDragged: { type: Boolean, default: false },
-    isDisabled: { type: Boolean, default: false },
-    dense: { type: Boolean, default: false },
-    showPlaceholder: { type: Boolean, default: true }
+const props = defineProps({
+  element: {
+    type: Object,
+    required: true
   },
-  data: vm => ({
-    content: vm.element?.data?.content ?? '',
-    readonly: false
-  }),
-  computed: {
-    hasChanges() {
-      const previousValue = this.element?.data?.content ?? '';
-      return previousValue !== this.content;
-    }
+  isFocused: {
+    type: Boolean,
+    default: false
   },
-  methods: {
-    save() {
-      if (!this.hasChanges) return;
-      const { element, content } = this;
-      this.$emit('save', { ...element.data, content });
-    }
+  isDragged: {
+    type: Boolean,
+    default: false
   },
-  watch: {
-    element(val) {
-      // Make sure that component state is kept
-      // until events (i.e. focusout => save) are triggered
-      setTimeout(() => {
-        if (this.isFocused) return;
-        this.content = val?.data?.content ?? '';
-      }, 0);
-    },
-    isFocused(val, oldVal) {
-      if (oldVal && !val) this.save();
-    },
-    isDragged(state, oldState) {
-      if (state) {
-        this.readonly = true;
-      } else if (!state && oldState) {
-        this.readonly = false;
-      }
-    },
-    content: debounce(function () {
-      this.save();
-    }, 4000)
+  isDisabled: {
+    type: Boolean,
+    default: false
   },
-  components: {
-    JoditEditor
+  dense: {
+    type: Boolean,
+    default: false
+  },
+  showPlaceholder: {
+    type: Boolean,
+    default: true
   }
+});
+
+const content = ref(props.element?.data?.content ?? '');
+const readonly = ref(false);
+const hasChanges = computed(() => {
+  const previousValue = props.element?.data?.content ?? '';
+  return previousValue !== content.value;
+});
+
+const emit = defineEmits(['save']);
+
+const save = () => {
+  if (!hasChanges.value) return;
+  const { element } = props;
+  emit('save', { ...element.data, content: content.value });
 };
+
+watch(
+  () => props.element,
+  val => {
+    setTimeout(() => {
+      if (props.isFocused) return;
+      content.value = val?.data?.content ?? '';
+    }, 0);
+  },
+  { immediate: true }
+);
+
+watch(
+  () => props.isFocused,
+  (val, oldVal) => {
+    if (oldVal && !val) save();
+  }
+);
+
+watch(
+  () => props.isDragged,
+  (state, oldState) => {
+    if (state) {
+      readonly.value = true;
+    } else if (!state && oldState) {
+      readonly.value = false;
+    }
+  }
+);
+
+watch(
+  content,
+  debounce(() => {
+    save();
+  }, 4000)
+);
 </script>
 
 <style lang="scss" scoped>
@@ -99,22 +125,23 @@ $tooltipColor: #37474f;
   min-height: $min-height;
 }
 
-.tce-jodit-html ::v-deep {
+.tce-jodit-html {
   text-align: initial;
 
-  .jodit-container {
+  :deep(.jodit-container) {
     border: none;
   }
 
-  .jodit-workplace, .jodit-wysiwyg {
+  :deep(.jodit-workplace),
+  :deep(.jodit-wysiwyg) {
     overflow: visible;
   }
 
-  .jodit-wysiwyg {
+  :deep(.jodit-wysiwyg) {
     overflow-wrap: break-word;
   }
 
-  .tce-jodit-tooltip {
+  :deep(.tce-jodit-tooltip) {
     display: inline-block;
     position: relative;
     background: rgba(205, 215, 220, 0.7);
@@ -122,7 +149,7 @@ $tooltipColor: #37474f;
     cursor: help;
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 100%;
       border-left: $borderSize solid transparent;
@@ -145,15 +172,15 @@ $tooltipColor: #37474f;
       border-radius: 2px;
     }
 
-    &::before, &::after {
+    &::before,
+    &::after {
       visibility: hidden;
-      transition:
-        opacity 0.1s ease-out,
-        margin 0.1s ease-out;
+      transition: opacity 0.1s ease-out, margin 0.1s ease-out;
       opacity: 0;
     }
 
-    &:hover::after, &:hover::before {
+    &:hover::after,
+    &:hover::before {
       visibility: visible;
       margin-bottom: 0.25rem;
       opacity: 1;
@@ -161,7 +188,7 @@ $tooltipColor: #37474f;
   }
 }
 
-::v-deep .jodit-container:not(.jodit-inline) {
+:deep(.jodit-container:not(.jodit-inline)) {
   min-height: $min-height;
   font-size: 1rem;
   background: transparent !important;
@@ -228,7 +255,7 @@ $tooltipColor: #37474f;
     min-height: $min-height-sm;
   }
 
-  ::v-deep .jodit-container:not(.jodit-inline) {
+  :deep(.jodit-container:not(.jodit-inline)) {
     min-height: $min-height-sm;
   }
 

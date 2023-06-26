@@ -1,12 +1,11 @@
 import '@mdi/font/css/materialdesignicons.css';
 import { Edit, Toolbar } from '../src/index';
 import App from './App.vue';
-import Vue from 'vue';
+import { createApp } from 'vue';
 
-Vue.config.productionTip = false;
-Vue.component(Edit.name, Edit);
-Vue.component('tce-toolbar', Toolbar);
+const app = createApp(App);
 
-new Vue({
-  render: h => h(App)
-}).$mount('#app');
+app.component(Edit.name, Edit);
+app.component('tce-toolbar', Toolbar);
+
+app.mount('#app');

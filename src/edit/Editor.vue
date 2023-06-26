@@ -4,7 +4,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed, defineEmits, ref, watch } from 'vue';
 import { Jodit, JoditVue } from 'jodit-vue';
 import AutofocusPlugin from './plugins/autofocus';
 import ExternalToolbarPlugin from './plugins/external-toolbar';
@@ -20,7 +21,6 @@ import TooltipPlugin from './plugins/tooltip';
 
 const JODIT_READY_EVENT = 'joditReady';
 
-/** @type {import('jodit/src/Config').Config & import('jodit/src/plugins')} */
 const joditConfig = {
   autofocus: true,
   addNewLineOnDBLClick: false,
@@ -35,67 +35,88 @@ const joditConfig = {
 
 pluginsAdapter(Jodit);
 
-const plugins = [{
-  use: MdiIconsPlugin
-}, {
-  use: TooltipPlugin
-}, {
-  use: ToolbarBuilderPlugin,
-  options: {
-    buttons: Toolbar.$buttons
+const plugins = [
+  {
+    use: MdiIconsPlugin
+  },
+  {
+    use: TooltipPlugin
+  },
+  {
+    use: ToolbarBuilderPlugin,
+    options: {
+      buttons: Toolbar.$buttons
+    }
+  },
+  {
+    use: ExternalToolbarPlugin,
+    options: {
+      readyEvent: JODIT_READY_EVENT,
+      toolbarContainer: Toolbar.$containerId
+    }
+  },
+  {
+    use: FontControlsPlugin
+  },
+  {
+    use: ToolbarPopupsPlugin
+  },
+  {
+    use: SourceEditorPlugin
+  },
+  {
+    use: TablePopupsPlugin
+  },
+  {
+    use: AutofocusPlugin,
+    options: {
+      readyEvent: JODIT_READY_EVENT
+    }
   }
-}, {
-  use: ExternalToolbarPlugin,
-  options: {
-    readyEvent: JODIT_READY_EVENT,
-    toolbarContainer: Toolbar.$containerId
-  }
-}, {
-  use: FontControlsPlugin
-}, {
-  use: ToolbarPopupsPlugin
-}, {
-  use: SourceEditorPlugin
-}, {
-  use: TablePopupsPlugin
-}, {
-  use: AutofocusPlugin,
-  options: {
-    readyEvent: JODIT_READY_EVENT
-  }
-}];
+];
 
-export default {
-  props: {
-    value: { type: String, required: true },
-    minHeight: { type: Number, required: true },
-    placeholder: { type: String, default: 'Insert text here...' },
-    readonly: { type: Boolean, default: false }
+const props = defineProps({
+  value: {
+    type: String,
+    default: ''
   },
-  computed: {
-    config: vm => ({
-      ...joditConfig,
-      minHeight: vm.minHeight,
-      placeholder: !vm.value ? vm.placeholder : '',
-      plugins
-    })
+  minHeight: {
+    type: Number,
+    default: 0
   },
-  methods: {
-    input(value) {
-      return this.$emit('input', value);
-    }
+  placeholder: {
+    type: String,
+    default: 'Insert text here...'
   },
-  watch: {
-    readonly(state) {
-      const { editor } = this.$refs.jodit;
-      if (!editor) return;
-      editor.setReadOnly(state);
-      if (!state) editor.selection.focus();
-    }
-  },
-  components: {
-    JoditVue
+  readonly: {
+    type: Boolean,
+    default: false
   }
+});
+
+const jodit = ref(null);
+
+const config = computed(() => ({
+  ...joditConfig,
+  minHeight: props.minHeight.value,
+  placeholder: !props.value.value ? props.placeholder.value : '',
+  plugins
+}));
+
+watch(
+  () => props.readonly,
+  state => {
+    const editor = jodit.value.editor;
+    if (!editor) return;
+    editor.setReadOnly(state);
+    if (!state) editor.selection.focus();
+  }
+);
+
+const emit = defineEmits(['input']);
+
+const input = value => {
+  emit('input', value);
 };
 </script>
 
@@ -105,45 +126,46 @@ $icon-size: 18px;
 $statusbar-height: 26px;
 $statusbar-border-size: 1px;
 $min-height: 140px;
-$font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", monospace;
+$font-family-monospace: 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro',
+  monospace;
 
-.jodit-wrapper ::v-deep {
-  .jodit-container:not(.jodit_inline) {
+.jodit-wrapper {
+  :deep(.jodit-container:not(.jodit_inline)) {
     display: flex;
     min-height: $min-height;
     flex-direction: column;
     border: none;
 
-    .jodit-workplace {
+    :deep(.jodit-workplace) {
       border: none;
     }
   }
 
-  .jodit-placeholder {
+  :deep(.jodit-placeholder) {
     font-style: italic;
   }
 
-  .jodit-source {
+  :deep(.jodit-source) {
     background: transparent;
 
-    .ace-editor {
+    :deep(.ace-editor) {
       font-size: 13px;
       font-family: $font-family-monospace;
     }
   }
 
-  .jodit-status-bar {
+  :deep(.jodit-status-bar) {
     height: $statusbar-height;
     margin-top: auto;
     line-height: $statusbar-height - $statusbar-border-size;
     background-color: transparent;
     border: none;
 
-    .jodit-status-bar__item {
+    :deep(.jodit-status-bar__item) {
       line-height: inherit;
     }
 
-    .jodit-toolbar-button {
+    :deep(.jodit-toolbar-button) {
       line-height: inherit;
       vertical-align: top;
 
@@ -151,7 +173,7 @@ $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", m
         vertical-align: middle;
       }
 
-      .jodit-icon {
+      :deep(.jodit-icon) {
         display: inline-block;
         width: $icon-size;
         height: $icon-size;

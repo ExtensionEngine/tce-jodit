@@ -8,19 +8,16 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue';
 
-export default {
-  data: () => ({
-    element: {
-      type: 'JODIT_HTML',
-      position: 1,
-      data: {
-        content: ''
-      }
-    }
-  })
-};
+const element = ref({
+  type: 'JODIT_HTML',
+  position: 1,
+  data: {
+    content: ''
+  }
+});
 </script>
 
 <style lang="scss">

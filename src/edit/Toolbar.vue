@@ -2,60 +2,59 @@
   <div :id="id" class="jodit-toolbar-editor-collection_container"></div>
 </template>
 
-<script>
-const id = 'joditToolbar';
+<script setup>
+import { computed, ref } from 'vue';
 
-const buttons = [[
-  ['source', 'Source']
-], [
-  ['undo', 'Undo'],
-  ['redo', 'Redo'],
-  ['cut', 'Cut selection'],
-  ['copyformat', 'Paint format']
-], [
-  ['paragraph', 'Style'],
-  ['font', 'Font'],
-  ['fontsize', 'Font size']
-], [
-  ['bold', 'Bold'],
-  ['italic', 'Italic'],
-  ['underline', 'Underline'],
-  ['strikethrough', 'Strikethrough']
-], [
-  ['brush', 'Text color']
-], [
-  ['link', 'Insert link...'],
-  ['table', 'Insert table'],
-  ['image', 'Image'],
-  ['tooltip', 'Tooltip'],
-  ['symbol', 'Insert special character'],
-  ['hr', 'Horizontal line']
-], [
-  ['ol', 'Numbered list'],
-  ['ul', 'Bulleted list'],
-  ['outdent', 'Decrease indent'],
-  ['indent', 'Increase indent']
-], [
-  ['align', 'Alignment']
-], [
-  ['subscript', 'Subscript'],
-  ['superscript', 'Superscript']
-], [
-  ['eraser', 'Clear formatting']
-]];
+const refId = ref('joditToolbar');
 
-export default {
-  get $containerId() {
-    return `#${id}`;
-  },
-  get $buttons() {
-    return buttons;
-  },
-  computed: {
-    id: () => id,
-    buttons: () => buttons
-  }
-};
+const refButtons = ref([
+  [['source', 'Source']],
+  [
+    ['undo', 'Undo'],
+    ['redo', 'Redo'],
+    ['cut', 'Cut selection'],
+    ['copyformat', 'Paint format']
+  ],
+  [
+    ['paragraph', 'Style'],
+    ['font', 'Font'],
+    ['fontsize', 'Font size']
+  ],
+  [
+    ['bold', 'Bold'],
+    ['italic', 'Italic'],
+    ['underline', 'Underline'],
+    ['strikethrough', 'Strikethrough']
+  ],
+  [['brush', 'Text color']],
+  [
+    ['link', 'Insert link...'],
+    ['table', 'Insert table'],
+    ['image', 'Image'],
+    ['tooltip', 'Tooltip'],
+    ['symbol', 'Insert special character'],
+    ['hr', 'Horizontal line']
+  ],
+  [
+    ['ol', 'Numbered list'],
+    ['ul', 'Bulleted list'],
+    ['outdent', 'Decrease indent'],
+    ['indent', 'Increase indent']
+  ],
+  [['align', 'Alignment']],
+  [
+    ['subscript', 'Subscript'],
+    ['superscript', 'Superscript']
+  ],
+  [['eraser', 'Clear formatting']]
+]);
+
+const id = computed(() => refId.value);
+// eslint-disable-next-line no-unused-vars
+const $containerId = computed(() => `#${refId.value}`);
+const $buttons = computed(() => refButtons.value);
+// eslint-disable-next-line no-unused-vars
+const button = $buttons;
 </script>
 
 <style lang="scss">
@@ -173,7 +172,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
     }
   }
 
-  &[aria-pressed=true] {
+  &[aria-pressed='true'] {
     &:not([disabled]) {
       @include colorize(
         $color: $icon-accent-color,
@@ -182,7 +181,8 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
     }
   }
 
-  &.popup_open, &.popup_open:hover {
+  &.popup_open,
+  &.popup_open:hover {
     @include colorize($color: #c3c3c3);
   }
 
@@ -211,11 +211,12 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 }
 
 .jodit-toolbar-editor-collection_list > .jodit-toolbar-editor-collection {
-  &, & .jodit-toolbar-editor-collection {
+  &,
+  & .jodit-toolbar-editor-collection {
     padding: 0 !important;
     background: #fff;
     border: 1px solid #ccc;
-    box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 2px 8px;
   }
 
   .jodit-toolbar-button > button {
@@ -234,7 +235,8 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 .jodit-colorpicker .btn_reset_color {
   width: auto;
 
-  &:active, &:hover {
+  &:active,
+  &:hover {
     color: $icon-accent-color;
     background: none;
   }
