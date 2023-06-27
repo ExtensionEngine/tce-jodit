@@ -5,7 +5,7 @@ import uniqueId from 'lodash/uniqueId';
 
 const isFunction = arg => typeof arg === 'function';
 const isString = arg => typeof arg === 'string';
-const splitArray = arg => isString(arg) ? arg.split(/[,\s]+/) : arg;
+const splitArray = arg => (isString(arg) ? arg.split(/[,\s]+/) : arg);
 
 /** @typedef {import('jodit/src/Config').Config & import('jodit/src/plugins')} Config */
 /** @typedef {import('jodit').IJodit} Jodit */
@@ -58,7 +58,10 @@ export default function extend(Jodit) {
       const plugin = new Plugin(options);
       plugin.options = options;
       this.$plugins.set(pluginName, plugin);
-      this.__plugins[uniqueId('plugin_proxy__')] = new PluginProxy(plugin, this);
+      this.__plugins[uniqueId('plugin_proxy__')] = new PluginProxy(
+        plugin,
+        this
+      );
       // Apply plugin on jodit options.
       if (isFunction(plugin.apply)) plugin.apply(config, Jodit);
     });
@@ -91,9 +94,11 @@ export default function extend(Jodit) {
 
 function cloneOptions(options) {
   const shared = ['ownerDocument', 'ownerWindow'];
-  return Object.fromEntries(keysIn(options).map(key => {
-    const value = options[key];
-    if (shared.includes(key)) return [key, value];
-    return [key, cloneDeep(value)];
-  }));
+  return Object.fromEntries(
+    keysIn(options).map(key => {
+      const value = options[key];
+      if (shared.includes(key)) return [key, value];
+      return [key, cloneDeep(value)];
+    })
+  );
 }

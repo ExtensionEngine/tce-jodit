@@ -1,7 +1,7 @@
 import autoBind from 'auto-bind';
 
 const isString = arg => typeof arg === 'string';
-const splitArray = arg => isString(arg) ? arg.split(/[,\s]+/) : arg;
+const splitArray = arg => (isString(arg) ? arg.split(/[,\s]+/) : arg);
 
 /** @typedef {import('jodit/src/Config').Config & import('jodit/src/plugins')} Config */
 /** @typedef {import('jodit').IJodit} Jodit */
@@ -21,7 +21,9 @@ export default class ExternalToolbarPlugin {
    */
   apply(config) {
     config.toolbar = false;
-    this.options.buttons = splitArray(config.buttons).concat(config.extraButtons);
+    this.options.buttons = splitArray(config.buttons).concat(
+      config.extraButtons
+    );
   }
 
   /**

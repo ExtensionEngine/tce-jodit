@@ -31,8 +31,10 @@ export default class MdiIconsPlugin {
   }
 
   constructor(options) {
-    options.btnResetColorClass = options.btnResetColorClass || 'btn_reset_color';
-    options.selectedMarkerClass = options.selectedMarkerClass || 'selected_color_marker';
+    options.btnResetColorClass =
+      options.btnResetColorClass || 'btn_reset_color';
+    options.selectedMarkerClass =
+      options.selectedMarkerClass || 'selected_color_marker';
     autoBind(this);
   }
 
@@ -45,8 +47,8 @@ export default class MdiIconsPlugin {
   }
 
   /**
-  * @param {Config} config
-  */
+   * @param {Config} config
+   */
   apply({ controls, popup }) {
     const self = this;
     let control;
@@ -90,10 +92,10 @@ export default class MdiIconsPlugin {
   }
 
   /**
-  * @param {Jodit} jodit
-  * @param {Control} control
-  * @param {Button} button
-  */
+   * @param {Jodit} jodit
+   * @param {Control} control
+   * @param {Button} button
+   */
   getAlignmentLabel(jodit, control, button) {
     // Show current alignment inside button label.
     const currentValue = control.data && control.data.currentValue;
@@ -103,10 +105,10 @@ export default class MdiIconsPlugin {
   }
 
   /**
-  * @param {Jodit} jodit
-  * @param {Control} control
-  * @param {Button} button
-  */
+   * @param {Jodit} jodit
+   * @param {Control} control
+   * @param {Button} button
+   */
   getColorLabel(jodit, control, button) {
     // Colorize material design `color-helper` icon.
     const colorHelper = button.textBox.querySelector('.mdi-color-helper');
@@ -124,7 +126,9 @@ export default class MdiIconsPlugin {
    */
   colorPopup(popup, jodit, current, control, close = noop) {
     const { events, options } = jodit;
-    const pickers = getColorPickers(popup, { defaultTab: options.colorPickerDefaultTab });
+    const pickers = getColorPickers(popup, {
+      defaultTab: options.colorPickerDefaultTab
+    });
 
     // Add reset color buttons to main toolbar's colorpicker/s.
     onSelect(events, this.addResetButton(pickers.textColor), () => {
@@ -140,10 +144,10 @@ export default class MdiIconsPlugin {
   }
 
   /**
-  * @param {HTMLElement} popup
-  * @param {Jodit} jodit
-  * @param {HTMLTableElement} table
-  */
+   * @param {HTMLElement} popup
+   * @param {Jodit} jodit
+   * @param {HTMLTableElement} table
+   */
   inlineColorPopup(popup, jodit, table) {
     const self = this;
     const { constructor: Jodit, events } = jodit;
@@ -153,7 +157,8 @@ export default class MdiIconsPlugin {
       const selected = picker.querySelector('.active');
       if (selected) this.changeSelectedMarker(selected);
 
-      const [eventDesc] = events.getStore(picker)
+      const [eventDesc] = events
+        .getStore(picker)
         .get(JODIT_PICKER_SELECTION_EVENTS[0], JODIT_DEFAULT_EVENT_NAMESPACE);
       const oldListener = eventDesc && eventDesc.originalCallback;
       if (!oldListener) return;
@@ -180,7 +185,9 @@ export default class MdiIconsPlugin {
     });
     onSelect(events, this.addResetButton(pickers.backgroundColor), () => {
       const selectedCells = Jodit.modules.Table.getAllSelectedCells(table);
-      selectedCells.forEach(cell => (cell.style.backgroundColor = CSS_NO_COLOR));
+      selectedCells.forEach(
+        cell => (cell.style.backgroundColor = CSS_NO_COLOR)
+      );
       jodit.setEditorValue();
     });
     onSelect(events, this.addResetButton(pickers.borderColor), () => {
@@ -199,7 +206,11 @@ export default class MdiIconsPlugin {
   onColorChange(e, picker) {
     const { constructor: Jodit } = this.jodit;
 
-    const button = Jodit.modules.Dom.up(e.target, el => el.matches('[data-color]'), picker);
+    const button = Jodit.modules.Dom.up(
+      e.target,
+      el => el.matches('[data-color]'),
+      picker
+    );
     if (!button) return;
 
     const selected = picker.querySelector('.active');
@@ -219,14 +230,18 @@ export default class MdiIconsPlugin {
    * @return {HTMLSpanElement}
    */
   addResetButton(picker) {
-    const btnResetColor = picker &&
-      Array.from(picker.children).filter(el => el.matches('a')).pop();
+    const btnResetColor =
+      picker &&
+      Array.from(picker.children)
+        .filter(el => el.matches('a'))
+        .pop();
     if (!btnResetColor) return document.createElement('span');
     btnResetColor.classList.add(this.options.btnResetColorClass);
     btnResetColor.innerHTML = '';
     const tabIndex = this.jodit.options.allowTabNavigation ? 0 : -1;
-    btnResetColor
-      .appendChild(createButton({ icon: 'mdi-water-off', text: 'None', tabIndex }));
+    btnResetColor.appendChild(
+      createButton({ icon: 'mdi-water-off', text: 'None', tabIndex })
+    );
     return btnResetColor;
   }
 
@@ -299,9 +314,7 @@ function onSelect(events, target, listener) {
  * @param {EventListener} oldListener
  */
 function replaceListener(jodit, target, events, listener, oldListener) {
-  jodit.events
-    .off(target, events, oldListener)
-    .on(target, events, listener);
+  jodit.events.off(target, events, oldListener).on(target, events, listener);
 }
 
 /**

@@ -87,22 +87,34 @@ export default class FontControlsPlugin {
 
     if (control.name === JODIT_CONTROL_FONT) {
       const { fontFamily: currentFontFamily } = getComputedStyle(jodit.editor);
-      return find(entries, ([fontFamily]) => {
-        return normalize.fontFamily(fontFamily) === currentFontFamily;
-      }, [null, defaultValue]);
+      return find(
+        entries,
+        ([fontFamily]) => {
+          return normalize.fontFamily(fontFamily) === currentFontFamily;
+        },
+        [null, defaultValue]
+      );
     }
 
     if (control.name === JODIT_CONTROL_FONTSIZE) {
       const { fontSize: currentFontSize } = getComputedStyle(jodit.editor);
-      return find(entries, ([_, fontSize]) => {
-        return fontSize === normalize.fontSize(currentFontSize);
-      }, [null, defaultValue]);
+      return find(
+        entries,
+        ([_, fontSize]) => {
+          return fontSize === normalize.fontSize(currentFontSize);
+        },
+        [null, defaultValue]
+      );
     }
 
     if (control.name === JODIT_CONTROL_PARAGRAPH_STYLE) {
-      return find(entries, ([_, style]) => {
-        return style.toLowerCase() === 'normal';
-      }, [null, defaultValue]);
+      return find(
+        entries,
+        ([_, style]) => {
+          return style.toLowerCase() === 'normal';
+        },
+        [null, defaultValue]
+      );
     }
   }
 }
