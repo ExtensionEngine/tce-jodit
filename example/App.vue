@@ -29,12 +29,12 @@ body {
 }
 
 #app {
+  background: #eee;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background: #eee;
 }
 
 #container {
@@ -42,8 +42,8 @@ body {
   background: #fff;
 
   a {
-    color: #2c3e50;
     font-weight: bold;
+    color: #2c3e50;
 
     &.router-link-exact-active {
       color: #42b983;
@@ -52,14 +52,14 @@ body {
 }
 
 .jodit-toolbar-editor-collection_container {
-  background: #fff;
   box-shadow: -1px 1px 4px 0 #ddd;
+  background: #fff;
 }
 
 .tce-jodit-html {
   margin-top: 20px;
-  padding: 10px;
   border: 2px solid #eee;
+  padding: 10px;
 }
 
 .jodit-container:not(.jodit_inline) .jodit-wysiwyg {

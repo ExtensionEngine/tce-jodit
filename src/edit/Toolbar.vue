@@ -71,14 +71,14 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 
 .jodit-toolbar-editor-collection {
   margin: 0 !important;
+  box-shadow: none;
+  border: none;
   padding: 0 !important;
-  font-family: $font-family-secondary;
+  background: none !important;
   font-size: $text-size;
   line-height: $text-size;
+  font-family: $font-family-secondary;
   text-align: initial;
-  background: none !important;
-  border: none;
-  box-shadow: none;
 
   &_mode_horizontal {
     padding: 20px 12px 0 !important;
@@ -97,9 +97,9 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
         display: inline-block;
         width: $icon-size;
         height: $icon-size;
-        color: $icon-color;
         font-size: $icon-size;
         line-height: $icon-size;
+        color: $icon-color;
         vertical-align: top;
 
         &.stack {
@@ -123,12 +123,12 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 /* stylelint-disable-next-line  */
 .jodit-toolbar-editor-collection .jodit-toolbar-button {
   @mixin colorize($color, $background: none) {
-    color: $color;
     background: $background;
+    color: $color;
 
     & > button {
-      color: inherit;
       background: inherit;
+      color: inherit;
     }
 
     .jodit-icon {
@@ -144,8 +144,8 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
   transition: all 0.2s linear, opacity 0.1s linear;
 
   &_with-trigger_true {
-    padding: 0 5px;
     border: none;
+    padding: 0 5px;
 
     .jodit-toolbar-button__trigger {
       opacity: 1;
@@ -173,7 +173,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
     }
   }
 
-  &[aria-pressed=true] {
+  &[aria-pressed="true"] {
     &:not([disabled]) {
       @include colorize(
         $color: $icon-accent-color,
@@ -212,10 +212,10 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 
 .jodit-toolbar-editor-collection_list > .jodit-toolbar-editor-collection {
   &, & .jodit-toolbar-editor-collection {
+    box-shadow: rgb(0 0 0 / 20%) 0 2px 8px;
+    border: 1px solid #ccc;
     padding: 0 !important;
     background: #fff;
-    border: 1px solid #ccc;
-    box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
   }
 
   .jodit-toolbar-button > button {
@@ -235,8 +235,8 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
   width: auto;
 
   &:active, &:hover {
-    color: $icon-accent-color;
     background: none;
+    color: $icon-accent-color;
   }
 
   span {

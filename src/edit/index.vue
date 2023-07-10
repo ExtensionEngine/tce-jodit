@@ -91,8 +91,8 @@ export default {
 $min-width: 11.25rem;
 $min-height: 8.75rem;
 $min-height-sm: 5.5rem;
-$borderSize: 6px;
-$tooltipColor: #37474f;
+$border-size: 6px;
+$tooltip-color: #37474f;
 
 .jodit-container {
   min-width: $min-width;
@@ -115,78 +115,78 @@ $tooltipColor: #37474f;
   }
 
   .tce-jodit-tooltip {
-    display: inline-block;
     position: relative;
-    background: rgba(205, 215, 220, 0.7);
-    text-decoration: underline dotted $tooltipColor;
+    display: inline-block;
+    background: rgb(205 215 220 / 70%);
+    text-decoration: underline dotted $tooltip-color;
     cursor: help;
 
     &::before {
       content: "";
       position: absolute;
       bottom: 100%;
-      border-left: $borderSize solid transparent;
-      border-right: $borderSize solid transparent;
-      border-top: $borderSize solid $tooltipColor;
+      border-left: $border-size solid transparent;
+      border-right: $border-size solid transparent;
+      border-top: $border-size solid $tooltip-color;
     }
 
     &::after {
       content: attr(data-tooltip);
       position: absolute;
-      bottom: calc(100% + #{$borderSize} - 1px);
+      bottom: calc(100% + #{$border-size} - 1px);
       left: -0.625rem;
+      border-radius: 2px;
       min-width: 9.375rem;
       max-width: 18.75rem;
       padding: 0.375rem;
+      background: $tooltip-color;
+      font-size: 0.9em;
       text-align: center;
       color: #fff;
-      font-size: 0.9em;
-      background: $tooltipColor;
-      border-radius: 2px;
     }
 
     &::before, &::after {
       visibility: hidden;
+      opacity: 0;
       transition:
         opacity 0.1s ease-out,
         margin 0.1s ease-out;
-      opacity: 0;
     }
 
     &:hover::after, &:hover::before {
       visibility: visible;
-      margin-bottom: 0.25rem;
       opacity: 1;
+      margin-bottom: 0.25rem;
     }
   }
 }
 
 ::v-deep .jodit-container:not(.jodit-inline) {
   min-height: $min-height;
-  font-size: 1rem;
   background: transparent !important;
+  font-size: 1rem;
 }
 
 .jodit-html-placeholder {
   display: flex;
   align-items: center;
   flex-direction: column;
-  min-height: $min-height;
   margin-bottom: 0;
+  min-height: $min-height;
   padding: 0.5rem 0 0;
 
   .placeholder-avatar {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 50%;
     width: 3.75rem;
     height: 3.75rem;
     padding-top: 0.125rem;
-    color: #f1f1f1;
+    background: #263238;
     font-size: 2rem;
     line-height: 2rem;
-    background: #263238;
-    border-radius: 50%;
+    color: #f1f1f1;
 
     .divider {
       font-size: 0.75rem;
@@ -195,11 +195,11 @@ $tooltipColor: #37474f;
 
   .message {
     padding: 0.5rem 0;
-    text-align: center;
-    font-family: Roboto, sans-serif;
     font-size: 1rem;
-    font-weight: 400;
     line-height: 1.75rem;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    text-align: center;
 
     span {
       display: block;
@@ -247,10 +247,10 @@ $tooltipColor: #37474f;
     }
 
     .heading {
-      padding: 0.5rem 0 0 0;
+      padding: 0.5rem 0 0;
       font-size: 0.875rem !important;
-      font-weight: 500;
       line-height: 1.25rem;
+      font-weight: 500;
     }
   }
 }
