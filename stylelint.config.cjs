@@ -1,7 +1,6 @@
 module.exports = {
   extends: [
-    'stylelint-config-recommended-vue', // add overrides for .Vue files
-    '@extensionengine/stylelint-config' // override with ExtensionEnigine custom rules
+    '@extensionengine/stylelint-config'
   ],
   overrides: [
     {
