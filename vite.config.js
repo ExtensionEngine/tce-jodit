@@ -1,19 +1,12 @@
 import postcss from 'rollup-plugin-postcss';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import tailorCe from '@extensionengine/rollup-plugin-tailor-ce';
 import vue from '@vitejs/plugin-vue2';
 
+/**
+ * @type {import('vite').UserConfig}
+ */
 export default {
-  plugins: [
-    vue(),
-    postcss({
-      extract: 'tce-jodit.css'
-    }),
-    tailorCe()
-  ],
-  resolve: {
-    alias: [{ find: '@', replacement: resolve(__dirname, 'src') }]
-  },
   build: {
     sourcemap: true,
     lib: {
@@ -21,5 +14,15 @@ export default {
       name: 'TceJodit',
       formats: ['es', 'umd', 'cjs']
     }
-  }
+  },
+  resolve: {
+    alias: [{ find: '@', replacement: resolve(__dirname, 'src') }]
+  },
+  plugins: [
+    vue(),
+    postcss({
+      extract: 'tce-jodit.css'
+    }),
+    tailorCe()
+  ]
 };

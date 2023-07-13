@@ -63,7 +63,7 @@ $icon-color: #333;
 $icon-accent-color: #ff6590;
 $icon-size: 20px;
 $text-size: 16px;
-$font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
+$font-family-secondary: roboto, helvetica, arial, sans-serif;
 
 .jodit-toolbar-editor-collection_container {
   min-height: 72px;
@@ -137,7 +137,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 
     // dropdown chevrons
     .jodit-toolbar-button__trigger svg {
-      fill: currentColor;
+      fill: currentcolor;
     }
   }
 
@@ -152,7 +152,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
       background: none;
 
       svg {
-        fill: currentColor;
+        fill: currentcolor;
       }
     }
   }
