@@ -53,7 +53,8 @@ export default class ToolbarPopupsPlugin {
       self.onClosePopup(popup);
     };
 
-    const [eventDesc] = this.jodit.events.getStore(popup.target)
+    const [eventDesc] = this.jodit.events
+      .getStore(popup.target)
       .get(JODIT_POPUP_TRIGGER_EVENTS[0], JODIT_DEFAULT_EVENT_NAMESPACE);
     const oldListener = eventDesc && eventDesc.originalCallback;
     if (!oldListener || oldListener[toggle]) return;
@@ -122,7 +123,5 @@ export default class ToolbarPopupsPlugin {
  * @param {EventListener} oldListener
  */
 function replaceListener(jodit, target, events, listener, oldListener) {
-  jodit.events
-    .off(target, events, oldListener)
-    .on(target, events, listener);
+  jodit.events.off(target, events, oldListener).on(target, events, listener);
 }

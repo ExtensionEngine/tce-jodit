@@ -110,9 +110,9 @@ $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", m
 .jodit-wrapper ::v-deep {
   .jodit-container:not(.jodit_inline) {
     display: flex;
+    border: none;
     min-height: $min-height;
     flex-direction: column;
-    border: none;
 
     .jodit-workplace {
       border: none;
@@ -133,11 +133,11 @@ $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", m
   }
 
   .jodit-status-bar {
-    height: $statusbar-height;
     margin-top: auto;
-    line-height: $statusbar-height - $statusbar-border-size;
-    background-color: transparent;
     border: none;
+    height: $statusbar-height;
+    background-color: transparent;
+    line-height: $statusbar-height - $statusbar-border-size;
 
     .jodit-status-bar__item {
       line-height: inherit;
@@ -155,9 +155,9 @@ $font-family-monospace: "Menlo", "Ubuntu Mono", "Consolas", "source-code-pro", m
         display: inline-block;
         width: $icon-size;
         height: $icon-size;
-        color: $icon-color;
         font-size: $icon-size;
         line-height: $icon-size;
+        color: $icon-color;
       }
     }
   }
