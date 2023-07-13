@@ -1,4 +1,3 @@
-import postcss from 'rollup-plugin-postcss';
 import { resolve } from 'node:path';
 import tailorCe from '@extensionengine/rollup-plugin-tailor-ce';
 import vue from '@vitejs/plugin-vue2';
@@ -13,6 +12,11 @@ export default {
       entry: resolve(__dirname, 'src/index.js'),
       name: 'TceJodit',
       formats: ['es', 'umd', 'cjs']
+    },
+    rollupOptions: {
+      output: {
+        assetFileNames: 'tce-jodit.[ext]'
+      }
     }
   },
   resolve: {
@@ -20,9 +24,6 @@ export default {
   },
   plugins: [
     vue(),
-    postcss({
-      extract: 'tce-jodit.css'
-    }),
     tailorCe()
   ]
 };
