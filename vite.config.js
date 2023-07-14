@@ -15,7 +15,8 @@ export default {
     },
     rollupOptions: {
       output: {
-        assetFileNames: 'tce-jodit.[ext]'
+        assetFileNames: 'tce-jodit.[ext]',
+        exports: 'named'
       }
     }
   },
@@ -24,6 +25,11 @@ export default {
   },
   plugins: [
     vue(),
+    /*
+      Build warning - "install" is not exported by "src/index.js",
+      imported by "virtual:/.../tce-jodit/src/index.js"; is caused by
+      `@extensionengine/rollup-plugin-tailor-ce` plugin.
+     */
     tailorCe()
   ]
 };

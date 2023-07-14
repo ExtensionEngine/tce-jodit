@@ -1,4 +1,4 @@
-const ln = "@extensionengine/tce-jodit", oi = "0.2.0", ai = {
+const ln = "@extensionengine/tce-jodit", oi = "0.3.0", ai = {
   label: "Html",
   type: "JODIT_HTML",
   ui: {
@@ -857,8 +857,8 @@ var pr = { exports: {} };
       }, 32610: function(f, t, e) {
         var n = e(75834);
         f.exports = !n(function() {
-          var r = function() {
-          }.bind();
+          var r = (function() {
+          }).bind();
           return typeof r != "function" || r.hasOwnProperty("prototype");
         });
       }, 9093: function(f, t, e) {
@@ -867,8 +867,8 @@ var pr = { exports: {} };
           return r.apply(r, arguments);
         };
       }, 84521: function(f, t, e) {
-        var n = e(13873), r = e(14434), o = Function.prototype, a = n && Object.getOwnPropertyDescriptor, c = r(o, "name"), l = c && function() {
-        }.name === "something", d = c && (!n || n && a(o, "name").configurable);
+        var n = e(13873), r = e(14434), o = Function.prototype, a = n && Object.getOwnPropertyDescriptor, c = r(o, "name"), l = c && (function() {
+        }).name === "something", d = c && (!n || n && a(o, "name").configurable);
         f.exports = { EXISTS: c, PROPER: l, CONFIGURABLE: d };
       }, 47448: function(f, t, e) {
         var n = e(90838), r = e(98061);
@@ -17566,12 +17566,12 @@ ace.define("ace/mouse/default_gutter_handler", ["require", "exports", "module", 
   function t(e) {
     x.call(this, e);
   }
-  L.inherits(t, x), function() {
+  L.inherits(t, x), (function() {
     this.setPosition = function(e, n) {
       var r = window.innerWidth || document.documentElement.clientWidth, o = window.innerHeight || document.documentElement.clientHeight, a = this.getWidth(), c = this.getHeight();
       e += 15, n += 15, e + a > r && (e -= e + a - r), n + c > o && (n -= 20 + c), x.prototype.setPosition.call(this, e, n);
     };
-  }.call(t.prototype), w.GutterHandler = f;
+  }).call(t.prototype), w.GutterHandler = f;
 });
 ace.define("ace/mouse/mouse_event", ["require", "exports", "module", "ace/lib/event", "ace/lib/useragent"], function(_, w, T) {
   var F = _("../lib/event"), L = _("../lib/useragent"), C = w.MouseEvent = function(x, f) {
@@ -18069,9 +18069,9 @@ ace.define("ace/mouse/mouse_handler", ["require", "exports", "module", "ace/lib/
       c.$onCaptureMouseMove = l, c.releaseMouse = F.capture(this.editor.container, l, d);
       var p = setInterval(v, 20);
     }, this.releaseMouse = null, this.cancelContextMenu = function() {
-      var r = function(o) {
+      var r = (function(o) {
         o && o.domEvent && o.domEvent.type != "contextmenu" || (this.editor.off("nativecontextmenu", r), o && o.domEvent && F.stopEvent(o.domEvent));
-      }.bind(this);
+      }).bind(this);
       setTimeout(r, 10), this.editor.on("nativecontextmenu", r);
     };
   }).call(n.prototype), e.defineOptions(n.prototype, "mouseHandler", {
@@ -20363,7 +20363,7 @@ ace.define("ace/edit_session/fold", ["require", "exports", "module", "ace/range"
   var F = _("../range_list").RangeList, L = _("../lib/oop"), C = w.Fold = function(n, r) {
     this.foldLine = null, this.placeholder = r, this.range = n, this.start = n.start, this.end = n.end, this.sameRow = n.start.row == n.end.row, this.subFolds = this.ranges = [];
   };
-  L.inherits(C, F), function() {
+  L.inherits(C, F), (function() {
     this.toString = function() {
       return '"' + this.placeholder + '" ' + this.range.toString();
     }, this.setFoldLine = function(n) {
@@ -20394,7 +20394,7 @@ ace.define("ace/edit_session/fold", ["require", "exports", "module", "ace/range"
     }, this.restoreRange = function(n) {
       return e(n, this.start);
     };
-  }.call(C.prototype);
+  }).call(C.prototype);
   function x(n, r) {
     n.row -= r.row, n.row == 0 && (n.column -= r.column);
   }
@@ -20889,7 +20889,7 @@ ace.define("ace/edit_session", ["require", "exports", "module", "ace/lib/oop", "
 `);
     }, this.on("changeFold", this.onChangeFold.bind(this)), this.$onChange = this.onChange.bind(this), (typeof l != "object" || !l.getLine) && (l = new r(l)), this.$bidiHandler = new C(this), this.setDocument(l), this.selection = new t(this), x.resetOptions(this), this.setMode(d), x._signal("session", this);
   };
-  c.$uid = 0, function() {
+  c.$uid = 0, (function() {
     F.implement(this, f), this.setDocument = function(m) {
       this.doc && this.doc.removeListener("change", this.$onChange), this.doc = m, m.on("change", this.$onChange), this.bgTokenizer && this.bgTokenizer.setDocument(this.getDocument()), this.resetCaches();
     }, this.getDocument = function() {
@@ -21097,11 +21097,11 @@ ace.define("ace/edit_session", ["require", "exports", "module", "ace/lib/oop", "
         this.$onChangeMode(this.$modes[k]), b && b();
         return;
       }
-      this.$modeId = k, x.loadModule(["mode", k], function(E) {
+      this.$modeId = k, x.loadModule(["mode", k], (function(E) {
         if (this.$modeId !== k)
           return b && b();
         this.$modes[k] && !y ? this.$onChangeMode(this.$modes[k]) : E && E.Mode && (E = new E.Mode(y), y || (this.$modes[k] = E, E.$id = k), this.$onChangeMode(E)), b && b();
-      }.bind(this)), this.$mode || this.$onChangeMode(this.$modes["ace/mode/text"], !0);
+      }).bind(this)), this.$mode || this.$onChangeMode(this.$modes["ace/mode/text"], !0);
     }, this.$onChangeMode = function(m, b) {
       if (b || (this.$modeId = m.$id), this.$mode !== m) {
         this.$mode = m, this.$stopWorker(), this.$useWorker && this.$startWorker();
@@ -21366,7 +21366,7 @@ ace.define("ace/edit_session", ["require", "exports", "module", "ace/lib/oop", "
       var y = this.doc.getAllLines(), k = this.getTabSize(), E = this.$wrapData, A = this.$wrapLimit, S, j, D = m;
       for (b = Math.min(b, y.length - 1); D <= b; )
         j = this.getFoldLine(D, j), j ? (S = [], j.walk(
-          function(I, O, P, B) {
+          (function(I, O, P, B) {
             var M;
             if (I != null) {
               M = this.$getDisplayTokens(
@@ -21381,7 +21381,7 @@ ace.define("ace/edit_session", ["require", "exports", "module", "ace/lib/oop", "
                 S.length
               );
             S = S.concat(M);
-          }.bind(this),
+          }).bind(this),
           j.end.row,
           y[j.end.row].length + 1
         ), E[j.start.row] = this.$computeWrapSplits(S, A, k), D = j.end.row + 1) : (S = this.$getDisplayTokens(y[D]), E[D] = this.$computeWrapSplits(S, A, k), D++);
@@ -21607,7 +21607,7 @@ ace.define("ace/edit_session", ["require", "exports", "module", "ace/lib/oop", "
     function g(m) {
       return m < 4352 ? !1 : m >= 4352 && m <= 4447 || m >= 4515 && m <= 4519 || m >= 4602 && m <= 4607 || m >= 9001 && m <= 9002 || m >= 11904 && m <= 11929 || m >= 11931 && m <= 12019 || m >= 12032 && m <= 12245 || m >= 12272 && m <= 12283 || m >= 12288 && m <= 12350 || m >= 12353 && m <= 12438 || m >= 12441 && m <= 12543 || m >= 12549 && m <= 12589 || m >= 12593 && m <= 12686 || m >= 12688 && m <= 12730 || m >= 12736 && m <= 12771 || m >= 12784 && m <= 12830 || m >= 12832 && m <= 12871 || m >= 12880 && m <= 13054 || m >= 13056 && m <= 19903 || m >= 19968 && m <= 42124 || m >= 42128 && m <= 42182 || m >= 43360 && m <= 43388 || m >= 44032 && m <= 55203 || m >= 55216 && m <= 55238 || m >= 55243 && m <= 55291 || m >= 63744 && m <= 64255 || m >= 65040 && m <= 65049 || m >= 65072 && m <= 65106 || m >= 65108 && m <= 65126 || m >= 65128 && m <= 65131 || m >= 65281 && m <= 65376 || m >= 65504 && m <= 65510;
     }
-  }.call(c.prototype), _("./edit_session/folding").Folding.call(c.prototype), _("./edit_session/bracket_match").BracketMatch.call(c.prototype), x.defineOptions(c.prototype, "session", {
+  }).call(c.prototype), _("./edit_session/folding").Folding.call(c.prototype), _("./edit_session/bracket_match").BracketMatch.call(c.prototype), x.defineOptions(c.prototype, "session", {
     wrap: {
       set: function(l) {
         if (!l || l == "off" ? l = !1 : l == "free" ? l = !0 : l == "printMargin" ? l = -1 : typeof l == "string" && (l = parseInt(l, 10) || !1), this.$wrap != l)
@@ -21875,7 +21875,7 @@ ace.define("ace/keyboard/hash_handler", ["require", "exports", "module", "ace/li
   function f(t, e) {
     x.call(this, t, e), this.$singleCommand = !1;
   }
-  f.prototype = x.prototype, function() {
+  f.prototype = x.prototype, (function() {
     this.addCommand = function(e) {
       this.commands[e.name] && this.removeCommand(e), this.commands[e.name] = e, e.bindKey && this._buildKeyHash(e);
     }, this.removeCommand = function(e, n) {
@@ -21976,7 +21976,7 @@ ace.define("ace/keyboard/hash_handler", ["require", "exports", "module", "ace/li
     }, this.getStatusText = function(e, n) {
       return n.$keyChain || "";
     };
-  }.call(x.prototype), w.HashHandler = x, w.MultiHashHandler = f;
+  }).call(x.prototype), w.HashHandler = x, w.MultiHashHandler = f;
 });
 ace.define("ace/commands/command_manager", ["require", "exports", "module", "ace/lib/oop", "ace/keyboard/hash_handler", "ace/lib/event_emitter"], function(_, w, T) {
   var F = _("../lib/oop"), L = _("../keyboard/hash_handler").MultiHashHandler, C = _("../lib/event_emitter").EventEmitter, x = function(f, t) {
@@ -21984,7 +21984,7 @@ ace.define("ace/commands/command_manager", ["require", "exports", "module", "ace
       return e.command.exec(e.editor, e.args || {});
     });
   };
-  F.inherits(x, L), function() {
+  F.inherits(x, L), (function() {
     F.implement(this, C), this.exec = function(f, t, e) {
       if (Array.isArray(f)) {
         for (var n = f.length; n--; )
@@ -21998,9 +21998,9 @@ ace.define("ace/commands/command_manager", ["require", "exports", "module", "ace
       return r.returnValue = this._emit("exec", r), this._signal("afterExec", r), r.returnValue !== !1;
     }, this.toggleRecording = function(f) {
       if (!this.$inReplay)
-        return f && f._emit("changeStatus"), this.recording ? (this.macro.pop(), this.removeEventListener("exec", this.$addCommandToMacro), this.macro.length || (this.macro = this.oldMacro), this.recording = !1) : (this.$addCommandToMacro || (this.$addCommandToMacro = function(t) {
+        return f && f._emit("changeStatus"), this.recording ? (this.macro.pop(), this.removeEventListener("exec", this.$addCommandToMacro), this.macro.length || (this.macro = this.oldMacro), this.recording = !1) : (this.$addCommandToMacro || (this.$addCommandToMacro = (function(t) {
           this.macro.push([t.command, t.args]);
-        }.bind(this)), this.oldMacro = this.macro, this.macro = [], this.on("exec", this.$addCommandToMacro), this.recording = !0);
+        }).bind(this)), this.oldMacro = this.macro, this.macro = [], this.on("exec", this.$addCommandToMacro), this.recording = !0);
     }, this.replay = function(f) {
       if (!(this.$inReplay || !this.macro)) {
         if (this.recording)
@@ -22018,7 +22018,7 @@ ace.define("ace/commands/command_manager", ["require", "exports", "module", "ace
         return typeof t[0] != "string" && (t[0] = t[0].name), t[1] || (t = t[0]), t;
       });
     };
-  }.call(x.prototype), w.CommandManager = x;
+  }).call(x.prototype), w.CommandManager = x;
 });
 ace.define("ace/commands/default_commands", ["require", "exports", "module", "ace/lib/lang", "ace/config", "ace/range"], function(_, w, T) {
   var F = _("../lib/lang"), L = _("../config"), C = _("../range").Range;
@@ -22912,19 +22912,19 @@ ace.define("ace/editor", ["require", "exports", "module", "ace/lib/fixoldbrowser
     var u = i.getContainerElement();
     this.container = u, this.renderer = i, this.id = "editor" + ++h.$uid, this.commands = new l(x.isMac ? "mac" : "win", d), typeof document == "object" && (this.textInput = new f(i.getTextAreaContainer(), this), this.renderer.textarea = this.textInput.getElement(), this.$mouseHandler = new t(this), new e(this)), this.keyBinding = new n(this), this.$blockScrolling = 0, this.$search = new o().set({
       wrap: !0
-    }), this.$historyTracker = this.$historyTracker.bind(this), this.commands.on("exec", this.$historyTracker), this.$initOperationListeners(), this._$emitInputEvent = C.delayedCall(function() {
+    }), this.$historyTracker = this.$historyTracker.bind(this), this.commands.on("exec", this.$historyTracker), this.$initOperationListeners(), this._$emitInputEvent = C.delayedCall((function() {
       this._signal("input", {}), this.session && this.session.bgTokenizer && this.session.bgTokenizer.scheduleStart();
-    }.bind(this)), this.on("change", function(g, m) {
+    }).bind(this)), this.on("change", function(g, m) {
       m._$emitInputEvent.schedule(31);
     }), this.setSession(s || new r("")), v.resetOptions(this), v._signal("editor", this);
   };
-  h.$uid = 0, function() {
+  h.$uid = 0, (function() {
     F.implement(this, c), this.$initOperationListeners = function() {
-      this.selections = [], this.commands.on("exec", this.startOperation.bind(this), !0), this.commands.on("afterExec", this.endOperation.bind(this), !0), this.$opResetTimer = C.delayedCall(this.endOperation.bind(this)), this.on("change", function() {
+      this.selections = [], this.commands.on("exec", this.startOperation.bind(this), !0), this.commands.on("afterExec", this.endOperation.bind(this), !0), this.$opResetTimer = C.delayedCall(this.endOperation.bind(this)), this.on("change", (function() {
         this.curOp || this.startOperation(), this.curOp.docChanged = !0;
-      }.bind(this), !0), this.on("changeSelection", function() {
+      }).bind(this), !0), this.on("changeSelection", (function() {
         this.curOp || this.startOperation(), this.curOp.selectionChanged = !0;
-      }.bind(this), !0);
+      }).bind(this), !0);
     }, this.curOp = null, this.prevOp = {}, this.startOperation = function(i) {
       if (this.curOp) {
         if (!i || this.curOp.command)
@@ -23708,7 +23708,7 @@ ace.define("ace/editor", ["require", "exports", "module", "ace/lib/fixoldbrowser
       var i = this.$cursorStyle || "ace", s = this.renderer.$cursorLayer;
       s && (s.setSmoothBlinking(/smooth/.test(i)), s.isBlinking = !this.$readOnly && i != "wide", L.setCssClass(s.element, "ace_slim-cursors", /slim/.test(i)));
     };
-  }.call(h.prototype), v.defineOptions(h.prototype, "editor", {
+  }).call(h.prototype), v.defineOptions(h.prototype, "editor", {
     selectionStyle: {
       set: function(i) {
         this.onSelectionChange(), this._signal("changeSelectionStyle", { data: i });
@@ -24171,9 +24171,9 @@ ace.define("ace/layer/text", ["require", "exports", "module", "ace/lib/oop", "ac
     }, this.getCharacterWidth = function() {
       return this.$fontMetrics.$characterSize.width || 0;
     }, this.$setFontMetrics = function(t) {
-      this.$fontMetrics = t, this.$fontMetrics.on("changeCharacterSize", function(e) {
+      this.$fontMetrics = t, this.$fontMetrics.on("changeCharacterSize", (function(e) {
         this._signal("changeCharacterSize", e);
-      }.bind(this)), this.$pollSizeChanges();
+      }).bind(this)), this.$pollSizeChanges();
     }, this.checkForSizeChanges = function() {
       this.$fontMetrics.checkForSizeChanges();
     }, this.$pollSizeChanges = function() {
@@ -24419,14 +24419,14 @@ ace.define("ace/layer/cursor", ["require", "exports", "module", "ace/lib/dom"], 
     }, this.restartTimer = function() {
       var x = this.$updateCursors;
       if (clearInterval(this.intervalId), clearTimeout(this.timeoutId), this.smoothBlinking && F.removeCssClass(this.element, "ace_smooth-blinking"), x(!0), !(!this.isBlinking || !this.blinkInterval || !this.isVisible)) {
-        this.smoothBlinking && setTimeout(function() {
+        this.smoothBlinking && setTimeout((function() {
           F.addCssClass(this.element, "ace_smooth-blinking");
-        }.bind(this));
-        var f = function() {
+        }).bind(this));
+        var f = (function() {
           this.timeoutId = setTimeout(function() {
             x(!1);
           }, 0.6 * this.blinkInterval);
-        }.bind(this);
+        }).bind(this);
         this.intervalId = setInterval(function() {
           x(!0), f();
         }, this.blinkInterval), f();
@@ -24471,7 +24471,7 @@ ace.define("ace/scrollbar", ["require", "exports", "module", "ace/lib/oop", "ace
   var e = function(r, o) {
     t.call(this, r), this.scrollTop = 0, this.scrollHeight = 0, o.$scrollbarWidth = this.width = L.scrollbarWidth(r.ownerDocument), this.inner.style.width = this.element.style.width = (this.width || 15) + 5 + "px", this.$minWidth = 0;
   };
-  F.inherits(e, t), function() {
+  F.inherits(e, t), (function() {
     this.classSuffix = "-v", this.onScroll = function() {
       if (!this.skipEvent) {
         if (this.scrollTop = this.element.scrollTop, this.coeff != 1) {
@@ -24490,11 +24490,11 @@ ace.define("ace/scrollbar", ["require", "exports", "module", "ace/lib/oop", "ace
     }, this.setScrollTop = function(r) {
       this.scrollTop != r && (this.skipEvent = !0, this.scrollTop = r, this.element.scrollTop = r * this.coeff);
     };
-  }.call(e.prototype);
+  }).call(e.prototype);
   var n = function(r, o) {
     t.call(this, r), this.scrollLeft = 0, this.height = o.$scrollbarWidth, this.inner.style.height = this.element.style.height = (this.height || 15) + 5 + "px";
   };
-  F.inherits(n, t), function() {
+  F.inherits(n, t), (function() {
     this.classSuffix = "-h", this.onScroll = function() {
       this.skipEvent || (this.scrollLeft = this.element.scrollLeft, this._emit("scroll", { data: this.scrollLeft })), this.skipEvent = !1;
     }, this.getHeight = function() {
@@ -24508,7 +24508,7 @@ ace.define("ace/scrollbar", ["require", "exports", "module", "ace/lib/oop", "ace
     }, this.setScrollLeft = function(r) {
       this.scrollLeft != r && (this.skipEvent = !0, this.scrollLeft = this.element.scrollLeft = r);
     };
-  }.call(n.prototype), w.ScrollBar = e, w.ScrollBarV = e, w.ScrollBarH = n, w.VScrollBar = e, w.HScrollBar = n;
+  }).call(n.prototype), w.ScrollBar = e, w.ScrollBarV = e, w.ScrollBarH = n, w.VScrollBar = e, w.HScrollBar = n;
 });
 ace.define("ace/renderloop", ["require", "exports", "module", "ace/lib/event"], function(_, w, T) {
   var F = _("./lib/event"), L = function(C, x) {
@@ -25511,7 +25511,7 @@ ace.define("ace/multi_select", ["require", "exports", "module", "ace/range_list"
     this.getSelectionMarkers = function() {
       return this.$selectionMarkers;
     };
-  }).call(a.prototype), function() {
+  }).call(a.prototype), (function() {
     this.ranges = null, this.rangeList = null, this.addRange = function(p, h) {
       if (p) {
         if (!this.inMultiSelectMode && this.rangeCount === 0) {
@@ -25614,7 +25614,7 @@ ace.define("ace/multi_select", ["require", "exports", "module", "ace/range_list"
       }
       return s;
     };
-  }.call(C.prototype);
+  }).call(C.prototype);
   var c = _("./editor").Editor;
   (function() {
     this.updateSelectionMarkers = function() {
@@ -27748,7 +27748,7 @@ ace.define("ace/mode/folding/cstyle", ["require", "exports", "module", "ace/lib/
       this.foldingStopMarker.source.replace(/\|[^|]*?$/, "|" + f.end)
     ));
   };
-  F.inherits(x, C), function() {
+  F.inherits(x, C), (function() {
     this.foldingStartMarker = /([\{\[\(])[^\}\]\)]*$|^\s*(\/\*)/, this.foldingStopMarker = /^[^\[\{\(]*([\}\]\)])|^[\s\*]*(\*\/)/, this.singleLineBlockCommentRe = /^\s*(\/\*).*\*\/\s*$/, this.tripleStarBlockCommentRe = /^\s*(\/\*\*\*).*\*\/\s*$/, this.startRegionRe = /^\s*(\/\*|\/\/)#?region\b/, this._getFoldWidgetBase = this.getFoldWidget, this.getFoldWidget = function(f, t, e) {
       var n = f.getLine(e);
       if (this.singleLineBlockCommentRe.test(n) && !this.startRegionRe.test(n) && !this.tripleStarBlockCommentRe.test(n))
@@ -27807,13 +27807,13 @@ ace.define("ace/mode/folding/cstyle", ["require", "exports", "module", "ace/lib/
       if (d > o)
         return new L(o, n, d, t.length);
     };
-  }.call(x.prototype);
+  }).call(x.prototype);
 });
 ace.define("ace/mode/javascript", ["require", "exports", "module", "ace/lib/oop", "ace/mode/text", "ace/mode/javascript_highlight_rules", "ace/mode/matching_brace_outdent", "ace/worker/worker_client", "ace/mode/behaviour/cstyle", "ace/mode/folding/cstyle"], function(_, w, T) {
   var F = _("../lib/oop"), L = _("./text").Mode, C = _("./javascript_highlight_rules").JavaScriptHighlightRules, x = _("./matching_brace_outdent").MatchingBraceOutdent, f = _("../worker/worker_client").WorkerClient, t = _("./behaviour/cstyle").CstyleBehaviour, e = _("./folding/cstyle").FoldMode, n = function() {
     this.HighlightRules = C, this.$outdent = new x(), this.$behaviour = new t(), this.foldingRules = new e();
   };
-  F.inherits(n, L), function() {
+  F.inherits(n, L), (function() {
     this.lineCommentStart = "//", this.blockComment = { start: "/*", end: "*/" }, this.$quotes = { '"': '"', "'": "'", "`": "`" }, this.getNextLineIndent = function(r, o, a) {
       var c = this.$getIndent(o), l = this.getTokenizer().getLineTokens(o, r), d = l.tokens, v = l.state;
       if (d.length && d[d.length - 1].type == "comment")
@@ -27840,7 +27840,7 @@ ace.define("ace/mode/javascript", ["require", "exports", "module", "ace/lib/oop"
         r.clearAnnotations();
       }), o;
     }, this.$id = "ace/mode/javascript";
-  }.call(n.prototype), w.Mode = n;
+  }).call(n.prototype), w.Mode = n;
 });
 ace.define("ace/mode/css_highlight_rules", ["require", "exports", "module", "ace/lib/oop", "ace/lib/lang", "ace/mode/text_highlight_rules"], function(_, w, T) {
   var F = _("../lib/oop");
@@ -28187,7 +28187,7 @@ ace.define("ace/mode/css", ["require", "exports", "module", "ace/lib/oop", "ace/
   var F = _("../lib/oop"), L = _("./text").Mode, C = _("./css_highlight_rules").CssHighlightRules, x = _("./matching_brace_outdent").MatchingBraceOutdent, f = _("../worker/worker_client").WorkerClient, t = _("./css_completions").CssCompletions, e = _("./behaviour/css").CssBehaviour, n = _("./folding/cstyle").FoldMode, r = function() {
     this.HighlightRules = C, this.$outdent = new x(), this.$behaviour = new e(), this.$completer = new t(), this.foldingRules = new n();
   };
-  F.inherits(r, L), function() {
+  F.inherits(r, L), (function() {
     this.foldingRules = "cStyle", this.blockComment = { start: "/*", end: "*/" }, this.getNextLineIndent = function(o, a, c) {
       var l = this.$getIndent(a), d = this.getTokenizer().getLineTokens(a, o).tokens;
       if (d.length && d[d.length - 1].type == "comment")
@@ -28208,7 +28208,7 @@ ace.define("ace/mode/css", ["require", "exports", "module", "ace/lib/oop", "ace/
         o.clearAnnotations();
       }), a;
     }, this.$id = "ace/mode/css";
-  }.call(r.prototype), w.Mode = r;
+  }).call(r.prototype), w.Mode = r;
 });
 ace.define("ace/mode/xml_highlight_rules", ["require", "exports", "module", "ace/lib/oop", "ace/mode/text_highlight_rules"], function(_, w, T) {
   var F = _("../lib/oop"), L = _("./text_highlight_rules").TextHighlightRules, C = function(x) {
@@ -28552,7 +28552,7 @@ ace.define("ace/mode/folding/mixed", ["require", "exports", "module", "ace/lib/o
   var F = _("../../lib/oop"), L = _("./fold_mode").FoldMode, C = w.FoldMode = function(x, f) {
     this.defaultMode = x, this.subModes = f;
   };
-  F.inherits(C, L), function() {
+  F.inherits(C, L), (function() {
     this.$getMode = function(x) {
       typeof x != "string" && (x = x[0]);
       for (var f in this.subModes)
@@ -28568,7 +28568,7 @@ ace.define("ace/mode/folding/mixed", ["require", "exports", "module", "ace/lib/o
       var e = this.$getMode(x.getState(t - 1));
       return (!e || !e.getFoldWidget(x, f, t)) && (e = this.$getMode(x.getState(t))), (!e || !e.getFoldWidget(x, f, t)) && (e = this.defaultMode), e.getFoldWidgetRange(x, f, t);
     };
-  }.call(C.prototype);
+  }).call(C.prototype);
 });
 ace.define("ace/mode/folding/xml", ["require", "exports", "module", "ace/lib/oop", "ace/lib/lang", "ace/range", "ace/mode/folding/fold_mode", "ace/token_iterator"], function(_, w, T) {
   var F = _("../../lib/oop");
@@ -29007,7 +29007,7 @@ ace.define("ace/mode/html", ["require", "exports", "module", "ace/lib/oop", "ace
       "css-": f
     }), this.foldingRules = new n(this.voidElements, L.arrayToMap(c));
   };
-  F.inherits(l, C), function() {
+  F.inherits(l, C), (function() {
     this.blockComment = { start: "<!--", end: "-->" }, this.voidElements = L.arrayToMap(a), this.getNextLineIndent = function(d, v, p) {
       return this.$getIndent(v);
     }, this.checkOutdent = function(d, v, p) {
@@ -29024,7 +29024,7 @@ ace.define("ace/mode/html", ["require", "exports", "module", "ace/lib/oop", "ace
         }), v;
       }
     }, this.$id = "ace/mode/html";
-  }.call(l.prototype), w.Mode = l;
+  }).call(l.prototype), w.Mode = l;
 });
 ace.define("ace/theme/chrome", ["require", "exports", "module", "ace/lib/dom"], function(_, w, T) {
   w.isDark = !1, w.cssClass = "ace-chrome", w.cssText = '.ace-chrome .ace_gutter {background: #ebebeb;color: #333;overflow : hidden;}.ace-chrome .ace_print-margin {width: 1px;background: #e8e8e8;}.ace-chrome {background-color: #FFFFFF;color: black;}.ace-chrome .ace_cursor {color: black;}.ace-chrome .ace_invisible {color: rgb(191, 191, 191);}.ace-chrome .ace_constant.ace_buildin {color: rgb(88, 72, 246);}.ace-chrome .ace_constant.ace_language {color: rgb(88, 92, 246);}.ace-chrome .ace_constant.ace_library {color: rgb(6, 150, 14);}.ace-chrome .ace_invalid {background-color: rgb(153, 0, 0);color: white;}.ace-chrome .ace_fold {}.ace-chrome .ace_support.ace_function {color: rgb(60, 76, 114);}.ace-chrome .ace_support.ace_constant {color: rgb(6, 150, 14);}.ace-chrome .ace_support.ace_type,.ace-chrome .ace_support.ace_class.ace-chrome .ace_support.ace_other {color: rgb(109, 121, 222);}.ace-chrome .ace_variable.ace_parameter {font-style:italic;color:#FD971F;}.ace-chrome .ace_keyword.ace_operator {color: rgb(104, 118, 135);}.ace-chrome .ace_comment {color: #236e24;}.ace-chrome .ace_comment.ace_doc {color: #236e24;}.ace-chrome .ace_comment.ace_doc.ace_tag {color: #236e24;}.ace-chrome .ace_constant.ace_numeric {color: rgb(0, 0, 205);}.ace-chrome .ace_variable {color: rgb(49, 132, 149);}.ace-chrome .ace_xml-pe {color: rgb(104, 104, 91);}.ace-chrome .ace_entity.ace_name.ace_function {color: #0000A2;}.ace-chrome .ace_heading {color: rgb(12, 7, 255);}.ace-chrome .ace_list {color:rgb(185, 6, 144);}.ace-chrome .ace_marker-layer .ace_selection {background: rgb(181, 213, 255);}.ace-chrome .ace_marker-layer .ace_step {background: rgb(252, 255, 0);}.ace-chrome .ace_marker-layer .ace_stack {background: rgb(164, 229, 101);}.ace-chrome .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid rgb(192, 192, 192);}.ace-chrome .ace_marker-layer .ace_active-line {background: rgba(0, 0, 0, 0.07);}.ace-chrome .ace_gutter-active-line {background-color : #dcdcdc;}.ace-chrome .ace_marker-layer .ace_selected-word {background: rgb(250, 250, 255);border: 1px solid rgb(200, 200, 250);}.ace-chrome .ace_storage,.ace-chrome .ace_keyword,.ace-chrome .ace_meta.ace_tag {color: rgb(147, 15, 128);}.ace-chrome .ace_string.ace_regex {color: rgb(255, 0, 0)}.ace-chrome .ace_string {color: #1A1AA6;}.ace-chrome .ace_entity.ace_other.ace_attribute-name {color: #994409;}.ace-chrome .ace_indent-guide {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;}';
