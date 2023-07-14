@@ -1,6 +1,6 @@
 {
   "name": "@extensionengine/tce-jodit",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Tailor content element for Jodit editor",
   "homepage": "https://github.com/ExtensionEngine/tce-jodit#readme",
   "bugs": {
