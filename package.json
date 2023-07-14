@@ -45,7 +45,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.9",
     "@babel/eslint-plugin": "^7.22.5",
-    "@extensionengine/eslint-config": "^4.0.1",
+    "@extensionengine/eslint-config": "^5.0.0",
     "@extensionengine/rollup-plugin-tailor-ce": "^0.5.0",
     "@extensionengine/stylelint-config": "^3.0.0",
     "@mdi/font": "^7.2.96",
@@ -57,8 +57,7 @@
     "eslint-config-semistandard": "^17.0.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.7.0",
-    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-n": "^16.0.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.15.1",
     "husky": "^8.0.3",
@@ -70,6 +69,11 @@
     "vue": "^2.7.14",
     "vue-eslint-parser": "^9.3.1",
     "vue-template-compiler": "^2.7.14"
+  },
+  "overrides": {
+    "eslint-config-semistandard": {
+      "eslint-plugin-n": "$eslint-plugin-n"
+    }
   },
   "publishConfig": {
     "access": "public"
