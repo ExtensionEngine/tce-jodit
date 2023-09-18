@@ -26,7 +26,8 @@ const joditConfig = {
   addNewLineOnDBLClick: false,
   showTooltipDelay: 350,
   colorPickerDefaultTab: 'color',
-  disablePlugins: ['fullsize'],
+  disablePlugins: ['fullsize', 'mobile'],
+  toolbarAdaptive: false,
   language: 'en',
   extraIcons: {
     tooltip: '<span class="mdi mdi-tooltip-text"></span>'
