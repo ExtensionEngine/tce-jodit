@@ -26,7 +26,7 @@ const joditConfig = {
   addNewLineOnDBLClick: false,
   showTooltipDelay: 350,
   colorPickerDefaultTab: 'color',
-  disablePlugins: ['fullsize', 'mobile'],
+  disablePlugins: ['fullsize'],
   toolbarAdaptive: false,
   language: 'en',
   extraIcons: {

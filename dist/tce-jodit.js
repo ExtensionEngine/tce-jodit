@@ -29454,7 +29454,7 @@ const or = "joditReady", em = {
   addNewLineOnDBLClick: !1,
   showTooltipDelay: 350,
   colorPickerDefaultTab: "color",
-  disablePlugins: ["fullsize", "mobile"],
+  disablePlugins: ["fullsize"],
   toolbarAdaptive: !1,
   language: "en",
   extraIcons: {
@@ -29529,7 +29529,7 @@ var rm = function() {
   im,
   !1,
   null,
-  "c6ded8e0",
+  "842d97c3",
   null,
   null
 );
