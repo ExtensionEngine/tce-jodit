@@ -1,4 +1,4 @@
-const ln = "@extensionengine/tce-jodit", oi = "0.4.0", ai = {
+const ln = "@extensionengine/tce-jodit", oi = "0.4.1", ai = {
   label: "Html",
   type: "JODIT_HTML",
   ui: {
