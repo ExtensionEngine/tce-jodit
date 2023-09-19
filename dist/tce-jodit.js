@@ -1,4 +1,4 @@
-const ln = "@extensionengine/tce-jodit", oi = "0.3.0", ai = {
+const ln = "@extensionengine/tce-jodit", oi = "0.4.0", ai = {
   label: "Html",
   type: "JODIT_HTML",
   ui: {
@@ -29455,6 +29455,7 @@ const or = "joditReady", em = {
   showTooltipDelay: 350,
   colorPickerDefaultTab: "color",
   disablePlugins: ["fullsize"],
+  toolbarAdaptive: !1,
   language: "en",
   extraIcons: {
     tooltip: '<span class="mdi mdi-tooltip-text"></span>'
@@ -29528,7 +29529,7 @@ var rm = function() {
   im,
   !1,
   null,
-  "e53c02e0",
+  "842d97c3",
   null,
   null
 );

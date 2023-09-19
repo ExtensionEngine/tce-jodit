@@ -27,6 +27,7 @@ const joditConfig = {
   showTooltipDelay: 350,
   colorPickerDefaultTab: 'color',
   disablePlugins: ['fullsize'],
+  toolbarAdaptive: false,
   language: 'en',
   extraIcons: {
     tooltip: '<span class="mdi mdi-tooltip-text"></span>'
