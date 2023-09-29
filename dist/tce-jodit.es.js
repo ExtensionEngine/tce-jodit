@@ -13,7 +13,7 @@ import scrollparent from 'scrollparent';
 import isFunction$2 from 'lodash/isFunction';
 
 var name = "@extensionengine/tce-jodit";
-var version = "1.0.0";
+var version = "0.2.0";
 var tailor = {
 	label: "Html",
 	type: "JODIT_HTML",

@@ -12,7 +12,7 @@
   var scrollparent__default = /*#__PURE__*/_interopDefaultLegacy(scrollparent);
 
   var name = "@extensionengine/tce-jodit";
-  var version = "1.0.0";
+  var version = "0.2.0";
   var tailor = {
   	label: "Html",
   	type: "JODIT_HTML",
