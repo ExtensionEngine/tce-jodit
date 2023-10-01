@@ -72,6 +72,7 @@ $font-family-secondary: Roboto, Helvetica, Arial, sans-serif;
 .jodit-toolbar-editor-collection {
   margin: 0 !important;
   padding: 0 !important;
+  flex-direction: row;
   font-family: $font-family-secondary;
   font-size: $text-size;
   line-height: $text-size;
